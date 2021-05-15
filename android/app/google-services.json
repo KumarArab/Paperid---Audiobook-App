@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "465929282342",
+    "project_id": "audiobook-ce4bd",
+    "storage_bucket": "audiobook-ce4bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465929282342:android:51432e818e22cdd30e57e7",
+        "android_client_info": {
+          "package_name": "com.example.audiobook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465929282342-dadff2r2t313ghjj628hq8ousa9ho55n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.audiobook",
+            "certificate_hash": "977e1c50e5e52c436e7e600131f7a66f45882d09"
+          }
+        },
+        {
+          "client_id": "465929282342-qpklq631h2s52fjp71b2npk4phr5dm2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEjcEZk7eyqLOwQGx3t2yHgF2OG79gGJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465929282342-qpklq631h2s52fjp71b2npk4phr5dm2p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
