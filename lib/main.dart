@@ -1,7 +1,7 @@
 import 'package:audiobook/services/authentication_service.dart';
-import 'package:audiobook/services/google_signin_service.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/login.dart';
+import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthenticaitonService>(
+        ChangeNotifierProvider<AuthenticaitonService>(
           create: (_) => AuthenticaitonService(FirebaseAuth.instance),
         ),
         StreamProvider(
@@ -38,10 +38,10 @@ class _MyAppState extends State<MyApp> {
         // ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.amber,
-        ),
+        title: 'AudioBook',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme().buildLightTheme(),
+        //darkTheme: AppTheme().buildDarkTheme(),
         home: AuthenticationWrapper(),
       ),
     );

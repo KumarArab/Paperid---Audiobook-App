@@ -20,19 +20,6 @@ class TextBox extends StatelessWidget {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: GoogleFonts.openSans(color: Color(0xffA4A4A4)),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Style.primaryColor.withOpacity(0.1), width: 2),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Style.backgroundColor,
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(15),
-          ),
         ),
       ),
     );
