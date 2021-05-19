@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
+  static const String routeName = "/home";
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -10,7 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    var userData = context.read<AuthenticaitonService>().userCred;
+    var userData = context.read<AuthenticaitonService>().currentUser;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -30,11 +32,10 @@ class _HomeState extends State<Home> {
                 context.read<AuthenticaitonService>().signOut();
               },
             ),
-            // Text(userData.user.displayName),
-            Text(userData.user.email),
-            // Text(userData.user.phoneNumber),
+            Text(userData.name),
+            Text(userData.email),
             // Text(userData.user.photoURL),
-            Text(userData.user.uid),
+            //Text(userData.user.uid),
             // Text(userData.user.emailVerified.toString()),
           ],
         ),

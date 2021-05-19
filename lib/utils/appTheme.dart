@@ -44,7 +44,9 @@ class AppTheme {
             color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
-          padding: EdgeInsets.symmetric(vertical: 20),
+          primary: Colors.lightBlueAccent,
+          shadowColor: Colors.pink,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         )));
   }
 

@@ -4,15 +4,27 @@ import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  static const String routeName = "/login";
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController email = new TextEditingController();
+
   final TextEditingController password = new TextEditingController();
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      key: scaffoldMessengerKey,
       body: Container(
           height: SizeConfig.height,
           width: SizeConfig.width,
@@ -40,13 +52,34 @@ class Login extends StatelessWidget {
                   text: "Forgot Password?", color: Theme.of(context).hintColor),
               SizedBox(height: 20),
               Button(
-                  text: "Login",
+                  child: context.read<AuthenticaitonService>().isSigningIn
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "Log in",
+                          style: TextStyle(color: Colors.white),
+                        ),
                   onPressed: () {
                     print(email.text);
                     print(password.text);
                     context
                         .read<AuthenticaitonService>()
-                        .signIn(email.text, password.text);
+                        .signIn(email.text, password.text)
+                        .then((value) {
+                      if (value == "success") {
+                        Fluttertoast.showToast(
+                            msg: "Log in success",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        //Navigator.pushReplacementNamed(context, '/home');
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(value)));
+                      }
+                    });
                   }),
               Container(
                 padding: EdgeInsets.only(top: 20),
@@ -62,7 +95,17 @@ class Login extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  context.read<AuthenticaitonService>().login();
+                  context.read<AuthenticaitonService>().login().then((value) {
+                    if (value == "success") {
+                      scaffoldMessengerKey.currentState.showSnackBar(
+                          SnackBar(content: Text("Signed in successfully")));
+
+                      //Navigator.pushReplacementNamed(context, '/home');
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(value)));
+                    }
+                  });
                 },
                 child: Container(
                   height: 60,
@@ -105,7 +148,9 @@ class Login extends StatelessWidget {
                         .subtitle1
                         .copyWith(color: Theme.of(context).hintColor),
                   ),
-                  TextButton(onPressed: () {}, child: Text("Sign Up")),
+                  TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/signup'),
+                      child: Text("Sign Up")),
                 ],
               ),
               SizedBox(height: 10),
