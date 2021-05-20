@@ -1,45 +1,52 @@
-import 'package:audiobook/services/authentication_service.dart';
+import 'package:audiobook/models/bookModel.dart';
+import 'package:audiobook/ui/screens/book.dart';
+import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:audiobook/services/homedata.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   static const String routeName = "/home";
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    var userData = context.read<AuthenticaitonService>().currentUser;
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.home,
-                color: Colors.green,
-                size: 50,
+    return FutureBuilder(
+        future: context.read<HomeData>().fetchBooks(category.All),
+        builder: (ctx, snapshpot) {
+          if (snapshpot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
               ),
-              onPressed: () {
-                // Provider.of<AuthenticaitonService>(context, listen: false)
-                //     .signOut();
-                context.read<AuthenticaitonService>().signOut();
+            );
+          } else {
+            return Scaffold(
+                body: ListView.builder(
+              itemBuilder: (ctx, i) {
+                FBookModel book = context.watch<HomeData>().getbooks[i];
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => Book(
+                                    book: book,
+                                  ))),
+                      child: Container(
+                        height: SizeConfig.height * 0.4,
+                        child: Image.network(
+                          book.cover,
+                        ),
+                      ),
+                    ),
+                    Text(book.name),
+                    Text(book.author),
+                  ],
+                );
               },
-            ),
-            Text(userData.name),
-            Text(userData.email),
-            // Text(userData.user.photoURL),
-            //Text(userData.user.uid),
-            // Text(userData.user.emailVerified.toString()),
-          ],
-        ),
-      ),
-    );
+              itemCount: context.watch<HomeData>().getbooks.length,
+            ));
+          }
+        });
   }
 }

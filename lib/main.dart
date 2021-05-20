@@ -1,5 +1,7 @@
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
+import 'package:audiobook/services/homedata.dart';
+import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/login.dart';
 import 'package:audiobook/ui/screens/signup.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
               context.read<AuthenticaitonService>().authStateChanges,
           initialData: null,
         ),
+        ChangeNotifierProvider<HomeData>(create: (_) => HomeData()),
+        ChangeNotifierProvider<Player>(create: (_) => Player())
       ],
       child: MaterialApp(
         scaffoldMessengerKey: rootScaffoldMessengerKey,
