@@ -1,5 +1,7 @@
 import 'package:audiobook/models/bookModel.dart';
+import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/models/user.dart';
+import 'package:audiobook/services/homedata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FDatabase {
@@ -36,28 +38,61 @@ class FDatabase {
     return user;
   }
 
-  Future<FBookModel> getBookData() async {
-    FBookModel book;
+  Future<List<FBookModel>> getBookData() async {
+    List<FBookModel> bookList = [];
 
     try {
-      DocumentSnapshot snapshot =
-          await _firestore.collection("Books").doc('B1').get();
-      Map<String, dynamic> bookData = snapshot.data();
-      if (snapshot.exists) {
-        book = FBookModel(
-          name: bookData['Name'],
-          author: bookData['Author'],
-          cover: bookData['Cover'],
-          genre: bookData['Genre'],
-          preface: bookData['Preface'],
-          rating: bookData['Rating'],
-          audios: bookData['Chapters'],
-        );
+      QuerySnapshot snapshot = await _firestore.collection("Books").get();
+      if (snapshot.size != 0) {
+        snapshot.docs.forEach((element) async {
+          Map<String, dynamic> bookData = element.data();
+          List<FChapterModel> chapters = await getChaptersData(bookData["id"]);
+          if (element.exists) {
+            FBookModel book = FBookModel(
+              id: bookData['id'],
+              name: bookData['Name'],
+              author: bookData['Author'],
+              cover: bookData['Cover'],
+              genre: bookData['Genre'],
+              preface: bookData["Preface"],
+              rating: bookData["Rating"],
+              audios: chapters,
+            );
+            bookList.add(book);
+          }
+        });
       }
     } catch (e) {
       print(e);
     }
 
-    return book;
+    return bookList;
+  }
+
+  Future<List<FChapterModel>> getChaptersData(String id) async {
+    List<FChapterModel> chapters = [];
+
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection("Books")
+          .doc(id)
+          .collection("Chapters")
+          .get();
+      if (snapshot.size != 0) {
+        snapshot.docs.forEach((element) {
+          Map<String, dynamic> chapterData = element.data();
+          if (element.exists) {
+            FChapterModel chapter = FChapterModel(
+              name: chapterData["Name"],
+              url: chapterData["Url"],
+            );
+            chapters.add(chapter);
+          }
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+    return chapters;
   }
 }

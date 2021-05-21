@@ -1,4 +1,5 @@
 import 'package:audiobook/models/bookModel.dart';
+import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/services/player.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +38,12 @@ class Book extends StatelessWidget {
     );
   }
 
-  Widget buildAudioFileSection(List<dynamic> audios, BuildContext context) {
+  Widget buildAudioFileSection(
+      List<FChapterModel> audios, BuildContext context) {
     List<ListTile> chapters = [];
     for (int i = 0; i < audios.length; i++) {
       chapters.add(ListTile(
-        onTap: () => context.read<Player>().play(audios[i]),
+        onTap: () => context.read<Player>().play(audios[i].name),
         leading: Icon(Icons.music_note_outlined),
         title: Text("Chapter ${i + 1}"),
       ));

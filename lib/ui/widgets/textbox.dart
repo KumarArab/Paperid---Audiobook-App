@@ -16,7 +16,6 @@ class TextBox extends StatelessWidget {
         obscureText: isObsecure,
         controller: controller,
         cursorColor: Colors.black,
-        style: GoogleFonts.openSans(),
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           labelText: label,
