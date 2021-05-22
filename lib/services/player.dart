@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 
-class Player extends ChangeNotifier {
+class Player with ChangeNotifier {
   AudioPlayer _player = AudioPlayer();
 
   //   _player.onPlayerStateChanged.listen((AudioPlayerState s) => {

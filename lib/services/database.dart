@@ -43,29 +43,26 @@ class FDatabase {
 
     try {
       QuerySnapshot snapshot = await _firestore.collection("Books").get();
-      if (snapshot.size != 0) {
-        snapshot.docs.forEach((element) async {
-          Map<String, dynamic> bookData = element.data();
-          List<FChapterModel> chapters = await getChaptersData(bookData["id"]);
-          if (element.exists) {
-            FBookModel book = FBookModel(
-              id: bookData['id'],
-              name: bookData['Name'],
-              author: bookData['Author'],
-              cover: bookData['Cover'],
-              genre: bookData['Genre'],
-              preface: bookData["Preface"],
-              rating: bookData["Rating"],
-              audios: chapters,
-            );
-            bookList.add(book);
-          }
-        });
-      }
+
+      snapshot.docs.forEach((element) async {
+        Map<String, dynamic> bookData = element.data();
+        List<FChapterModel> chapters = await getChaptersData(bookData["id"]);
+        FBookModel book = FBookModel(
+          id: bookData['id'],
+          name: bookData['Name'],
+          author: bookData['Author'],
+          cover: bookData['Cover'],
+          genre: bookData['Genre'],
+          preface: bookData["Preface"],
+          rating: 4.5,
+          audios: chapters,
+        );
+        bookList.add(book);
+      });
     } catch (e) {
       print(e);
     }
-
+    print(bookList.length);
     return bookList;
   }
 

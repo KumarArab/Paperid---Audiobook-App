@@ -9,19 +9,21 @@ enum category {
   Fantasy,
 }
 
-class HomeData extends ChangeNotifier {
-  List<FBookModel> _books = [];
+class HomeData with ChangeNotifier {
+  List<FBookModel> _books;
 
-  List<FBookModel> get getbooks => _books;
+  List<FBookModel> get books => _books ?? [];
 
   set updateBooks(List<FBookModel> books) {
     _books = books;
+    print("Books updated ${_books.length}");
     notifyListeners();
   }
 
   Future<String> fetchBooks(category cat) async {
     //if (cat == category.All) {
     updateBooks = await FDatabase().getBookData();
+
     //}
     return "success";
   }

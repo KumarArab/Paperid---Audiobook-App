@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
               context.read<AuthenticaitonService>().authStateChanges,
           initialData: null,
         ),
-        ChangeNotifierProvider<HomeData>(create: (_) => HomeData()),
-        ChangeNotifierProvider<Player>(create: (_) => Player())
+        ChangeNotifierProvider(create: (_) => HomeData()),
+        ChangeNotifierProvider(create: (_) => Player())
       ],
       child: MaterialApp(
         scaffoldMessengerKey: rootScaffoldMessengerKey,
