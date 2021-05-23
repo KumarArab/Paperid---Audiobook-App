@@ -16,15 +16,13 @@ class HomeData with ChangeNotifier {
 
   set updateBooks(List<FBookModel> books) {
     _books = books;
-    print("Books updated ${_books.length}");
-    notifyListeners();
+    print("Books updated ${books.length}");
+    // notifyListeners();
   }
 
-  Future<String> fetchBooks(category cat) async {
-    //if (cat == category.All) {
-    updateBooks = await FDatabase().getBookData();
-
-    //}
+  Future<String> fetchBooks() async {
+    List<FBookModel> bookList = await FDatabase().getBooks();
+    updateBooks = bookList;
     return "success";
   }
 }

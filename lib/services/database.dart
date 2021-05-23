@@ -38,31 +38,35 @@ class FDatabase {
     return user;
   }
 
-  Future<List<FBookModel>> getBookData() async {
-    List<FBookModel> bookList = [];
+  Future<List<FBookModel>> getBooks() async {
+    List<FBookModel> bookList;
 
-    try {
-      QuerySnapshot snapshot = await _firestore.collection("Books").get();
+    bookList = [];
+    QuerySnapshot snapshot = await _firestore.collection("Books").get();
 
-      snapshot.docs.forEach((element) async {
-        Map<String, dynamic> bookData = element.data();
-        List<FChapterModel> chapters = await getChaptersData(bookData["id"]);
-        FBookModel book = FBookModel(
-          id: bookData['id'],
-          name: bookData['Name'],
-          author: bookData['Author'],
-          cover: bookData['Cover'],
-          genre: bookData['Genre'],
-          preface: bookData["Preface"],
-          rating: 4.5,
-          audios: chapters,
-        );
-        bookList.add(book);
-      });
-    } catch (e) {
-      print(e);
+    for (int i = 0; i < snapshot.size; i++) {
+      Map<String, dynamic> bookData = snapshot.docs[i].data();
+      List<FChapterModel> chapters = await getChaptersData(bookData["id"]);
+      FBookModel book = FBookModel(
+        id: bookData['id'],
+        name: bookData['Name'],
+        author: bookData['Author'],
+        cover: bookData['Cover'],
+        genre: bookData['Genre'],
+        preface: bookData["Preface"],
+        rating: 4.5,
+        audios: chapters,
+      );
+      // print(book.name);
+      // print(DateTime.now());
+      bookList.add(book);
     }
-    print(bookList.length);
+    // snapshot.docs.forEach((element) {});
+    // } catch (e) {
+    //   print(e);
+    // }
+    // print(bookList.length);
+    // print(DateTime.now());
     return bookList;
   }
 
@@ -90,6 +94,8 @@ class FDatabase {
     } catch (e) {
       print(e);
     }
+    // print("Chapter Length: ${chapters.length}");
+    // print(DateTime.now());
     return chapters;
   }
 }
