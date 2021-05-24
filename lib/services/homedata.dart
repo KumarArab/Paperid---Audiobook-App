@@ -17,7 +17,7 @@ class HomeData with ChangeNotifier {
   set updateBooks(List<FBookModel> books) {
     _books = books;
     print("Books updated ${books.length}");
-    // notifyListeners();
+    notifyListeners();
   }
 
   Future<String> fetchBooks() async {

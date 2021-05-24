@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
-import 'package:audiobook/ui/screens/book.dart';
+import 'package:audiobook/ui/screens/bookDetails.dart';
+import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -63,18 +64,12 @@ class Home extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Book(),
+                      icon: Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: 35,
                       ),
-                    ),
-                  ),
+                      onPressed: () {}),
                   IconButton(
                     icon: Icon(
                       Icons.search,
@@ -141,9 +136,9 @@ class Home extends StatelessWidget {
                       BookSection(
                         heading: "Currently Reading",
                       ),
-                      BookSection(
-                        heading: "Discover More",
-                      ),
+                      // BookSection(
+                      //   heading: "Discover More",
+                      // ),
                     ],
                   ),
                 ),
@@ -161,7 +156,6 @@ class BookSection extends StatelessWidget {
   BookSection({this.heading});
   @override
   Widget build(BuildContext context) {
-    HomeData homeData = context.watch<HomeData>();
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +183,7 @@ class BookSection extends StatelessWidget {
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (ctx) => Book(
+                              builder: (ctx) => BookDetails(
                                 book: book,
                               ),
                             ),
@@ -199,68 +193,7 @@ class BookSection extends StatelessWidget {
                               SizedBox(width: 30),
                               Column(
                                 children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10,
-                                      left: 5,
-                                    ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.27,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(book.cover),
-                                              fit: BoxFit.cover,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            boxShadow: <BoxShadow>[
-                                              BoxShadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.4),
-                                                blurRadius: 5,
-                                                offset: Offset(8, 8),
-                                                spreadRadius: 1,
-                                              )
-                                            ],
-                                          ),
-                                          // child: ClipRRect(
-                                          //   borderRadius:
-                                          //       BorderRadius.circular(20),
-                                          //   child: Image.network(
-                                          //     bookList[i].cover,
-                                          //     fit: BoxFit.cover,
-                                          //   ),
-                                          // ),
-                                        ),
-                                        Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.27,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            gradient: new LinearGradient(
-                                              colors: [
-                                                Colors.black.withOpacity(0.4),
-                                                Colors.transparent,
-                                                Colors.black.withOpacity(0.4),
-                                              ],
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  Book(coverUrl: book.cover),
                                   SizedBox(height: 16),
                                   Text(
                                     book.name,

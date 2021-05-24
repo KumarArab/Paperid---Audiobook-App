@@ -1,20 +1,57 @@
+import 'package:audiobook/models/chapterModel.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 
 class Player with ChangeNotifier {
-  AudioPlayer _player = AudioPlayer();
+  AudioPlayer audioPlayer = AudioPlayer();
+  Duration totalDuration;
+  Duration position;
+  String audioState;
+  List<FChapterModel> playlist;
 
-  //   _player.onPlayerStateChanged.listen((AudioPlayerState s) => {
-  //   print('Current player state: $s');
-  //   setState(() => playerState = s);
-  // });
+  Player() {
+    initAudio();
+  }
 
-  Future<String> play(String url) async {
-    int result = await _player.play(url);
-    if (result == 1) {
+  initAudio() {
+    audioPlayer.onDurationChanged.listen((updatedDuration) {
+      totalDuration = updatedDuration;
       notifyListeners();
-      return "success";
-    }
-    return "error";
+    });
+
+    audioPlayer.onAudioPositionChanged.listen((updatedPosition) {
+      position = updatedPosition;
+      notifyListeners();
+    });
+
+    audioPlayer.onPlayerStateChanged.listen((playerState) {
+      if (playerState == PlayerState.STOPPED) audioState = "Stopped";
+      if (playerState == PlayerState.PLAYING) audioState = "Playing";
+      if (playerState == PlayerState.PAUSED) audioState = "Paused";
+      if (playerState == PlayerState.COMPLETED) audioState = "Completed";
+      notifyListeners();
+    });
+  }
+
+  playAudio(List<FChapterModel> chapters, int index) {
+    playlist = chapters;
+    print(chapters[index].url);
+    audioPlayer.play(chapters[index].url);
+  }
+
+  pauseAudio() {
+    audioPlayer.pause();
+  }
+
+  resumeAudio() {
+    audioPlayer.resume();
+  }
+
+  stopAudio() {
+    audioPlayer.stop();
+  }
+
+  seekAudio(Duration durationToSeek) {
+    audioPlayer.seek(durationToSeek);
   }
 }

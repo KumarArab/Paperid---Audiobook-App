@@ -32,6 +32,10 @@ dependencies:
   cloud_firestore:
   fluttertoast:
   audioplayers:
+  smooth_star_rating: 
+  cached_network_image: 
+
+
 
 
 

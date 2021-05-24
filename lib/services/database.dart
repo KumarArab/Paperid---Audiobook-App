@@ -54,19 +54,12 @@ class FDatabase {
         cover: bookData['Cover'],
         genre: bookData['Genre'],
         preface: bookData["Preface"],
-        rating: 4.5,
+        rating: bookData["Rating"],
         audios: chapters,
       );
-      // print(book.name);
-      // print(DateTime.now());
+
       bookList.add(book);
     }
-    // snapshot.docs.forEach((element) {});
-    // } catch (e) {
-    //   print(e);
-    // }
-    // print(bookList.length);
-    // print(DateTime.now());
     return bookList;
   }
 

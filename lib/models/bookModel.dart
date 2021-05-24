@@ -8,7 +8,7 @@ class FBookModel {
   String cover;
   List<dynamic> genre;
   String preface;
-  double rating;
+  String rating;
   List<FChapterModel> audios;
 
   FBookModel(
