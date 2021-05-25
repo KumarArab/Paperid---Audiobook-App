@@ -5,6 +5,7 @@ import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/login.dart';
 import 'package:audiobook/ui/screens/signup.dart';
+import 'package:audiobook/ui/screens/user_profile.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),
           Home.routeName: (BuildContext context) => Home(),
+          UserProfile.routeName: (BuildContext context) => UserProfile(),
         },
       ),
     );

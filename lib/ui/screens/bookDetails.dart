@@ -5,6 +5,7 @@ import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/book_player.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/button.dart';
+import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,11 +21,7 @@ class BookDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: Container(
-        height: 100,
-        width: SizeConfig.width,
-        color: Colors.red,
-      ),
+      bottomNavigationBar: MiniPlayer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -61,6 +58,7 @@ class BookDetails extends StatelessWidget {
                     Text(
                       // "Conjure Women",
                       book.name,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
@@ -114,15 +112,12 @@ class BookDetails extends StatelessWidget {
                       child: Button(
                           child: Text("PLAY"),
                           onPressed: () {
-                            context.read<Player>().playAudio(book.audios, 0);
+                            context.read<Player>().playAudio(book, 0);
 
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (ctx) => BookPlayer(
-                                  book: book,
-                                  index: 0,
-                                ),
+                                builder: (ctx) => BookPlayer(),
                               ),
                             );
                           }),
@@ -237,16 +232,13 @@ class BookDetails extends StatelessWidget {
     for (int i = 0; i < book.audios.length; i++) {
       chapters.add(ListTile(
         onTap: () {
+          context.read<Player>().playAudio(book, i);
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (ctx) => BookPlayer(
-                book: book,
-                index: i,
-              ),
+              builder: (ctx) => BookPlayer(),
             ),
           );
-          context.read<Player>().playAudio(book.audios, i);
         },
         leading: Icon(Icons.music_note_outlined),
         title: Text("Chapter ${book.audios[i].name}"),

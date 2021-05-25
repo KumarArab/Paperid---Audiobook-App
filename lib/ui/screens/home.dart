@@ -5,6 +5,7 @@ import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:audiobook/ui/screens/bookDetails.dart';
 import 'package:audiobook/ui/widgets/book.dart';
+import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,6 +45,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: MiniPlayer(),
       body: Container(
         decoration: BoxDecoration(
             // image: DecorationImage(
@@ -72,12 +74,12 @@ class Home extends StatelessWidget {
                       onPressed: () {}),
                   IconButton(
                     icon: Icon(
-                      Icons.search,
+                      Icons.settings,
                       color: Colors.white,
                       size: 35,
                     ),
                     onPressed: () {
-                      print(context.read<HomeData>().books.length);
+                      Navigator.pushNamed(context, "/userProfile");
                     },
                   ),
                 ],

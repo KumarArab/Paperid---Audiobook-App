@@ -6,29 +6,31 @@ import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookPlayer extends StatelessWidget {
   // List<int> Heights = [];
-  final FBookModel book;
-  final index;
+  // final FBookModel book;
+  // final index;
 
-  BookPlayer({this.index, this.book});
+  // BookPlayer({this.index, this.book});
 
   @override
   Widget build(BuildContext context) {
     // for (int i = 0; i < MediaQuery.of(context).size.width / 9.3; i++) {
     //   Heights.add(Random().nextInt(50));
     // }
-    Player player = context.watch<Player>();
+    Player playerWatch = context.watch<Player>();
+    Player playerRead = context.read<Player>();
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: CachedNetworkImageProvider(book.cover),
+            image: CachedNetworkImageProvider(playerRead.currentBook.cover),
             fit: BoxFit.cover,
           ),
         ),
@@ -71,14 +73,14 @@ class BookPlayer extends StatelessWidget {
                     ),
                   ),
                   Book(
-                    coverUrl: book.cover,
+                    coverUrl: playerRead.currentBook.cover,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 30),
                     child: Text(
                       // "Conjure Women",
-                      book.name,
+                      playerRead.currentBook.name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,
@@ -92,7 +94,7 @@ class BookPlayer extends StatelessWidget {
                   ),
                   Text(
                     //"By Afia Atakora",
-                    book.author ?? "Unknown",
+                    playerRead.currentBook.author ?? "Unknown",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -120,7 +122,8 @@ class BookPlayer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Chapter ${book.audios[index].name}",
+                            "Chapter ${playerWatch.currentAudio.name}",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.w700,
@@ -128,30 +131,49 @@ class BookPlayer extends StatelessWidget {
                           ),
                           Column(
                             children: [
-                              Slider(value: 0, onChanged: null),
-                              // Container(
-                              //   height: 50,
-                              //   width: MediaQuery.of(context).size.width,
-                              //   child: ListView.builder(
-                              //     itemBuilder: (ctx, i) => Bars(
-                              //       height: Heights[i].toDouble(),
-                              //       color: i < Heights.length / 2
-                              //           ? Color(0xffc44536)
-                              //           : Colors.redAccent.withOpacity(0.5),
-                              //     ),
-                              //     itemCount: Heights.length,
-                              //     scrollDirection: Axis.horizontal,
-                              //   ),
-                              // ),
                               SizedBox(
                                 height: 20,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("01:33"),
-                                  Text("08:47"),
+                                  Text(playerWatch.position == null
+                                      ? "00:00"
+                                      : playerWatch.position
+                                          .toString()
+                                          .split('.')
+                                          .first),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  CupertinoSlider(
+                                    activeColor: AppTheme().primaryColor,
+                                    //inactiveColor: AppTheme().secondaryColor,
+                                    thumbColor: AppTheme().primaryColor,
+
+                                    value: playerWatch.position == null
+                                        ? 0
+                                        : playerWatch.position.inMilliseconds
+                                            .toDouble(),
+                                    max: playerWatch.totalDuration == null
+                                        ? 0
+                                        : playerWatch
+                                            .totalDuration.inMilliseconds
+                                            .toDouble(),
+                                    onChanged: (value) {
+                                      playerWatch.seekAudio(Duration(
+                                          milliseconds: value.toInt()));
+                                    },
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(playerWatch.totalDuration == null
+                                      ? "00:00"
+                                      : playerWatch.totalDuration
+                                          .toString()
+                                          .split('.')
+                                          .first),
                                 ],
                               ),
                             ],
@@ -173,7 +195,7 @@ class BookPlayer extends StatelessWidget {
                                   color: Colors.grey,
                                   size: 38,
                                 ),
-                                onPressed: () {},
+                                onPressed: () => playerRead.playPrevious(),
                               ),
                               Container(
                                 height: 50,
@@ -185,11 +207,11 @@ class BookPlayer extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: IconButton(
                                   onPressed: () =>
-                                      player.audioState == "Playing"
-                                          ? player.pauseAudio()
-                                          : player.resumeAudio(),
+                                      playerWatch.audioState == "Playing"
+                                          ? playerRead.pauseAudio()
+                                          : playerRead.resumeAudio(),
                                   icon: Icon(
-                                    player.audioState == "Playing"
+                                    playerWatch.audioState == "Playing"
                                         ? Icons.pause
                                         : Icons.play_arrow_outlined,
                                     color: Colors.white,
@@ -202,15 +224,22 @@ class BookPlayer extends StatelessWidget {
                                   color: Colors.grey,
                                   size: 38,
                                 ),
-                                onPressed: () {},
+                                onPressed: () => playerRead.playNext(),
                               ),
                               IconButton(
                                 icon: Icon(
-                                  Icons.more_horiz,
-                                  color: Colors.grey,
+                                  Icons.repeat,
+                                  color: playerWatch.repeat
+                                      ? AppTheme().primaryColor
+                                      : Colors.grey,
                                   size: 32,
                                 ),
-                                onPressed: () {},
+                                highlightColor: Colors.red,
+                                splashColor: Colors.red,
+                                focusColor: Colors.red,
+                                onPressed: () => playerWatch.repeat
+                                    ? playerRead.repeatOn = false
+                                    : playerRead.repeatOn = true,
                               ),
                             ],
                           ),
