@@ -241,7 +241,7 @@ class BookDetails extends StatelessWidget {
           );
         },
         leading: Icon(Icons.music_note_outlined),
-        title: Text("Chapter ${book.audios[i].name}"),
+        title: Text(book.audios[i].name ?? "Unknown"),
       ));
     }
     return chapters;

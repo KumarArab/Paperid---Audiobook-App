@@ -40,7 +40,7 @@ dependencies:
 
 
   # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # Use with the CupertinoIcons class for iOS weight icons.
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
@@ -74,13 +74,26 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+  fonts:
+    - family: Axiforma
+      fonts:
+        - asset: fonts/Axiforma-Thin.ttf
+          weight: 100
+        - asset: fonts/Axiforma-Light.ttf
+          weight: 200
+        - asset: fonts/Axiforma-Regular.ttf
+          weight: 300
+        - asset: fonts/Axiforma-Medium.ttf
+          weight: 400
+        - asset: fonts/Axiforma-SemiBold.ttf
+          weight: 500
+        - asset: fonts/Axiforma-Bold.ttf
+          weight: 600
+        - asset: fonts/Axiforma-Black.ttf
+          weight: 700
+        - asset: fonts/Axiforma-Book.ttf
+          weight: 800
+       #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
