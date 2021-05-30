@@ -3,7 +3,7 @@ import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/widgets/book.dart';
-import 'package:audiobook/ui/widgets/button.dart';
+import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -84,7 +84,7 @@ class UserProfile extends StatelessWidget {
                         ),
                         Container(
                           width: SizeConfig.width * 0.2,
-                          child: Button(
+                          child: FRaisedButton(
                               child: Text(
                                 "Edit",
                               ),

@@ -35,6 +35,8 @@ dependencies:
   smooth_star_rating: 
   cached_network_image:
   shared_preferences: 
+  flutter_icons: 
+
 
 
 

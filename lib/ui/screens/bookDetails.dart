@@ -4,7 +4,7 @@ import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/book_player.dart';
 import 'package:audiobook/ui/widgets/book.dart';
-import 'package:audiobook/ui/widgets/button.dart';
+import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -109,7 +109,7 @@ class BookDetails extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 24),
                       width: 100,
-                      child: Button(
+                      child: FRaisedButton(
                           child: Text("PLAY"),
                           onPressed: () {
                             context.read<Player>().playAudio(book, 0);

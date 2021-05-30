@@ -1,5 +1,6 @@
 import 'package:audiobook/main.dart';
 import 'package:audiobook/utils/appTheme.dart';
+import 'package:audiobook/utils/constants.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,31 +34,18 @@ class _OnboardState extends State<Onboard> {
       body: SafeArea(
         child: Stack(
           children: [
-            PageView(
+            PageView.builder(
               controller: controller,
-              children: [
-                Page(
-                  imagePath: "assets/svgs/listen-audiobooks.svg",
-                  subtitle:
-                      "More than 15000 fiction and non-fiction audiobooks for you to listen for free.",
-                  title: "Massive Library",
-                  imageWidth: SizeConfig.width * 0.9,
-                ),
-                Page(
-                  imagePath: "assets/svgs/access-anywhere.svg",
-                  subtitle:
-                      "Download your favourite audiobooks and have acces to them anytime, anywhere you want.",
-                  title: "Available Everywhere",
-                  imageWidth: SizeConfig.width * 0.7,
-                ),
-                Page(
-                  imagePath: "assets/svgs/new-experience.svg",
-                  subtitle:
-                      "High quality audio and expert narrators will make an immersive listening experience for you.",
-                  title: "A New Experience",
-                  imageWidth: SizeConfig.width * 0.7,
-                ),
-              ],
+              physics: BouncingScrollPhysics(),
+              itemCount: kOnboardData.length,
+              itemBuilder: (ctx, idx) {
+                return Page(
+                  title: kOnboardData[idx].title,
+                  subtitle: kOnboardData[idx].subtitle,
+                  imagePath: kOnboardData[idx].imagePath,
+                  imageWidth: kOnboardData[idx].imageWidth,
+                );
+              },
             ),
             Positioned(
               child: Container(
@@ -65,7 +53,7 @@ class _OnboardState extends State<Onboard> {
                 width: SizeConfig.width,
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
-                  "assets/svgs/logo-coloured.svg",
+                  kAppLogoColoured,
                   height: SizeConfig.height * 0.1,
                 ),
               ),
@@ -149,7 +137,7 @@ class _OnboardState extends State<Onboard> {
 
 class Page extends StatelessWidget {
   final String title, subtitle, imagePath;
-  double imageWidth;
+  final double imageWidth;
 
   Page(
       {@required this.imagePath,
@@ -168,10 +156,11 @@ class Page extends StatelessWidget {
             height: SizeConfig.height * 0.2,
           ),
           Container(
-              height: SizeConfig.height * 0.5,
-              width: SizeConfig.width,
-              alignment: Alignment.center,
-              child: SvgPicture.asset(imagePath, width: imageWidth)),
+            height: SizeConfig.height * 0.5,
+            width: SizeConfig.width,
+            alignment: Alignment.center,
+            child: SvgPicture.asset(imagePath, width: imageWidth),
+          ),
           Text(
             title,
             style: Theme.of(context).textTheme.headline4.copyWith(

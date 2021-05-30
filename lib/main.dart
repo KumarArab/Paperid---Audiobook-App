@@ -3,6 +3,7 @@ import 'package:audiobook/services/database.dart';
 import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/Onboarding/onboard.dart';
+import 'package:audiobook/ui/screens/appframe.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/login.dart';
 import 'package:audiobook/ui/screens/signup.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           UserProfile.routeName: (BuildContext context) => UserProfile(),
           AuthenticationWrapper.routeName: (BuildContext context) =>
               AuthenticationWrapper(),
+          Splash.routName: (BuildContext context) => Splash(),
         },
       ),
     );
@@ -63,20 +65,22 @@ class MyApp extends StatelessWidget {
 class Base extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: FDatabase().isFirstTime(),
-      builder: (BuildContext ctx, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Splash();
-        } else {
-          if (snapshot.data) {
-            return Onboard();
-          } else {
-            return AuthenticationWrapper();
-          }
-        }
-      },
-    );
+    SizeConfig().init(context);
+    return AppFrame();
+    // FutureBuilder(
+    //   future: FDatabase().isFirstTime(),
+    //   builder: (BuildContext ctx, AsyncSnapshot<bool> snapshot) {
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return Splash();
+    //     } else {
+    //       if (snapshot.data) {
+    //         return Onboard();
+    //       } else {
+    //         return AuthenticationWrapper();
+    //       }
+    //     }
+    //   },
+    // );
   }
 }
 

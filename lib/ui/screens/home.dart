@@ -3,42 +3,20 @@ import 'dart:io';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
+import 'package:audiobook/ui/screens/404.dart';
 import 'package:audiobook/ui/screens/bookDetails.dart';
+import 'package:audiobook/ui/widgets/appbar.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
+import 'package:audiobook/utils/constants.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:audiobook/services/homedata.dart';
-
-// class Home extends StatelessWidget {
-//   static const String routeName = "/home";
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: StreamBuilder<QuerySnapshot>(
-//       stream: FirebaseFirestore.instance.collection("Books").snapshots(),
-//       builder: (ctx, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           // List<FBookModel> bookList = snapshot.data.docs;
-//           return Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         }
-
-//         return ListView.builder(
-//           itemBuilder: (ctx, i) {
-//             return Text(snapshot.data.docs[i].get("Name"));
-//           },
-//           itemCount: snapshot.data.docs.length,
-//         );
-//       },
-//     ));
-//   }
-// }
 
 class Home extends StatelessWidget {
   static const String routeName = "/home";
@@ -47,12 +25,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: MiniPlayer(),
       body: Container(
-        decoration: BoxDecoration(
-            // image: DecorationImage(
-            //   image: AssetImage("assets/images/home.jpg"),
-            //   fit: BoxFit.cover,
-            // ),
-            color: AppTheme().primaryColor),
+        decoration: BoxDecoration(color: AppTheme().primaryColor),
         child: Column(
           children: [
             Container(

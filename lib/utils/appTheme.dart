@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  Color primaryColor = Color(0xff4274fe);
-  Color secondaryColor = Color(0xffff6227);
+  Color primaryColor = Color.lerp(Color(0xff4274fe), Color(0xff9571F6), 0.3);
+  Color secondaryColor = Color.lerp(Color(0xffff6227), Color(0xfffbaa1f), 0.5);
   Color tertiaryColor = Color(0xfffbaa1f);
   Color canvasColor = Color(0xffF1F6F9);
   Color hintColor = Color(0xffAAAAAA);

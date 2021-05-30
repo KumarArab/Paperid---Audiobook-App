@@ -1,5 +1,5 @@
 import 'package:audiobook/services/authentication_service.dart';
-import 'package:audiobook/ui/widgets/button.dart';
+import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/constants.dart';
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                     text: "Forgot Password?",
                     color: Theme.of(context).hintColor),
                 SizedBox(height: 20),
-                Button(
+                FRaisedButton(
                     child: context.read<AuthenticaitonService>().isSigningIn
                         ? CircularProgressIndicator()
                         : Text(

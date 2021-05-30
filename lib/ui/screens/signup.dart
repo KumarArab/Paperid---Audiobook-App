@@ -1,6 +1,6 @@
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
-import 'package:audiobook/ui/widgets/button.dart';
+import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                 controller: cpassword,
               ),
               SizedBox(height: 20),
-              Button(
+              FRaisedButton(
                   child: Provider.of<AuthenticaitonService>(context).isSigningUp
                       ? CircularProgressIndicator()
                       : Text(
@@ -101,12 +101,15 @@ class _SignUpState extends State<SignUp> {
                         .copyWith(color: Theme.of(context).hintColor),
                   ),
                   TextButton(
-                      onPressed: () {},
-                      child: Text("terms and conditions",
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1
-                              .copyWith(color: AppTheme().primaryColor))),
+                    onPressed: () {},
+                    child: Text(
+                      "terms and conditions",
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .copyWith(color: AppTheme().primaryColor),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 10),

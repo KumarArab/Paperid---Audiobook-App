@@ -1,9 +1,12 @@
+import 'package:audiobook/ui/screens/Onboarding/onboard.dart';
 import 'package:audiobook/utils/appTheme.dart';
+import 'package:audiobook/utils/constants.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Splash extends StatelessWidget {
+  static const routName = '/splash';
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -13,14 +16,18 @@ class Splash extends StatelessWidget {
         width: SizeConfig.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppTheme().primaryColor, AppTheme().secondaryColor],
+            colors: [AppTheme().primaryColor, AppTheme().purpleColor],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
         alignment: Alignment.center,
-        child: SvgPicture.asset(
-          'assets/svgs/logo.svg',
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (ctx) => Onboard())),
+          child: SvgPicture.asset(
+            kAppLogoWhite,
+          ),
         ),
       ),
     );
