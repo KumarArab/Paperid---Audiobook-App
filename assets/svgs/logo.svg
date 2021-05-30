@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="183.766" height="207.151" viewBox="0 0 183.766 207.151">
+  <defs>
+    <filter id="audio-waves" x="0" y="0" width="183.766" height="155.275" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="LIZBOOK" x="9.531" y="167.151" width="160" height="40" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="logo" transform="translate(6382.827 -1584.86)">
+    <g transform="matrix(1, 0, 0, 1, -6382.83, 1584.86)" filter="url(#audio-waves)">
+      <path id="audio-waves-2" data-name="audio-waves" d="M91.6,181.275A14.355,14.355,0,0,1,77.1,168.682L61.306,58.206a1.274,1.274,0,0,0-1.452-1.255h0A1.276,1.276,0,0,0,58.4,58.208L47.153,137.054a14.569,14.569,0,0,1-28.6,1.281c-.006-.025-.012-.05-.017-.074L14.908,122.09c-.987-4.1-4.606-7.187-8.433-7.187a6.475,6.475,0,0,1,0-12.95c9.833,0,18.683,7.227,21.042,17.183.006.025.012.05.017.074l3.631,16.174a1.619,1.619,0,0,0,3.169-.176L45.581,56.363A14.152,14.152,0,0,1,59.852,44h.013A14.147,14.147,0,0,1,74.126,56.369l15.79,110.476a1.731,1.731,0,0,0,3.432-.056l2.2-19.585a6.475,6.475,0,0,1,12.869,1.448l-2.2,19.589a14.365,14.365,0,0,1-14.368,13.033l-.246,0Zm54.8-47.8.019-.077,2.286-9.7c1.263-5.016,5.808-8.794,10.586-8.794a6.475,6.475,0,0,0,0-12.95c-10.734,0-20.475,7.845-23.163,18.654l-.019.077-2.287,9.7a.818.818,0,0,1-.974.7c-.792-.031-.87-.5-.919-.8l-5.082-31a13.1,13.1,0,0,0-25.941.681l-2.742,24.235a6.475,6.475,0,1,0,12.869,1.456l2.742-24.235c.006-.049.012-.089.019-.119a.723.723,0,0,1,.256-.007c.007.027.015.061.022.1l5.082,31a13.807,13.807,0,0,0,13.188,11.624c.191.007.381.011.571.011A13.8,13.8,0,0,0,146.4,133.477Z" transform="translate(9 -38)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, -6382.83, 1584.86)" filter="url(#LIZBOOK)">
+      <text id="LIZBOOK-2" data-name="LIZBOOK" transform="translate(18.53 190.15)" fill="#fff" font-size="22" font-family="Axiforma-SemiBold, Axiforma" font-weight="600" letter-spacing="0.3em"><tspan x="0" y="0">LIZBOOK</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,3 +1,4 @@
+import 'package:audiobook/main.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/ui/screens/home.dart';
@@ -33,7 +34,11 @@ class UserProfile extends StatelessWidget {
               Icons.logout,
               color: Colors.white,
             ),
-            onPressed: () => context.read<AuthenticaitonService>().signOut(),
+            onPressed: () => context
+                .read<AuthenticaitonService>()
+                .signOut()
+                .then((value) => Navigator.pushNamedAndRemoveUntil(context,
+                    AuthenticationWrapper.routeName, (route) => false)),
           ),
         ],
       ),

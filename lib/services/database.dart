@@ -1,12 +1,11 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/models/user.dart';
-import 'package:audiobook/services/homedata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FDatabase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   Future<String> createUser(FUser user) async {
     try {
       await _firestore.collection("users").doc(user.uid).set(user.toMap());
@@ -38,6 +37,18 @@ class FDatabase {
     return user;
   }
 
+  Future<bool> isFirstTime() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    bool ift = _preferences.getBool('isFirstTime');
+    print("is First Time: $ift");
+    if (ift == null) {
+      //_preferences.setBool('isFirstTime', false);
+      return true;
+    }
+    return false;
+  }
+
   Future<List<FBookModel>> getBooks() async {
     List<FBookModel> bookList;
 
@@ -65,12 +76,12 @@ class FDatabase {
 
   Future<List<FChapterModel>> getChaptersData(String id) async {
     List<FChapterModel> chapters = [];
-
     try {
       QuerySnapshot snapshot = await _firestore
           .collection("Books")
           .doc(id)
           .collection("Chapters")
+          .orderBy('id')
           .get();
       if (snapshot.size != 0) {
         snapshot.docs.forEach((element) {
@@ -87,8 +98,6 @@ class FDatabase {
     } catch (e) {
       print(e);
     }
-    // print("Chapter Length: ${chapters.length}");
-    // print(DateTime.now());
     return chapters;
   }
 }

@@ -2,9 +2,11 @@ import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/services/player.dart';
+import 'package:audiobook/ui/screens/Onboarding/onboard.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/login.dart';
 import 'package:audiobook/ui/screens/signup.dart';
+import 'package:audiobook/ui/screens/splash.dart';
 import 'package:audiobook/ui/screens/user_profile.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -44,19 +46,42 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme().buildLightTheme(),
         //darkTheme: AppTheme().buildDarkTheme(),
-        home: AuthenticationWrapper(),
+        home: Base(),
         routes: {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),
           Home.routeName: (BuildContext context) => Home(),
           UserProfile.routeName: (BuildContext context) => UserProfile(),
+          AuthenticationWrapper.routeName: (BuildContext context) =>
+              AuthenticationWrapper(),
         },
       ),
     );
   }
 }
 
+class Base extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: FDatabase().isFirstTime(),
+      builder: (BuildContext ctx, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Splash();
+        } else {
+          if (snapshot.data) {
+            return Onboard();
+          } else {
+            return AuthenticationWrapper();
+          }
+        }
+      },
+    );
+  }
+}
+
 class AuthenticationWrapper extends StatelessWidget {
+  static const routeName = "/auth";
   void checkUser(BuildContext context, User firebaseUser) {
     context
         .read<AuthenticaitonService>()

@@ -33,7 +33,8 @@ dependencies:
   fluttertoast:
   audioplayers:
   smooth_star_rating: 
-  cached_network_image: 
+  cached_network_image:
+  shared_preferences: 
 
 
 

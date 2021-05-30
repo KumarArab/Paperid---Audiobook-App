@@ -2,6 +2,7 @@ import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:audiobook/ui/widgets/button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
+import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,10 @@ class _SignUpState extends State<SignUp> {
                       ? CircularProgressIndicator()
                       : Text(
                           "Sign Up",
-                          style: TextStyle(color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              .copyWith(color: Colors.white),
                         ),
                   onPressed: () {
                     FocusScope.of(context).unfocus();
@@ -97,9 +101,12 @@ class _SignUpState extends State<SignUp> {
                         .copyWith(color: Theme.of(context).hintColor),
                   ),
                   TextButton(
-                      onPressed: () => FDatabase()
-                          .getUserInfo("h1gzDK0tcXem4BQ4gJdwrc4xvZ33"),
-                      child: Text("terms and conditions")),
+                      onPressed: () {},
+                      child: Text("terms and conditions",
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .copyWith(color: AppTheme().primaryColor))),
                 ],
               ),
               SizedBox(height: 10),

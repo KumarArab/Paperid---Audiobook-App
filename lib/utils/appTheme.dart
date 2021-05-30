@@ -11,6 +11,10 @@ class AppTheme {
   Color mulledWineColor = Color(0xff4f446a);
   Color dolphinColor = Color(0xff6f6A7b);
   Color silverColor = Color(0xffcbcbcb);
+
+  // Other Colors in consideration
+  Color purpleColor = Color(0xff9571F6);
+  Color pinkColor = Color(0xffE38DDD);
   ThemeData buildLightTheme() {
     return ThemeData(
       fontFamily: "Axiforma",

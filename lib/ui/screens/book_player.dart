@@ -122,7 +122,7 @@ class BookPlayer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Chapter ${playerWatch.currentAudio.name}",
+                            playerWatch.currentAudio.name,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 32,
@@ -146,11 +146,9 @@ class BookPlayer extends StatelessWidget {
                                   SizedBox(
                                     width: 20,
                                   ),
-                                  CupertinoSlider(
+                                  Slider(
                                     activeColor: AppTheme().primaryColor,
-                                    //inactiveColor: AppTheme().secondaryColor,
-                                    thumbColor: AppTheme().primaryColor,
-
+                                    inactiveColor: AppTheme().secondaryColor,
                                     value: playerWatch.position == null
                                         ? 0
                                         : playerWatch.position.inMilliseconds
@@ -251,28 +249,6 @@ class BookPlayer extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class Bars extends StatelessWidget {
-  final double height;
-  final Color color;
-
-  Bars({this.height, this.color});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 4,
-      color: Color(0xfffff8ee),
-      margin: EdgeInsets.symmetric(horizontal: 2),
-      child: Center(
-        child: Container(
-          height: height,
-          color: color,
-          width: 4,
         ),
       ),
     );
