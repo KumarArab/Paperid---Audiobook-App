@@ -1,4 +1,4 @@
-import 'package:audiobook/ui/screens/splash.dart';
+import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/authors.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/foryou.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
@@ -9,9 +9,22 @@ import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Discover extends StatelessWidget {
-  final PageController _controller = PageController(initialPage: 0);
-  final ValueNotifier<int> _pageNotifier = ValueNotifier(0);
+class Discover extends StatefulWidget {
+  @override
+  _DiscoverState createState() => _DiscoverState();
+}
+
+class _DiscoverState extends State<Discover> {
+  PageController _controller;
+  ValueNotifier<int> _pageNotifier;
+
+  @override
+  void initState() {
+    _controller = PageController();
+    _pageNotifier = ValueNotifier(0);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +45,9 @@ class Discover extends StatelessWidget {
                     colors: [
                       Colors.white,
                       Colors.white,
-                      Colors.grey.withOpacity(0.2),
+                      Colors.white,
+                      Colors.white,
+                      Colors.grey.withOpacity(0.0),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -101,13 +116,17 @@ class Discover extends StatelessWidget {
   }
 
   Widget section(BuildContext context, String text, int val, int id) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.headline6.copyWith(
-            fontWeight: val == id ? FontWeight.w700 : FontWeight.w500,
-            color: val == id ? AppTheme().primaryColor : Colors.black,
-          ),
-      textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: () => _controller.animateToPage(id,
+          duration: Duration(milliseconds: 600), curve: Curves.easeInOutSine),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.headline6.copyWith(
+              fontWeight: val == id ? FontWeight.w700 : FontWeight.w500,
+              color: val == id ? AppTheme().primaryColor : Colors.black,
+            ),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

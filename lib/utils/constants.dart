@@ -7,6 +7,10 @@ const kAppName = "Lizbook";
 const kAppLogoWhite = "assets/svgs/logo-white.svg";
 const kAppLogoColoured = "assets/svgs/logo.svg";
 
+// Premium data
+
+const kPremiumText =
+    "Access more than 5000 book titles narrated by the world's top narrators, all in your pocket.";
 // Onboard Data
 
 List<FOnBoardModel> kOnboardData = [

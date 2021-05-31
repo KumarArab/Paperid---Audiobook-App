@@ -1,3 +1,4 @@
+import 'package:audiobook/utils/appTheme.dart';
 import 'package:flutter/material.dart';
 
 class FFlatButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class FFlatButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color(0xfff5f8ff),
+        color: AppTheme().primaryColor.withOpacity(0.1),
       ),
       alignment: Alignment.center,
       child: Text(

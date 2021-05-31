@@ -24,14 +24,14 @@ class Book extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.4),
-                    blurRadius: 5,
-                    offset: Offset(8, 8),
-                    spreadRadius: 1,
-                  )
-                ],
+                // boxShadow: <BoxShadow>[
+                //   BoxShadow(
+                //     color: Colors.black.withOpacity(0.2),
+                //     blurRadius: 10,
+                //     offset: Offset(8, 8),
+                //     spreadRadius: 5,
+                //   )
+                // ],
               ),
               // child: CachedNetworkImageProvider(
             ),
@@ -49,6 +49,25 @@ class Book extends StatelessWidget {
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
+              ),
+              padding: EdgeInsets.all(10),
+              alignment: Alignment.bottomLeft,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.star_half_rounded,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  Text(
+                    "4.5",
+                    style: Theme.of(context).textTheme.headline5.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          height: 1.3,
+                        ),
+                  )
+                ],
               ),
             ),
           ],

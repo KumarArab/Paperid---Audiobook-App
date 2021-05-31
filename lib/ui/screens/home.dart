@@ -108,9 +108,9 @@ class Home extends StatelessWidget {
                           ],
                         ),
                       ),
-                      BookSection(
-                        heading: "Currently Reading",
-                      ),
+                      // BookSection(
+                      //   heading: "Currently Reading",
+                      // ),
                       // BookSection(
                       //   heading: "Discover More",
                       // ),
@@ -121,90 +121,6 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BookSection extends StatelessWidget {
-  final String heading;
-  BookSection({this.heading});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Text(
-              heading,
-              style: Theme.of(context).textTheme.headline5,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 10,
-            ),
-            height: MediaQuery.of(context).size.height * 0.4,
-            child: FutureBuilder(
-                future: context.read<HomeData>().fetchBooks(),
-                builder: (ctx, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.waiting) {
-                    return ListView.builder(
-                      itemBuilder: (ctx, i) {
-                        FBookModel book = context.watch<HomeData>().books[i];
-                        return GestureDetector(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (ctx) => BookDetails(
-                                book: book,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 30),
-                              Column(
-                                children: [
-                                  Book(coverUrl: book.cover),
-                                  SizedBox(height: 16),
-                                  Text(
-                                    book.name,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    book.author ?? "Unknown",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      itemCount: context.watch<HomeData>().books.length,
-                      scrollDirection: Axis.horizontal,
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: ThemeData().primaryColor,
-                        strokeWidth: 1,
-                      ),
-                    );
-                  }
-                }),
-          )
-        ],
       ),
     );
   }

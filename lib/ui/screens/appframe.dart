@@ -1,3 +1,5 @@
+import 'package:audiobook/services/database.dart';
+import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/ui/screens/404.dart';
 import 'package:audiobook/ui/screens/tabs/discover.dart';
 import 'package:audiobook/ui/screens/tabs/library.dart';
@@ -7,6 +9,7 @@ import 'package:audiobook/utils/appTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 final GlobalKey<NavigatorState> homeTabNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> searchTabNavKey = GlobalKey<NavigatorState>();
@@ -23,12 +26,24 @@ class _AppFrameState extends State<AppFrame> {
   final listOfKeys = [homeTabNavKey, searchTabNavKey, libraryTabNavKey];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<HomeData>().fetchBooks().then((_) => print("Books Updated"));
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         return !await listOfKeys[_pageNotifier.value].currentState.maybePop();
       },
       child: CupertinoTabScaffold(
+          backgroundColor: Colors.white,
           tabBar: CupertinoTabBar(
             backgroundColor: Colors.white,
             activeColor: AppTheme().primaryColor,

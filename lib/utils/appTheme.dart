@@ -20,18 +20,18 @@ class AppTheme {
       fontFamily: "Axiforma",
     ).copyWith(
       primaryColor: primaryColor,
-      canvasColor: canvasColor,
+      canvasColor: Colors.white,
       accentColor: secondaryColor,
       hintColor: hintColor,
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: hintColor),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: canvasColor, width: 2),
+          borderSide: BorderSide(color: silverColor, width: 2),
           borderRadius: BorderRadius.circular(15),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: hintColor.withOpacity(0.3),
+            color: mulledWineColor.withOpacity(0.3),
             width: 2,
           ),
           borderRadius: BorderRadius.circular(15),

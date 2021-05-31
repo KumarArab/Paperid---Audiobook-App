@@ -159,7 +159,10 @@ class Page extends StatelessWidget {
             height: SizeConfig.height * 0.5,
             width: SizeConfig.width,
             alignment: Alignment.center,
-            child: SvgPicture.asset(imagePath, width: imageWidth),
+            child: SvgPicture.asset(
+              imagePath,
+              width: SizeConfig.width * imageWidth,
+            ),
           ),
           Text(
             title,
