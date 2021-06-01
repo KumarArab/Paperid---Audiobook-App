@@ -1,3 +1,4 @@
+import 'package:audiobook/ui/screens/tabs/genre_single.dart';
 import 'package:audiobook/ui/widgets/flat_button.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/utils/dummy_data.dart';
@@ -61,22 +62,33 @@ class GenreCard extends StatelessWidget {
   GenreCard({this.index});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(kGenreList[index].imagePath),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(15)),
-      alignment: Alignment.bottomLeft,
-      child: Text(
-        kGenreList[index].name,
-        style: Theme.of(context).textTheme.headline4.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => GenreSingle(
+              genre: kGenreList[index].name,
             ),
+          )),
+      // Navigator.of(context).pushNamed(GenreSingle.routeName,
+      //     arguments: [kGenreList[index].name]),
+      child: Container(
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(kGenreList[index].imagePath),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(15)),
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          kGenreList[index].name,
+          style: Theme.of(context).textTheme.headline4.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
       ),
     );
   }

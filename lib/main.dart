@@ -8,6 +8,8 @@ import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/login.dart';
 import 'package:audiobook/ui/screens/signup.dart';
 import 'package:audiobook/ui/screens/splash.dart';
+import 'package:audiobook/ui/screens/tabs/genre_single.dart';
+import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/screens/user_profile.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -56,6 +58,7 @@ class MyApp extends StatelessWidget {
           AuthenticationWrapper.routeName: (BuildContext context) =>
               AuthenticationWrapper(),
           Splash.routName: (BuildContext context) => Splash(),
+          GenreSingle.routeName: (BuildContext context) => GenreSingle(),
         },
       ),
     );

@@ -86,14 +86,22 @@ class BookSection extends StatelessWidget {
                     itemBuilder: (ctx, i) {
                       FBookModel book = bookList[i];
                       return GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
+                        onTap: () =>
+                            Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                             builder: (ctx) => BookDetails(
                               book: book,
                             ),
                           ),
                         ),
+                        // Navigator.push(
+                        //   context,
+                        // MaterialPageRoute(
+                        //   builder: (ctx) => BookDetails(
+                        //     book: book,
+                        //   ),
+                        // ),
+                        // ),
                         child: Container(
                           margin: EdgeInsets.only(left: 20, right: 10),
                           child: Column(
@@ -115,9 +123,6 @@ class BookSection extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 2,
                               ),
                               Text(
                                 book.author ?? "By Unknown",

@@ -17,8 +17,17 @@ class AppTheme {
   Color pinkColor = Color(0xffE38DDD);
   ThemeData buildLightTheme() {
     return ThemeData(
-      fontFamily: "Axiforma",
-    ).copyWith(
+        fontFamily: "Axiforma",
+        primaryColor: primaryColor,
+        accentColor: primaryColor,
+        sliderTheme: SliderThemeData(
+          activeTrackColor: primaryColor,
+          activeTickMarkColor: primaryColor,
+          thumbColor: primaryColor,
+          inactiveTrackColor: silverColor,
+          disabledThumbColor: primaryColor,
+          inactiveTickMarkColor: primaryColor,
+        )).copyWith(
       primaryColor: primaryColor,
       canvasColor: Colors.white,
       accentColor: secondaryColor,

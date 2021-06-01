@@ -1,13 +1,19 @@
+import 'dart:math';
+
+import 'package:audiobook/utils/size_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class Book extends StatelessWidget {
   final String coverUrl;
   Book({this.coverUrl});
+
   @override
   Widget build(BuildContext context) {
+    int rand = 0 + Random().nextInt(100 - 0);
+
     return Hero(
-      tag: coverUrl,
+      tag: coverUrl + rand.toString(),
       child: Container(
         margin: EdgeInsets.only(
           top: 10,
@@ -36,7 +42,7 @@ class Book extends StatelessWidget {
               // child: CachedNetworkImageProvider(
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.27,
+              height: SizeConfig.height * 0.27,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),

@@ -36,6 +36,8 @@ dependencies:
   cached_network_image:
   shared_preferences: 
   flutter_icons: 
+  flutter_range_slider:
+
 
 
 
