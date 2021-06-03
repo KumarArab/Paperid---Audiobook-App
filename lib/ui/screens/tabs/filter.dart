@@ -2,7 +2,7 @@ import 'package:audiobook/ui/widgets/flat_button.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_range_slider/flutter_range_slider.dart' as frs;
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 enum LengthFilter {
   all,
@@ -83,31 +83,24 @@ class _FiltersState extends State<Filters> {
                               .copyWith(color: AppTheme().primaryColor))),
                 ),
                 SizedBox(height: 20),
-
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: frs.RangeSlider(
-                    min: 1,
-                    max: 5,
-                    lowerValue: start,
-                    upperValue: end,
-                    divisions: 5,
-                    showValueIndicator: true,
-                    valueIndicatorMaxDecimals: 0,
-                    onChanged: (double newLowerValue, double newUpperValue) {
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: SfRangeSlider(
+                    min: 1.0,
+                    max: 5.0,
+                    values: SfRangeValues(start, end),
+                    interval: 1.0,
+                    showDivisors: true,
+                    enableIntervalSelection: true,
+                    enableTooltip: true,
+                    showTicks: true,
+                    showLabels: true,
+                    minorTicksPerInterval: 1,
+                    onChanged: (SfRangeValues values) {
                       setState(() {
-                        start = newLowerValue;
-                        end = newUpperValue;
+                        start = values.start;
+                        end = values.end;
                       });
-                    },
-                    onChangeStart:
-                        (double startLowerValue, double startUpperValue) {
-                      print(
-                          'Started with values: $startLowerValue and $startUpperValue');
-                    },
-                    onChangeEnd: (double newLowerValue, double newUpperValue) {
-                      print(
-                          'Ended with values: $newLowerValue and $newUpperValue');
                     },
                   ),
                 ),
@@ -130,31 +123,6 @@ class _FiltersState extends State<Filters> {
                 radioTile(LengthFilter.five, "Upto 5 hour long"),
                 radioTile(LengthFilter.seven, "Upto 7 hour long"),
                 radioTile(LengthFilter.ten, "Upto 10 hour or longer"),
-                // RangeSlider(
-                //     divisions: 5,
-                //     min: 1,
-                //     max: 5,
-                //     labels: RangeLabels(
-                //         start.toInt().toString(), end.toInt().toString()),
-                //     activeColor: AppTheme().primaryColor.withOpacity(0.5),
-                //     inactiveColor: AppTheme().silverColor,
-                //     onChangeStart: (RangeValues values) {
-                //       setState(() {
-                //         start = values.start;
-                //       });
-                //     },
-                //     onChangeEnd: (RangeValues values) {
-                //       setState(() {
-                //         end = values.end;
-                //       });
-                //     },
-                //     values: RangeValues(start, end),
-                //     onChanged: (RangeValues values) {
-                //       setState(() {
-                //         start = values.start;
-                //         end = values.end;
-                //       });
-                //     })
               ],
             ),
           ),

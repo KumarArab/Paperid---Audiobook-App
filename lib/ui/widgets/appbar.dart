@@ -12,6 +12,7 @@ class FAppBar extends StatelessWidget {
       height: kToolbarHeight * 1.2,
       width: SizeConfig.width,
       padding: EdgeInsets.symmetric(horizontal: 20),
+      color: Colors.white,
       child: Row(
         children: [
           Text.rich(TextSpan(

@@ -4,7 +4,7 @@ import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:audiobook/ui/screens/404.dart';
-import 'package:audiobook/ui/screens/bookDetails.dart';
+import 'package:audiobook/ui/screens/book%20Details/bookDetails.dart';
 import 'package:audiobook/ui/widgets/appbar.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';

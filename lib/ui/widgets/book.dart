@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 class Book extends StatelessWidget {
   final String coverUrl;
-  Book({this.coverUrl});
+  final bool showRating;
+  Book({this.coverUrl, this.showRating = true});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,8 @@ class Book extends StatelessWidget {
           top: 10,
           left: 5,
         ),
-        height: MediaQuery.of(context).size.height * 0.27,
-        width: MediaQuery.of(context).size.width * 0.4,
+        height: SizeConfig.height * 0.27,
+        width: SizeConfig.width * 0.4,
         child: Stack(
           children: [
             Container(
@@ -58,24 +59,26 @@ class Book extends StatelessWidget {
               ),
               padding: EdgeInsets.all(10),
               alignment: Alignment.bottomLeft,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.star_half_rounded,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  Text(
-                    "4.5",
-                    style: Theme.of(context).textTheme.headline5.copyWith(
+              child: showRating
+                  ? Row(
+                      children: [
+                        Icon(
+                          Icons.star_half_rounded,
                           color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          height: 1.3,
+                          size: 30,
                         ),
-                  )
-                ],
-              ),
-            ),
+                        Text(
+                          "4.5",
+                          style: Theme.of(context).textTheme.headline5.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                height: 1.3,
+                              ),
+                        )
+                      ],
+                    )
+                  : SizedBox(),
+            )
           ],
         ),
       ),

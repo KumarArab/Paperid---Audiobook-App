@@ -18,6 +18,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:audiobook/utils/route_legend.dart' as routeLegend;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme().buildLightTheme(),
         //darkTheme: AppTheme().buildDarkTheme(),
         home: Base(),
+        //onGenerateRoute: routeLegend.generateRoute,
         routes: {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:audiobook/ui/screens/tabs/author_single.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/dummy_data.dart';
@@ -13,6 +14,7 @@ class Authors extends StatefulWidget {
 
 class _AuthorsState extends State<Authors> {
   TextEditingController _searchAuthorController;
+  String selectedAlp = '';
 
   @override
   void initState() {
@@ -34,7 +36,6 @@ class _AuthorsState extends State<Authors> {
           Container(
             height: kToolbarHeight,
             width: SizeConfig.width,
-            color: Colors.transparent,
             margin: EdgeInsets.symmetric(vertical: 10),
             child: ListView.builder(
                 physics: BouncingScrollPhysics(),
@@ -43,12 +44,25 @@ class _AuthorsState extends State<Authors> {
                 itemBuilder: (ctx, i) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 5.0),
-                    child: CircleAvatar(
-                      radius: 35,
-                      backgroundColor: AppTheme().primaryColor.withOpacity(0.2),
-                      child: Text(
-                        String.fromCharCode(i + 65),
-                        style: TextStyle(color: Colors.black),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedAlp = String.fromCharCode(i + 65);
+                        });
+                      },
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundColor:
+                            selectedAlp == String.fromCharCode(i + 65)
+                                ? AppTheme().primaryColor
+                                : AppTheme().primaryColor.withOpacity(0.15),
+                        child: Text(
+                          String.fromCharCode(i + 65),
+                          style: TextStyle(
+                              color: selectedAlp == String.fromCharCode(i + 65)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       ),
                     ),
                   );
@@ -80,30 +94,40 @@ class AuthorCard extends StatelessWidget {
   AuthorCard({this.index});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(kAuthorList[index].imagepath),
-                  fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (ctx) => AuthorSingle(
+            author: kAuthorList[index].name,
+          ),
+        ),
+      ),
+      child: Container(
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(kAuthorList[index].imagepath),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            kAuthorList[index].name,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Colors.black,
-                ),
-          ),
-        ],
+            SizedBox(height: 5),
+            Text(
+              kAuthorList[index].name,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Colors.black,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
