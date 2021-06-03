@@ -1,5 +1,7 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/player.dart';
+import 'package:audiobook/ui/screens/book%20Details/add_to_shelf.dart';
+import 'package:audiobook/ui/screens/book%20Details/download_book.dart';
 import 'package:audiobook/ui/screens/book_player.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
@@ -89,7 +91,14 @@ class InfoContent extends StatelessWidget {
                   ],
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (ctx) => DownloadBook(
+                        book: book,
+                      ),
+                    ),
+                  ),
                   child: Icon(Icons.download_rounded, color: Colors.white),
                 ),
               ),
@@ -133,7 +142,14 @@ class InfoContent extends StatelessWidget {
                   ],
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (ctx) => AddToShelf(
+                        bookname: book.name,
+                      ),
+                    ),
+                  ),
                   child: SvgPicture.asset(
                     "assets/svgs/library.svg",
                     color: Colors.white,
@@ -173,9 +189,12 @@ class InfoContent extends StatelessWidget {
             ),
           ),
           Container(
-            height: kToolbarHeight*0.8,
+            height: kToolbarHeight * 0.8,
             width: SizeConfig.width,
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: book.genre.length,
@@ -191,7 +210,6 @@ class InfoContent extends StatelessWidget {
                   book.genre[i],
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         color: AppTheme().secondaryColor,
-                        
                       ),
                 ),
               ),
@@ -201,7 +219,9 @@ class InfoContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(
+                  20.0,
+                ),
                 child: Text(
                   "Added on 01 June 2020",
                   textAlign: TextAlign.center,
@@ -219,7 +239,7 @@ class InfoContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                   left: 20,
-                  top: 30,
+                  top: 10,
                 ),
                 child: Text(
                   "Content",
@@ -243,20 +263,36 @@ class InfoContent extends StatelessWidget {
   List<ListTile> buildAudioFileSection(FBookModel book, BuildContext context) {
     List<ListTile> chapters = [];
     for (int i = 0; i < book.audios.length; i++) {
-      chapters.add(ListTile(
-        onTap: () {
-          context.read<Player>().playAudio(book, i);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (ctx) => BookPlayer(),
+      chapters.add(
+        ListTile(
+          onTap: () {
+            context.read<Player>().playAudio(book, i);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (ctx) => BookPlayer(),
+              ),
+            );
+          },
+          title: Text(
+            book.audios[i].name ?? "Unknown",
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          subtitle: Text("11:07"),
+          trailing: IconButton(
+            icon: Icon(
+              Icons.play_circle_fill_rounded,
+              size: 40,
+              color: AppTheme().primaryColor,
             ),
-          );
-        },
-        leading: Icon(Icons.music_note_outlined),
-        title: Text(book.audios[i].name ?? "Unknown"),
-        
-      ));
+            onPressed: () {},
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          minVerticalPadding: 20,
+        ),
+      );
     }
     return chapters;
   }
