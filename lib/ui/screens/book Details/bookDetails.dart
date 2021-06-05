@@ -49,6 +49,7 @@ class _BookDetailsState extends State<BookDetails> {
           icon: Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
+            size: 30,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -162,21 +163,21 @@ class _BookDetailsState extends State<BookDetails> {
       // Row(
       //   mainAxisAlignment: MainAxisAlignment.center,
       //   children: [
-      //     SmoothStarRating(
-      //       rating: 3,
-      //       // bookList[index].rating
-      //       isReadOnly: false,
-      //       size: 25,
-      //       filledIconData: Icons.star,
-      //       halfFilledIconData: Icons.star_half,
-      //       defaultIconData: Icons.star_border,
-      //       starCount: 5,
-      //       allowHalfRating: true,
-      //       spacing: 2.0,
-      //       onRated: (value) {
-      //         print(value);
-      //       },
-      //     ),
+      // SmoothStarRating(
+      //   rating: 3,
+      //   // bookList[index].rating
+      //   isReadOnly: false,
+      //   size: 25,
+      //   filledIconData: Icons.star,
+      //   halfFilledIconData: Icons.star_half,
+      //   defaultIconData: Icons.star_border,
+      //   starCount: 5,
+      //   allowHalfRating: true,
+      //   spacing: 2.0,
+      //   onRated: (value) {
+      //     print(value);
+      //   },
+      // ),
       //     SizedBox(
       //       width: 10,
       //     ),
@@ -196,14 +197,14 @@ class _BookDetailsState extends State<BookDetails> {
       //   child: FRaisedButton(
       //       child: Text("PLAY"),
       //       onPressed: () {
-      //         context.read<Player>().playAudio(widget.book, 0);
+      // context.read<Player>().playAudio(widget.book, 0);
 
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (ctx) => BookPlayer(),
-      //           ),
-      //         );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (ctx) => BookPlayer(),
+      //   ),
+      // );
       //       }),
       // ),
       // Expanded(

@@ -4,6 +4,7 @@ import 'package:audiobook/ui/screens/tabs/home%20tabs/foryou.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/premium.dart';
 import 'package:audiobook/ui/widgets/appbar.dart';
+import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,7 @@ class _DiscoverState extends State<Discover> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: MiniPlayer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -105,7 +107,7 @@ class _DiscoverState extends State<Discover> {
                 onPageChanged: (page) {
                   _pageNotifier.value = page;
                 },
-                physics: BouncingScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 children: [ForYou(), Genres(), Authors(), Premium()],
               ),
             )

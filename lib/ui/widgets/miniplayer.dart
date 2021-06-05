@@ -37,7 +37,7 @@ class MiniPlayer extends StatelessWidget {
                   child: Container(
                       child: ListTile(
                     onTap: () => Navigator.push(context,
-                        CupertinoPageRoute(builder: (ctx) => BookPlayer())),
+                        MaterialPageRoute(builder: (ctx) => BookPlayer())),
                     leading: Container(
                       height: 60,
                       width: 60,

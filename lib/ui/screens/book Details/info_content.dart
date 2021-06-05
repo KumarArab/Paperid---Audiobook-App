@@ -123,7 +123,16 @@ class InfoContent extends StatelessWidget {
                         )
                       ],
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      context.read<Player>().playAudio(book, 0);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (ctx) => BookPlayer(),
+                        ),
+                      );
+                    }),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),

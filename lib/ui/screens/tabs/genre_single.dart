@@ -64,55 +64,64 @@ class _GenreSingleState extends State<GenreSingle> {
                     showModalBottomSheet(
                         context: context,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20))),
                         builder: (ctx) {
-                          return Container(
-                            width: SizeConfig.width,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Sort Audiobooks by:",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5
-                                            .copyWith(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600),
+                          return Wrap(
+                            children: [
+                              Container(
+                                width: SizeConfig.width,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 25.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Sort Audiobooks by:",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                          ),
+                                          Spacer(),
+                                          IconButton(
+                                            icon: Icon(Icons.clear_rounded,
+                                                color: Colors.black),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                          ),
+                                        ],
                                       ),
-                                      Spacer(),
-                                      IconButton(
-                                        icon: Icon(Icons.clear_rounded,
-                                            color: Colors.black),
-                                        onPressed: () => Navigator.pop(context),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    radioTile(GenreSort.ratedesc,
+                                        "Rate (Descending)"),
+                                    radioTile(
+                                        GenreSort.rateasc, "Rate (ascending)"),
+                                    radioTile(GenreSort.datedesc,
+                                        "Date (Descending)"),
+                                    radioTile(
+                                        GenreSort.dateasc, "Date (ascending)"),
+                                    radioTile(GenreSort.durasc,
+                                        "Duration (Descending)"),
+                                    radioTile(GenreSort.durdesc,
+                                        "Duration (ascending)"),
+                                    SizedBox(height: 20),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                radioTile(
-                                    GenreSort.ratedesc, "Rate (Descending)"),
-                                radioTile(
-                                    GenreSort.rateasc, "Rate (ascending)"),
-                                radioTile(
-                                    GenreSort.datedesc, "Date (Descending)"),
-                                radioTile(
-                                    GenreSort.dateasc, "Date (ascending)"),
-                                radioTile(
-                                    GenreSort.durasc, "Duration (Descending)"),
-                                radioTile(
-                                    GenreSort.durdesc, "Duration (ascending)"),
-                              ],
-                            ),
+                              ),
+                            ],
                           );
                         });
                   },
@@ -168,7 +177,7 @@ class _GenreSingleState extends State<GenreSingle> {
                 child: GridView.count(
                   // Create a grid with 2 columns. If you change the scrollDirection to
                   // horizontal, this produces 2 rows.
-                  childAspectRatio: 1 / 1.5,
+                  childAspectRatio: 1 / 1.35,
                   crossAxisCount: 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
