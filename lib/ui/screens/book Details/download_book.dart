@@ -83,20 +83,20 @@ class DownloadBook extends StatelessWidget {
                   ),
                   elevation: 5,
                   shadowColor: AppTheme().primaryColor.withOpacity(0.5),
-                  margin: EdgeInsets.symmetric(horizontal: 40),
+                  margin: EdgeInsets.symmetric(horizontal: 60),
                   child: Wrap(
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
-                            SizedBox(height: 50),
+                            SizedBox(height: 20),
                             SvgPicture.asset(
                               "assets/svgs/premium.svg",
-                              width: SizeConfig.width * 0.6,
+                              width: SizeConfig.width * 0.4,
                             ),
                             SizedBox(
-                              height: 50,
+                              height: 30,
                             ),
                             FRaisedButton(
                                 child: Row(
@@ -127,8 +127,7 @@ class DownloadBook extends StatelessWidget {
                               height: 20,
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.width * 0.1),
+                              padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
                                 kPremiumText,
                                 maxLines: 3,

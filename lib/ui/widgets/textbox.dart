@@ -6,13 +6,15 @@ class TextBox extends StatelessWidget {
   final String label;
   final bool isObsecure;
   final TextEditingController controller;
+  final Function onChanged;
 
-  TextBox({this.controller, this.isObsecure, this.label});
+  TextBox({this.controller, this.isObsecure, this.label, this.onChanged});
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 30, bottom: 10),
       child: TextField(
+        onChanged: (val) => onChanged(val),
         obscureText: isObsecure,
         controller: controller,
         cursorColor: Colors.black,

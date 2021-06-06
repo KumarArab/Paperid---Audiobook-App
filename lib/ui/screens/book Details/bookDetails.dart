@@ -92,9 +92,6 @@ class _BookDetailsState extends State<BookDetails> {
                     ),
                     Transform.translate(
                       offset: Offset(value * SizeConfig.width * 0.5, 0),
-                      // duration: Duration(milliseconds: 600),
-                      // curve: Curves.easeInOutSine,
-                      // left: value * SizeConfig.width * 0.2,
                       child: Container(
                         width: SizeConfig.width * 0.5,
                         alignment: Alignment.center,

@@ -73,3 +73,10 @@ List<FReviewModel> kReviewList = [
         "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical  and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections ",
   ),
 ];
+
+List<String> kRecentSearches = [
+  "american gods",
+  "neil gaiman",
+  "catcher in the eye",
+  "lords of the rings"
+];

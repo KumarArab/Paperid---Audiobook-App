@@ -21,7 +21,7 @@ class MiniPlayer extends StatelessWidget {
                 Container(
                   height: 3,
                   width: SizeConfig.width,
-                  color: Colors.grey,
+                  color: AppTheme().silverColor,
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
                     widthFactor: playerWatch.position == null
@@ -62,7 +62,8 @@ class MiniPlayer extends StatelessWidget {
                       icon: Icon(
                         playerWatch.audioState == "Playing"
                             ? Icons.pause
-                            : Icons.play_arrow_outlined,
+                            : Icons.play_arrow_rounded,
+                        size: 30,
                         color: AppTheme().primaryColor,
                       ),
                     ),
