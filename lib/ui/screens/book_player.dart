@@ -34,7 +34,7 @@ class BookPlayer extends StatelessWidget {
             children: [
               Spacer(),
               Book(
-                coverUrl: playerRead.currentBook.cover,
+                book: playerRead.currentBook,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),

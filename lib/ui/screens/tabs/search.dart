@@ -1,4 +1,6 @@
 import 'package:audiobook/ui/widgets/appbar.dart';
+import 'package:audiobook/ui/widgets/author_section.dart';
+import 'package:audiobook/ui/widgets/book_section.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
@@ -11,7 +13,19 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  TextEditingController _searchController = new TextEditingController();
+  TextEditingController _searchController;
+  ValueNotifier<String> search;
+
+  @override
+  void initState() {
+    _searchController = TextEditingController(text: "");
+    search = ValueNotifier(_searchController.text);
+    _searchController.addListener(() {
+      search.value = _searchController.text;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,44 +33,55 @@ class _SearchState extends State<Search> {
       bottomNavigationBar: MiniPlayer(),
       body: SafeArea(
         child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FAppBar(
-                isAction: false,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
-                          "Search",
-                          style: Theme.of(context).textTheme.headline4.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Text(
+                    "Search",
+                    style: Theme.of(context).textTheme.headline4.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
                         ),
-                      ),
-                      TextBox(
-                        controller: _searchController,
-                        isObsecure: false,
-                        label: "Search anything",
-                        onChanged: (val) {
-                          print(val);
-                        },
-                      ),
-                      showRecentSearches()
-                    ],
                   ),
                 ),
-              )
-            ],
+                TextBox(
+                  controller: _searchController,
+                  isObsecure: false,
+                  label: "Search anything",
+                  onChanged: (val) {
+                    print(val);
+                  },
+                ),
+                ValueListenableBuilder(
+                    valueListenable: search,
+                    builder: (ctx, value, child) {
+                      if (search.value == "") {
+                        return showRecentSearches();
+                      } else
+                        return showSearchResult();
+                    })
+              ],
+            ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget showSearchResult() {
+    return Container(
+      child: Column(
+        children: [
+          BookSection(
+            heading: "Audiobooks",
+          ),
+          AuthorSection()
+        ],
       ),
     );
   }

@@ -29,7 +29,10 @@ class _DiscoverState extends State<Discover> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: MiniPlayer(),
+      drawer: Drawer(),
+      drawerEnableOpenDragGesture: true,
       body: SafeArea(
         child: Column(
           children: [

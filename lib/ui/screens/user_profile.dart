@@ -157,8 +157,7 @@ class UserProfile extends StatelessWidget {
                                 margin: EdgeInsets.symmetric(vertical: 10),
                                 height: SizeConfig.height * 0.5,
                                 child: Book(
-                                  coverUrl:
-                                      context.read<HomeData>().books[i].cover,
+                                  book: context.read<HomeData>().books[i],
                                 ),
                               ),
                               itemCount: context.read<HomeData>().books.length,

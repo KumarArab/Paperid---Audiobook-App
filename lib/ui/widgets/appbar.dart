@@ -36,9 +36,14 @@ class FAppBar extends StatelessWidget {
               ])),
           Spacer(),
           isAction
-              ? SvgPicture.asset(
-                  "assets/svgs/settings.svg",
-                  color: AppTheme().primaryColor,
+              ? GestureDetector(
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: SvgPicture.asset(
+                    "assets/svgs/settings.svg",
+                    color: AppTheme().primaryColor,
+                  ),
                 )
               : SizedBox()
         ],

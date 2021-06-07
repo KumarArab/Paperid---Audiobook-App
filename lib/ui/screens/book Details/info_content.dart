@@ -24,12 +24,12 @@ class InfoContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 40.0, bottom: 20),
             child: Book(
-              coverUrl: book.cover,
+              book: book,
               showRating: false,
             ),
           ),
           Text(
-            book.name,
+            book.name ?? "Unknown",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline4.copyWith(
                   color: Colors.black,
@@ -37,7 +37,7 @@ class InfoContent extends StatelessWidget {
                 ),
           ),
           Text(
-            book.author,
+            book.author ?? "Unknown",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline6.copyWith(
                   color: Colors.grey,

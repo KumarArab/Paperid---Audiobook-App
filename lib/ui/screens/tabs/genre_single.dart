@@ -185,7 +185,7 @@ class _GenreSingleState extends State<GenreSingle> {
                   children: List.generate(
                       context.watch<HomeData>().books.length, (index) {
                     FBookModel book = context.watch<HomeData>().books[index];
-                    return Book(coverUrl: book.cover);
+                    return Book(book: book);
                   }),
                 ),
               ),
