@@ -104,35 +104,32 @@ class InfoContent extends StatelessWidget {
               ),
               Expanded(
                 child: FRaisedButton(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.play_arrow_rounded,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Start Listening",
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              height: 1.3),
-                        )
-                      ],
-                    ),
-                    onPressed: () {
-                      context.read<Player>().playAudio(book, 0);
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Start Listening",
+                        style: Theme.of(context).textTheme.headline6.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            height: 1.3),
+                      )
+                    ],
+                  ),
+                  onPressed: () {
+                    context.read<Player>().playAudio(book, 0);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (ctx) => BookPlayer(),
-                        ),
-                      );
-                    }),
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (ctx) => BookPlayer()));
+                  },
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
@@ -276,12 +273,8 @@ class InfoContent extends StatelessWidget {
         ListTile(
           onTap: () {
             context.read<Player>().playAudio(book, i);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (ctx) => BookPlayer(),
-              ),
-            );
+            Navigator.of(context, rootNavigator: true)
+                .push(MaterialPageRoute(builder: (ctx) => BookPlayer()));
           },
           title: Text(
             book.audios[i].name ?? "Unknown",

@@ -20,7 +20,7 @@ class ForYou extends StatelessWidget {
         child: Column(
           children: [
             BookSection(
-              heading: "Currently Reading",
+              heading: "Currently Listening",
             ),
             BookSection(
               heading: "Trending",

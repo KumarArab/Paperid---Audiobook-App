@@ -36,8 +36,12 @@ class MiniPlayer extends StatelessWidget {
                 Expanded(
                   child: Container(
                       child: ListTile(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => BookPlayer())),
+                    onTap: () =>
+                        Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => BookPlayer(),
+                      ),
+                    ),
                     leading: Container(
                       height: 60,
                       width: 60,

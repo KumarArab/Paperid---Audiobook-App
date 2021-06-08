@@ -14,7 +14,7 @@ class BookSection extends StatelessWidget {
   Widget build(BuildContext context) {
     List<FBookModel> bookList = [];
     if (context.watch<HomeData>().books.length != 0) {
-      if (heading == "Currently Reading") {
+      if (heading == "Currently Listening") {
         bookList = context.watch<HomeData>().books.sublist(3, 5);
       } else if (heading == "Trending") {
         bookList = context.watch<HomeData>().books;

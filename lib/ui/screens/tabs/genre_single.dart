@@ -3,6 +3,7 @@ import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/ui/screens/tabs/filter.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/widgets/book.dart';
+import 'package:audiobook/ui/widgets/book_grid.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -172,24 +173,7 @@ class _GenreSingleState extends State<GenreSingle> {
               isObsecure: false,
               label: "Search books here",
             ),
-            Expanded(
-              child: Container(
-                child: GridView.count(
-                  // Create a grid with 2 columns. If you change the scrollDirection to
-                  // horizontal, this produces 2 rows.
-                  childAspectRatio: 1 / 1.35,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  // Generate 100 widgets that display their index in the List.
-                  children: List.generate(
-                      context.watch<HomeData>().books.length, (index) {
-                    FBookModel book = context.watch<HomeData>().books[index];
-                    return Book(book: book);
-                  }),
-                ),
-              ),
-            ),
+            BookGrid()
           ],
         ),
       ),

@@ -18,7 +18,9 @@ class Book extends StatelessWidget {
     return Hero(
       tag: book.cover + rand.toString(),
       child: GestureDetector(
-        onTap: () => Navigator.of(context, rootNavigator: true).push(
+        onTap: () => Navigator.of(
+          context,
+        ).push(
           MaterialPageRoute(
             builder: (ctx) => BookDetails(
               book: book,
