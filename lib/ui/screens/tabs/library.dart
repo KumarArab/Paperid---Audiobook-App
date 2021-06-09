@@ -7,6 +7,7 @@ import 'package:audiobook/ui/screens/tabs/library%20tabs/downloads.dart';
 import 'package:audiobook/ui/screens/tabs/library%20tabs/local_library.dart';
 import 'package:audiobook/ui/screens/tabs/library%20tabs/shelves.dart';
 import 'package:audiobook/ui/widgets/appbar.dart';
+import 'package:audiobook/ui/widgets/drawer.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -34,7 +35,7 @@ class _LibraryState extends State<Library> {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: MiniPlayer(),
-      drawer: Drawer(),
+      drawer: FDrawer(),
       drawerEnableOpenDragGesture: true,
       resizeToAvoidBottomInset: false,
       body: SafeArea(

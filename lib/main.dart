@@ -71,21 +71,22 @@ class Base extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return AppFrame();
-    // FutureBuilder(
-    //   future: FDatabase().isFirstTime(),
-    //   builder: (BuildContext ctx, AsyncSnapshot<bool> snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting) {
-    //       return Splash();
-    //     } else {
-    //       if (snapshot.data) {
-    //         return Onboard();
-    //       } else {
-    //         return AuthenticationWrapper();
-    //       }
-    //     }
-    //   },
-    // );
+    return
+        //AppFrame();
+        FutureBuilder(
+      future: FDatabase().isFirstTime(),
+      builder: (BuildContext ctx, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Splash();
+        } else {
+          if (snapshot.data) {
+            return Onboard();
+          } else {
+            return AuthenticationWrapper();
+          }
+        }
+      },
+    );
   }
 }
 
@@ -107,17 +108,9 @@ class AuthenticationWrapper extends StatelessWidget {
           future: context.read<AuthenticaitonService>().startUp(firebaseUser),
           builder: (ctx, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(
-                body: Center(
-                  child: SvgPicture.asset(
-                    "assets/svgs/google.svg",
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
-              );
+              return Splash();
             } else {
-              return Home();
+              return AppFrame();
             }
           });
     } else {

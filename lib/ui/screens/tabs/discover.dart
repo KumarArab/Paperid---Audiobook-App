@@ -4,6 +4,7 @@ import 'package:audiobook/ui/screens/tabs/home%20tabs/foryou.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/premium.dart';
 import 'package:audiobook/ui/widgets/appbar.dart';
+import 'package:audiobook/ui/widgets/drawer.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -31,7 +32,7 @@ class _DiscoverState extends State<Discover> {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: MiniPlayer(),
-      drawer: Drawer(),
+      drawer: FDrawer(),
       drawerEnableOpenDragGesture: true,
       body: SafeArea(
         child: Column(

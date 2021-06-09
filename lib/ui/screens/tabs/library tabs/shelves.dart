@@ -1,3 +1,4 @@
+import 'package:audiobook/ui/screens/tabs/shelf.dart';
 import 'package:audiobook/utils/dummy_data.dart';
 import 'package:flutter/material.dart';
 
@@ -14,35 +15,43 @@ class Shelves extends StatelessWidget {
         children: List.generate(
           kShelfList.length,
           (index) {
-            return Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(kShelfList[index].coverUrl),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
+            return GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => Shelf(
+                            shelf: kShelfList[index].name,
+                          ))),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.black
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                  image: DecorationImage(
+                    image: NetworkImage(kShelfList[index].coverUrl),
+                    fit: BoxFit.cover,
                   ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                padding: EdgeInsets.all(20),
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  kShelfList[index].name,
-                  style: Theme.of(context).textTheme.headline5.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.black
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  padding: EdgeInsets.all(20),
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    kShelfList[index].name,
+                    style: Theme.of(context).textTheme.headline5.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
                 ),
               ),
             );

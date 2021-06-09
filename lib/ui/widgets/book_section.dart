@@ -1,6 +1,5 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/homedata.dart';
-import 'package:audiobook/ui/screens/book%20Details/bookDetails.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';

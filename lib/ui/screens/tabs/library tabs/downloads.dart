@@ -45,35 +45,50 @@ class _DownloadsState extends State<Downloads> {
                           padding: const EdgeInsets.symmetric(vertical: 20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(book.name,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20.0, bottom: 10),
+                                child: Text(
+                                  book.name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline5
                                       .copyWith(
                                         fontWeight: FontWeight.w700,
-                                      )),
-                              Text(book.author ?? "Unknown",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(color: Colors.grey)),
+                                      ),
+                                ),
+                              ),
                               Text(
-                                "${book.audios.length} chapters " ?? "Unknown",
+                                book.author ?? "Unknown",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline6
-                                    .copyWith(
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    .bodyText1
+                                    .copyWith(color: Colors.grey),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20.0),
+                                child: Text(
+                                  "${book.audios.length} chapters " ??
+                                      "Unknown",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                        color: Colors.black54,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
                               ),
                               Text("49min" ?? "Unknown",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1
                                       .copyWith(color: Colors.grey)),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Text("12.54mb" ?? "Unknown",
                                   style: Theme.of(context)
                                       .textTheme
