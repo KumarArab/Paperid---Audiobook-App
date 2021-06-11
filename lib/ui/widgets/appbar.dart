@@ -6,6 +6,15 @@ import 'package:flutter_svg/svg.dart';
 class FAppBar extends StatelessWidget {
   final bool isAction;
   FAppBar({@required this.isAction});
+
+  final Shader papeGradient = LinearGradient(
+    colors: <Color>[AppTheme().blueColor, AppTheme().purpleColor],
+  ).createShader(new Rect.fromLTWH(0.0, 0.0, 100.0, 70.0));
+
+  final Shader ridGradient = LinearGradient(
+    colors: <Color>[AppTheme().orangeColor, AppTheme().tertiaryColor],
+  ).createShader(new Rect.fromLTWH(0.0, 0.0, 10.0, 5.0));
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,18 +28,20 @@ class FAppBar extends StatelessWidget {
               text: "Pape",
               style: TextStyle(
                 fontSize: 32,
-                color: AppTheme().primaryColor,
+                //color: AppTheme().primaryColor,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 2,
+                foreground: new Paint()..shader = papeGradient,
               ),
               children: [
                 TextSpan(
                   text: "rid",
                   style: TextStyle(
                     fontSize: 32,
-                    color: AppTheme().tertiaryColor,
+                    // color: AppTheme().tertiaryColor,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 2,
+                    foreground: new Paint()..shader = ridGradient,
                   ),
                 )
               ])),

@@ -4,7 +4,9 @@ import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
+import 'package:audiobook/utils/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -19,103 +21,179 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController email = new TextEditingController();
   final TextEditingController password = new TextEditingController();
   final TextEditingController cpassword = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-          height: SizeConfig.height,
-          width: SizeConfig.width,
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Spacer(flex: 1),
-              Center(
-                  child: Text("Sign Up",
-                      style: Theme.of(context).textTheme.headline2)),
-              Spacer(flex: 1),
-              TextBox(
-                isObsecure: false,
-                label: "Name",
-                controller: name,
-              ),
-              TextBox(
-                isObsecure: false,
-                label: "email",
-                controller: email,
-              ),
-              TextBox(
-                isObsecure: true,
-                label: "Password",
-                controller: password,
-              ),
-              TextBox(
-                isObsecure: true,
-                label: "Confirm Password",
-                controller: cpassword,
-              ),
-              SizedBox(height: 20),
-              FRaisedButton(
-                  child: Provider.of<AuthenticaitonService>(context).isSigningUp
-                      ? CircularProgressIndicator()
-                      : Text(
-                          "Sign Up",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    if (password.text == cpassword.text) {
-                      context
-                          .read<AuthenticaitonService>()
-                          .signUp(name.text, email.text, password.text)
-                          .then((value) {
-                        if (value == "success") {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Signed up successfully")));
-                          Navigator.pop(context);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Oops! $value")));
-                        }
-                      });
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("Passwords do not match!!"),
-                      ));
-                    }
-                  }),
-              SizedBox(height: 50),
-              Row(
-                children: [
-                  Text(
-                    "By Signing up, I agree all the ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .copyWith(color: Theme.of(context).hintColor),
-                  ),
-                  TextButton(
-                    onPressed: () {},
+      body: SingleChildScrollView(
+        child: Container(
+            height: SizeConfig.height,
+            width: SizeConfig.width,
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: kToolbarHeight,
+                ),
+                Spacer(),
+                SvgPicture.asset(
+                  "assets/svgs/logo.svg",
+                  height: SizeConfig.height * 0.05,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
                     child: Text(
-                      "terms and conditions",
+                      "Signup",
+                      style: Theme.of(context).textTheme.headline3.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        child: TextFormField(
+                          controller: name,
+                          cursorColor: Colors.black,
+                          keyboardType: TextInputType.text,
+                          validator: (val) {
+                            if (val == null || val == "") {
+                              return "Please enter your sweet name";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Name",
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        child: TextFormField(
+                          controller: email,
+                          cursorColor: Colors.black,
+                          keyboardType: TextInputType.text,
+                          validator: (val) {
+                            if (val == null || val == "") {
+                              return "Please enter an email";
+                            } else if (!RegExp(
+                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                .hasMatch(val)) {
+                              return "Enter a valid email";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "email",
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        child: TextFormField(
+                          controller: password,
+                          cursorColor: Colors.black,
+                          obscureText: true,
+                          keyboardType: TextInputType.text,
+                          validator: (val) {
+                            if (val == null || val == "") {
+                              return "Please enter the password";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "password",
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        child: TextFormField(
+                          controller: cpassword,
+                          cursorColor: Colors.black,
+                          obscureText: true,
+                          keyboardType: TextInputType.text,
+                          validator: (val) {
+                            if (val == null || val == "") {
+                              return "Please enter the password";
+                            } else if (cpassword.text != password.text) {
+                              return "password does not match";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Confirm password",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                FRaisedButton(
+                    child:
+                        Provider.of<AuthenticaitonService>(context).isSigningUp
+                            ? CircularProgressIndicator()
+                            : Text(
+                                "Sign Up",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(color: Colors.white),
+                              ),
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      if (_formKey.currentState.validate()) {
+                        context
+                            .read<AuthenticaitonService>()
+                            .signUp(name.text, email.text, password.text)
+                            .then((value) {
+                          if (value == "success") {
+                            SnackToast()
+                                .showSuccessToast("Signed up successfully");
+                            Navigator.pop(context);
+                          } else {
+                            SnackToast().showErrorToast("Oops! $value");
+                          }
+                        });
+                      }
+                    }),
+                SizedBox(height: 50),
+                Row(
+                  children: [
+                    Text(
+                      "By Signing up, I agree all the ",
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
-                          .copyWith(color: AppTheme().primaryColor),
+                          .copyWith(color: Theme.of(context).hintColor),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Spacer(flex: 2),
-            ],
-          )),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "terms and conditions",
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            .copyWith(color: AppTheme().primaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Spacer(flex: 2),
+              ],
+            )),
+      ),
     );
   }
 }

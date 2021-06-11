@@ -4,6 +4,7 @@ import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/constants.dart';
 import 'package:audiobook/utils/size_config.dart';
+import 'package:audiobook/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,43 +23,94 @@ class _LoginState extends State<Login> {
   final TextEditingController password = new TextEditingController();
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldMessengerKey,
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
+          child: Container(
+            height: SizeConfig.height,
             width: SizeConfig.width,
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: kToolbarHeight,
                 ),
+                Spacer(),
+                SvgPicture.asset(
+                  "assets/svgs/logo.svg",
+                  height: SizeConfig.height * 0.05,
+                ),
                 Center(
-                  child: Text("Login",
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Login",
                       style: Theme.of(context).textTheme.headline3.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
-                          )),
+                          ),
+                    ),
+                  ),
                 ),
-                Spacer(flex: 1),
-                TextBox(
-                  isObsecure: false,
-                  label: "Username",
-                  controller: email,
+                Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 30, bottom: 10),
+                          child: TextFormField(
+                            controller: email,
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            validator: (val) {
+                              if (val == null || val == "") {
+                                return "Please enter an email";
+                              } else if (!RegExp(
+                                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                  .hasMatch(val)) {
+                                return "Enter a valid email";
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: "email",
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 30, bottom: 10),
+                          child: TextFormField(
+                            controller: password,
+                            cursorColor: Colors.black,
+                            obscureText: true,
+                            keyboardType: TextInputType.text,
+                            validator: (val) {
+                              if (val == null || val == "") {
+                                return "Please enter the password";
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: "password",
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+                Row(
+                  children: [
+                    Link(
+                        text: "Forgot Password?",
+                        color: Theme.of(context).primaryColor),
+                  ],
                 ),
-                TextBox(
-                  isObsecure: true,
-                  label: "Password",
-                  controller: password,
-                ),
-                Link(
-                    text: "Forgot Password?",
-                    color: Theme.of(context).hintColor),
                 SizedBox(height: 20),
                 FRaisedButton(
                     child: context.read<AuthenticaitonService>().isSigningIn
@@ -71,27 +123,22 @@ class _LoginState extends State<Login> {
                                 .copyWith(color: Colors.white),
                           ),
                     onPressed: () {
-                      print(email.text);
-                      print(password.text);
-                      context
-                          .read<AuthenticaitonService>()
-                          .signIn(email.text, password.text)
-                          .then((value) {
-                        if (value == "success") {
-                          Fluttertoast.showToast(
-                              msg: "Log in success",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.green,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                          //Navigator.pushReplacementNamed(context, '/home');
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text(value)));
-                        }
-                      });
+                      if (_formKey.currentState.validate()) {
+                        print(email.text);
+                        print(password.text);
+                        context
+                            .read<AuthenticaitonService>()
+                            .signIn(email.text, password.text)
+                            .then((value) {
+                          if (value == "success") {
+                            SnackToast()
+                                .showSuccessToast("Logged in Successfully");
+                            //Navigator.pushReplacementNamed(context, '/home');
+                          } else {
+                            SnackToast().showErrorToast(value);
+                          }
+                        });
+                      }
                     }),
                 Container(
                   padding: EdgeInsets.only(top: 20),
@@ -124,7 +171,7 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Theme.of(context).canvasColor,
+                      color: Theme.of(context).primaryColor.withOpacity(0.1),
                     ),
                     alignment: Alignment.center,
                     child: context.watch<AuthenticaitonService>().isGoogleLogin
@@ -173,7 +220,9 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 10),
                 Spacer(flex: 2),
               ],
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

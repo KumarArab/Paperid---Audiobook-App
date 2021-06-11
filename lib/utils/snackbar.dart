@@ -15,5 +15,14 @@ class SnackToast {
         fontSize: 16.0);
   }
 
-  showSuccessToast(String text) {}
+  showSuccessToast(String text) {
+    return Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppTheme().mulledWineColor,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 }

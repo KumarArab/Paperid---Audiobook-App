@@ -13,6 +13,8 @@ class AppTheme {
   Color silverColor = Color(0xffcbcbcb);
 
   // Other Colors in consideration
+  Color blueColor = Color(0xfff4274fe);
+  Color orangeColor = Color(0xffff6227);
   Color purpleColor = Color(0xff9571F6);
   Color pinkColor = Color(0xffE38DDD);
   ThemeData buildLightTheme() {
@@ -41,6 +43,20 @@ class AppTheme {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: mulledWineColor.withOpacity(0.3),
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red.withOpacity(0.3),
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red.withOpacity(0.3),
             width: 2,
           ),
           borderRadius: BorderRadius.circular(15),

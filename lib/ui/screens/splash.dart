@@ -16,7 +16,7 @@ class Splash extends StatelessWidget {
         width: SizeConfig.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppTheme().primaryColor, AppTheme().purpleColor],
+            colors: [Color(0xff4274fe), Color(0xff9571F6)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
