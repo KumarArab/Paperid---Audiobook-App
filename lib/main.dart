@@ -12,6 +12,7 @@ import 'package:audiobook/ui/screens/tabs/genre_single.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/screens/user_profile.dart';
 import 'package:audiobook/utils/appTheme.dart';
+import 'package:audiobook/utils/constants.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,32 +62,42 @@ class MyApp extends StatelessWidget {
               AuthenticationWrapper(),
           Splash.routName: (BuildContext context) => Splash(),
           GenreSingle.routeName: (BuildContext context) => GenreSingle(),
+          Onboard.routeName: (BuildContext context) => Onboard(),
         },
       ),
     );
   }
 }
 
-class Base extends StatelessWidget {
+class Base extends StatefulWidget {
+  @override
+  _BaseState createState() => _BaseState();
+}
+
+class _BaseState extends State<Base> {
+  FDatabase db;
+  @override
+  void initState() {
+    db = FDatabase();
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    db.isFirstTime().then((value) {
+      if (value)
+        Navigator.pushReplacementNamed(context, Onboard.routeName);
+      else
+        Navigator.pushReplacementNamed(
+            context, AuthenticationWrapper.routeName);
+    });
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return
-        //AppFrame();
-        FutureBuilder(
-      future: FDatabase().isFirstTime(),
-      builder: (BuildContext ctx, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Splash();
-        } else {
-          if (snapshot.data) {
-            return Onboard();
-          } else {
-            return AuthenticationWrapper();
-          }
-        }
-      },
-    );
+    return Splash();
   }
 }
 

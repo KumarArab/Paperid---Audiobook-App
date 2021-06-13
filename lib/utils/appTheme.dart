@@ -37,12 +37,12 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: hintColor),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: silverColor, width: 2),
+          borderSide: BorderSide(color: silverColor.withOpacity(0.5), width: 2),
           borderRadius: BorderRadius.circular(15),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: mulledWineColor.withOpacity(0.3),
+            color: mulledWineColor.withOpacity(0.2),
             width: 2,
           ),
           borderRadius: BorderRadius.circular(15),

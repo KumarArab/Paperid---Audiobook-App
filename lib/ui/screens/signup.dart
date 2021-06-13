@@ -72,8 +72,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Name",
-                          ),
+                              labelText: "Name",
+                              prefixIcon: Icon(Icons.account_circle_rounded)),
                         ),
                       ),
                       Container(
@@ -93,8 +93,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "email",
-                          ),
+                              labelText: "email",
+                              prefixIcon: Icon(Icons.email_rounded)),
                         ),
                       ),
                       Container(
@@ -111,8 +111,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "password",
-                          ),
+                              labelText: "password",
+                              prefixIcon: Icon(Icons.security_rounded)),
                         ),
                       ),
                       Container(
@@ -131,8 +131,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Confirm password",
-                          ),
+                              labelText: "Confirm password",
+                              prefixIcon: Icon(Icons.confirmation_num_rounded)),
                         ),
                       ),
                     ],
@@ -151,8 +151,8 @@ class _SignUpState extends State<SignUp> {
                                     .copyWith(color: Colors.white),
                               ),
                     onPressed: () {
-                      FocusScope.of(context).unfocus();
                       if (_formKey.currentState.validate()) {
+                        FocusScope.of(context).unfocus();
                         context
                             .read<AuthenticaitonService>()
                             .signUp(name.text, email.text, password.text)
@@ -167,8 +167,9 @@ class _SignUpState extends State<SignUp> {
                         });
                       }
                     }),
-                SizedBox(height: 50),
+                SizedBox(height: 16),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "By Signing up, I agree all the ",

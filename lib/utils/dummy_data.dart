@@ -5,14 +5,18 @@ import 'package:audiobook/models/shelfModel.dart';
 
 List<FGenreModel> kGenreList = [
   FGenreModel(
-      imagePath: "assets/images/genres/action-adventure.jpg",
+      imagePath: "assets/images/genres/action-adventure.png",
       name: "Action &\nAdventure"),
-  FGenreModel(imagePath: "assets/images/genres/fantasy.jpg", name: "Fantasy"),
-  FGenreModel(imagePath: "assets/images/genres/history.jpg", name: "History"),
-  FGenreModel(imagePath: "assets/images/genres/romance.jpg", name: "Romance"),
+  FGenreModel(imagePath: "assets/images/genres/romance.png", name: "Romance"),
   FGenreModel(imagePath: "assets/images/genres/mystery.png", name: "Mystery"),
-  FGenreModel(imagePath: "assets/images/genres/sci-fi.jpg", name: "Sci-Fi"),
-  FGenreModel(imagePath: "assets/images/genres/drama.jpg", name: "Drama"),
+  FGenreModel(
+      imagePath: "assets/images/genres/children.png", name: "Children's"),
+  FGenreModel(imagePath: "assets/images/genres/history.png", name: "History"),
+  FGenreModel(imagePath: "assets/images/genres/horror.png", name: "Horror"),
+  FGenreModel(imagePath: "assets/images/genres/fantasy.png", name: "Fantasy"),
+  FGenreModel(imagePath: "assets/images/genres/fiction.png", name: "Fiction"),
+  FGenreModel(imagePath: "assets/images/genres/classics.png", name: "Classics"),
+  FGenreModel(imagePath: "assets/images/genres/sci-fi.png", name: "Sci-Fi"),
 ];
 
 List<FAuthorModel> kAuthorList = [

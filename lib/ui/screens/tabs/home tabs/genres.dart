@@ -10,32 +10,6 @@ class Genres extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          margin: EdgeInsets.all(20),
-          child: Row(
-            children: [
-              Expanded(
-                child: FRaisedButton(
-                  child: Text(
-                    "Fiction",
-                    style: Theme.of(context).textTheme.headline6.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.w500),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: FFlatButton(
-                  onTap: () {},
-                  text: "Non-Fiction",
-                ),
-              ),
-            ],
-          ),
-        ),
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10),

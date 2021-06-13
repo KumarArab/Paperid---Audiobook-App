@@ -1,6 +1,7 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/models/user.dart';
+import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,10 +44,17 @@ class FDatabase {
     bool ift = _preferences.getBool('isFirstTime');
     print("is First Time: $ift");
     if (ift == null) {
-      //_preferences.setBool('isFirstTime', false);
+      _preferences.setBool('isFirstTime', false);
       return true;
     }
     return false;
+  }
+
+  Future<List<FBookModel>> getGenreBook(Genres genre) async {
+    List<FBookModel> genreBookList = [];
+    DocumentReference document =
+        _firestore.collection("Genre").doc("Action & Adventrue");
+    document.get();
   }
 
   Future<List<FBookModel>> getBooks() async {

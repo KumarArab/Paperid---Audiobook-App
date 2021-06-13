@@ -16,6 +16,7 @@ class AuthenticaitonService with ChangeNotifier {
   bool _isSigningIn = false;
   bool _isSigningUp = false;
   bool _isGoogleLogin = false;
+  bool _isResetPass = false;
 
 // GETTERS AND SETTERS
 
@@ -37,6 +38,13 @@ class AuthenticaitonService with ChangeNotifier {
 
   set isSigningUp(bool isSigningUp) {
     _isSigningUp = isSigningUp;
+    notifyListeners();
+  }
+
+  bool get isResettingPass => _isResetPass;
+
+  set isResettingPass(bool isResetPass) {
+    _isResetPass = isResetPass;
     notifyListeners();
   }
 
@@ -110,6 +118,20 @@ class AuthenticaitonService with ChangeNotifier {
       return "crap!";
     } on FirebaseAuthException catch (e) {
       isSigningUp = false;
+      return e.message;
+    }
+  }
+
+// FORGOT PASSWORD
+
+  Future<String> requestPassReset(String email) async {
+    isResettingPass = true;
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      isResettingPass = false;
+      return "success";
+    } on FirebaseAuthException catch (e) {
+      isResettingPass = false;
       return e.message;
     }
   }

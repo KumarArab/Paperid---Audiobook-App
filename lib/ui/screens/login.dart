@@ -1,4 +1,5 @@
 import 'package:audiobook/services/authentication_service.dart';
+import 'package:audiobook/ui/dialogs/forgot_pass.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
@@ -21,14 +22,15 @@ class _LoginState extends State<Login> {
   final TextEditingController email = new TextEditingController();
 
   final TextEditingController password = new TextEditingController();
-  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
+
   final _formKey = GlobalKey<FormState>();
+  bool showPass = false;
+
+  void togglePass() => showPass = !showPass;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldMessengerKey,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -81,6 +83,7 @@ class _LoginState extends State<Login> {
                             },
                             decoration: InputDecoration(
                               labelText: "email",
+                              prefixIcon: Icon(Icons.email_rounded),
                             ),
                           ),
                         ),
@@ -89,7 +92,7 @@ class _LoginState extends State<Login> {
                           child: TextFormField(
                             controller: password,
                             cursorColor: Colors.black,
-                            obscureText: true,
+                            obscureText: showPass,
                             keyboardType: TextInputType.text,
                             validator: (val) {
                               if (val == null || val == "") {
@@ -99,6 +102,7 @@ class _LoginState extends State<Login> {
                             },
                             decoration: InputDecoration(
                               labelText: "password",
+                              prefixIcon: Icon(Icons.security_rounded),
                             ),
                           ),
                         ),
@@ -107,8 +111,17 @@ class _LoginState extends State<Login> {
                 Row(
                   children: [
                     Link(
-                        text: "Forgot Password?",
-                        color: Theme.of(context).primaryColor),
+                      text: "Forgot Password?",
+                      color: Theme.of(context).primaryColor,
+                      function: () => showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          content: ForgotPass(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -152,17 +165,15 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     context.read<AuthenticaitonService>().login().then((value) {
                       if (value == "success") {
-                        scaffoldMessengerKey.currentState.showSnackBar(
-                            SnackBar(content: Text("Signed in successfully")));
+                        SnackToast().showSuccessToast("Logged in successfully");
 
                         //Navigator.pushReplacementNamed(context, '/home');
                       } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text(value)));
+                        SnackToast().showErrorToast("Snap! $value");
                       }
                     });
                   },
@@ -231,14 +242,17 @@ class _LoginState extends State<Login> {
 class Link extends StatelessWidget {
   final String text;
   final Color color;
-
-  Link({this.text, this.color});
+  final Function function;
+  Link({@required this.text, @required this.color, @required this.function});
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.subtitle1.copyWith(color: color),
+    return InkWell(
+      onTap: function,
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.subtitle1.copyWith(color: color),
+      ),
     );
   }
 }
