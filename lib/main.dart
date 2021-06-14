@@ -28,8 +28,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -46,7 +44,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Player())
       ],
       child: MaterialApp(
-        scaffoldMessengerKey: rootScaffoldMessengerKey,
         title: 'AudioBook',
         debugShowCheckedModeBanner: false,
         theme: AppTheme().buildLightTheme(),
@@ -57,7 +54,7 @@ class MyApp extends StatelessWidget {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),
           Home.routeName: (BuildContext context) => Home(),
-          UserProfile.routeName: (BuildContext context) => UserProfile(),
+          // UserProfile.routeName: (BuildContext context) => UserProfile(),
           AuthenticationWrapper.routeName: (BuildContext context) =>
               AuthenticationWrapper(),
           Splash.routName: (BuildContext context) => Splash(),
@@ -103,16 +100,8 @@ class _BaseState extends State<Base> {
 
 class AuthenticationWrapper extends StatelessWidget {
   static const routeName = "/auth";
-  void checkUser(BuildContext context, User firebaseUser) {
-    context
-        .read<AuthenticaitonService>()
-        .startUp(firebaseUser)
-        .then((value) => Home());
-  }
-
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     final firebaseUser = context.watch<User>();
     if (firebaseUser != null) {
       return FutureBuilder(

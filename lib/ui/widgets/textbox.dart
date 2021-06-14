@@ -20,16 +20,9 @@ class TextBox extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: 30, bottom: 10),
       child: TextField(
-        onChanged: (val) => onChanged(val),
-        onTap: () {
-          if (!focusNode.hasPrimaryFocus) {
-            focusNode.unfocus();
-          }
-        },
         obscureText: isObsecure,
         controller: controller,
         cursorColor: Colors.black,
-        focusNode: focusNode,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           labelText: label,

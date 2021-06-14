@@ -16,6 +16,7 @@ final GlobalKey<NavigatorState> searchTabNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> libraryTabNavKey = GlobalKey<NavigatorState>();
 
 class AppFrame extends StatefulWidget {
+  static const routeName = '/appframe';
   @override
   _AppFrameState createState() => _AppFrameState();
 }

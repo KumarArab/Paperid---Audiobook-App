@@ -18,7 +18,6 @@ class FDatabase {
 
   Future<FUser> getUserInfo(String uid) async {
     FUser user;
-
     try {
       DocumentSnapshot snapshot =
           await _firestore.collection("users").doc(uid).get();
