@@ -49,11 +49,27 @@ class FDatabase {
     return false;
   }
 
-  Future<List<FBookModel>> getGenreBook(Genres genre) async {
+  Future<List<FBookModel>> getGenreBook(String genre) async {
     List<FBookModel> genreBookList = [];
-    DocumentReference document =
-        _firestore.collection("Genre").doc("Action & Adventrue");
-    document.get();
+    DocumentSnapshot bookCollection =
+        await _firestore.collection("Genres").doc(genre).get();
+    List bookList = bookCollection["books"];
+    for (int i = 0; i < bookList.length; i++) {}
+  }
+
+  Future<FBookModel> getBookPreview(String bookId) async {
+    DocumentSnapshot bookData =
+        await _firestore.collection("Books").doc(bookId).get();
+    FBookModel book = FBookModel(
+      id: bookData['id'],
+      name: bookData['Name'],
+      author: bookData['Author'],
+      cover: bookData['Cover'],
+      genre: bookData['Genre'],
+      preface: bookData["Preface"],
+      rating: bookData["Rating"],
+    );
+    return book;
   }
 
   Future<List<FBookModel>> getBooks() async {

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookGrid extends StatelessWidget {
+  List<FBookModel> books;
+  BookGrid({this.books});
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -17,9 +19,8 @@ class BookGrid extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           // Generate 100 widgets that display their index in the List.
-          children:
-              List.generate(context.watch<HomeData>().books.length, (index) {
-            FBookModel book = context.watch<HomeData>().books[index];
+          children: List.generate(books.length, (index) {
+            FBookModel book = books[index];
             return Book(book: book);
           }),
         ),

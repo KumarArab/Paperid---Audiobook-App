@@ -1,4 +1,5 @@
 import 'package:audiobook/models/bookModel.dart';
+import 'package:audiobook/services/database.dart';
 import 'package:audiobook/services/homedata.dart';
 import 'package:audiobook/ui/screens/tabs/filter.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
@@ -29,6 +30,7 @@ class _GenreSingleState extends State<GenreSingle> {
   @override
   void initState() {
     _searchGenreSingleController = TextEditingController();
+
     super.initState();
   }
 
@@ -173,7 +175,11 @@ class _GenreSingleState extends State<GenreSingle> {
               isObsecure: false,
               label: "Search books here",
             ),
-            BookGrid()
+            context.watch<HomeData>().genreBooks.length == 0
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : BookGrid(books: context.read<HomeData>().genreBooks)
           ],
         ),
       ),
