@@ -30,7 +30,7 @@ class _GenreSingleState extends State<GenreSingle> {
   @override
   void initState() {
     _searchGenreSingleController = TextEditingController();
-
+    HomeData().getGenreBooks(widget.genre);
     super.initState();
   }
 
@@ -64,69 +64,70 @@ class _GenreSingleState extends State<GenreSingle> {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
-                        builder: (ctx) {
-                          return Wrap(
-                            children: [
-                              Container(
-                                width: SizeConfig.width,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 25.0),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Sort Audiobooks by:",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                          ),
-                                          Spacer(),
-                                          IconButton(
-                                            icon: Icon(Icons.clear_rounded,
-                                                color: Colors.black),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    radioTile(GenreSort.ratedesc,
-                                        "Rate (Descending)"),
-                                    radioTile(
-                                        GenreSort.rateasc, "Rate (ascending)"),
-                                    radioTile(GenreSort.datedesc,
-                                        "Date (Descending)"),
-                                    radioTile(
-                                        GenreSort.dateasc, "Date (ascending)"),
-                                    radioTile(GenreSort.durasc,
-                                        "Duration (Descending)"),
-                                    radioTile(GenreSort.durdesc,
-                                        "Duration (ascending)"),
-                                    SizedBox(height: 20),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        });
+                    print(context.read<HomeData>().genreBooks);
+                    // showModalBottomSheet(
+                    //     context: context,
+                    //     shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.only(
+                    //             topLeft: Radius.circular(20),
+                    //             topRight: Radius.circular(20))),
+                    //     builder: (ctx) {
+                    //       return Wrap(
+                    //         children: [
+                    //           Container(
+                    //             width: SizeConfig.width,
+                    //             child: Column(
+                    //               children: [
+                    //                 SizedBox(
+                    //                   height: 20,
+                    //                 ),
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.symmetric(
+                    //                       horizontal: 25.0),
+                    //                   child: Row(
+                    //                     children: [
+                    //                       Text(
+                    //                         "Sort Audiobooks by:",
+                    //                         style: Theme.of(context)
+                    //                             .textTheme
+                    //                             .headline5
+                    //                             .copyWith(
+                    //                                 color: Colors.black,
+                    //                                 fontWeight:
+                    //                                     FontWeight.w600),
+                    //                       ),
+                    //                       Spacer(),
+                    //                       IconButton(
+                    //                         icon: Icon(Icons.clear_rounded,
+                    //                             color: Colors.black),
+                    //                         onPressed: () =>
+                    //                             Navigator.pop(context),
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 SizedBox(
+                    //                   height: 20,
+                    //                 ),
+                    //                 radioTile(GenreSort.ratedesc,
+                    //                     "Rate (Descending)"),
+                    //                 radioTile(
+                    //                     GenreSort.rateasc, "Rate (ascending)"),
+                    //                 radioTile(GenreSort.datedesc,
+                    //                     "Date (Descending)"),
+                    //                 radioTile(
+                    //                     GenreSort.dateasc, "Date (ascending)"),
+                    //                 radioTile(GenreSort.durasc,
+                    //                     "Duration (Descending)"),
+                    //                 radioTile(GenreSort.durdesc,
+                    //                     "Duration (ascending)"),
+                    //                 SizedBox(height: 20),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       );
+                    //     });
                   },
                   child: Container(
                     height: 60,
@@ -176,8 +177,10 @@ class _GenreSingleState extends State<GenreSingle> {
               label: "Search books here",
             ),
             context.watch<HomeData>().genreBooks.length == 0
-                ? Center(
-                    child: CircularProgressIndicator(),
+                ? Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   )
                 : BookGrid(books: context.read<HomeData>().genreBooks)
           ],

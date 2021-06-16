@@ -10,11 +10,11 @@ enum category {
 }
 
 class HomeData with ChangeNotifier {
-  List<FBookModel> _books;
-  List<FBookModel> _genreBooks;
+  List<FBookModel> _books = [];
+  List<FBookModel> _genreBooks = [];
 
-  List<FBookModel> get books => _books ?? [];
-  List<FBookModel> get genreBooks => _genreBooks ?? [];
+  List<FBookModel> get books => _books;
+  List<FBookModel> get genreBooks => _genreBooks;
 
   set updateBooks(List<FBookModel> books) {
     _books = books;
@@ -22,7 +22,7 @@ class HomeData with ChangeNotifier {
   }
 
   set updateGenreBooks(List<FBookModel> books) {
-    _genreBooks = books;
+    _genreBooks += books;
     notifyListeners();
   }
 

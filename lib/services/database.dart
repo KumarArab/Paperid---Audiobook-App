@@ -54,7 +54,11 @@ class FDatabase {
     DocumentSnapshot bookCollection =
         await _firestore.collection("Genres").doc(genre).get();
     List bookList = bookCollection["books"];
-    for (int i = 0; i < bookList.length; i++) {}
+
+    for (int i = 0; i < bookList.length; i++) {
+      genreBookList.add(await getBookPreview(bookList[i]));
+    }
+    return genreBookList;
   }
 
   Future<FBookModel> getBookPreview(String bookId) async {
