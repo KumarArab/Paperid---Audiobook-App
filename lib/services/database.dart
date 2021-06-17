@@ -37,41 +37,32 @@ class FDatabase {
     return user;
   }
 
-  Future<bool> isFirstTime() async {
-    final SharedPreferences _preferences =
-        await SharedPreferences.getInstance();
-    bool ift = _preferences.getBool('isFirstTime');
-    print("is First Time: $ift");
-    if (ift == null) {
-      _preferences.setBool('isFirstTime', false);
-      return true;
-    }
-    return false;
-  }
-
-  Future<List<FBookModel>> getGenreBook(String genre) async {
+  Future<List<FBookModel>> getGenreBooks(String genre) async {
     List<FBookModel> genreBookList = [];
-    DocumentSnapshot bookCollection =
+    DocumentSnapshot genreData =
         await _firestore.collection("Genres").doc(genre).get();
-    List bookList = bookCollection["books"];
-
+    List bookList = genreData["books"];
+    print(bookList);
     for (int i = 0; i < bookList.length; i++) {
-      genreBookList.add(await getBookPreview(bookList[i]));
+      genreBookList.add(await getBookData(bookList[i]));
+      print("book $i added");
     }
     return genreBookList;
   }
 
-  Future<FBookModel> getBookPreview(String bookId) async {
+  Future<FBookModel> getBookData(String bookId) async {
     DocumentSnapshot bookData =
         await _firestore.collection("Books").doc(bookId).get();
+    List<FChapterModel> chapters = await getChaptersData(bookData["id"]);
     FBookModel book = FBookModel(
       id: bookData['id'],
-      name: bookData['Name'],
-      author: bookData['Author'],
-      cover: bookData['Cover'],
+      name: bookData['Name'] ?? "Unknown",
+      author: bookData['Author'] ?? "Unknown",
+      cover: bookData['Cover'] ?? "Unknown",
       genre: bookData['Genre'],
       preface: bookData["Preface"],
       rating: bookData["Rating"],
+      audios: chapters,
     );
     return book;
   }
@@ -126,5 +117,19 @@ class FDatabase {
       print(e);
     }
     return chapters;
+  }
+
+  // ------------------------- LOCAL DATABASE FUNCTIONS --------------------------------//
+
+  Future<bool> isFirstTime() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    bool ift = _preferences.getBool('isFirstTime');
+    print("is First Time: $ift");
+    if (ift == null) {
+      _preferences.setBool('isFirstTime', false);
+      return true;
+    }
+    return false;
   }
 }

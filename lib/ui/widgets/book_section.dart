@@ -1,28 +1,28 @@
 import 'package:audiobook/models/bookModel.dart';
-import 'package:audiobook/services/homedata.dart';
+import 'package:audiobook/services/booksData.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BookSection extends StatelessWidget {
+class Booksection extends StatelessWidget {
   final String heading;
-  BookSection({this.heading});
+  Booksection({this.heading});
   @override
   Widget build(BuildContext context) {
     List<FBookModel> bookList = [];
-    if (context.watch<HomeData>().books.length != 0) {
+    if (context.watch<BookData>().allBooks.length != 0) {
       if (heading == "Currently Listening") {
-        bookList = context.watch<HomeData>().books.sublist(3, 5);
+        bookList = context.watch<BookData>().allBooks.sublist(3, 5);
       } else if (heading == "Trending") {
-        bookList = context.watch<HomeData>().books;
-      } else if (heading == "You May Like" || heading == "Audiobooks") {
-        bookList = context.watch<HomeData>().books.reversed.toList();
+        bookList = context.watch<BookData>().allBooks;
+      } else if (heading == "You May Like" || heading == "AudioBooks") {
+        bookList = context.watch<BookData>().allBooks.reversed.toList();
       }
     }
 
-    print(context.watch<HomeData>().books.length);
+    print(context.watch<BookData>().allBooks.length);
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class BookSection extends StatelessWidget {
           ),
           Container(
             height: SizeConfig.width * 0.8,
-            child: context.watch<HomeData>().books.length == 0
+            child: context.watch<BookData>().allBooks.length == 0
                 ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     shrinkWrap: true,

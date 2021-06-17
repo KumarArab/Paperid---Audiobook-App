@@ -37,13 +37,16 @@ class GenreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
+      onTap: () {
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (ctx) => GenreSingle(
               genre: kGenreList[index].name,
             ),
-          )),
+          ),
+        );
+      },
       // Navigator.of(context).pushNamed(GenreSingle.routeName,
       //     arguments: [kGenreList[index].name]),
       child: Container(

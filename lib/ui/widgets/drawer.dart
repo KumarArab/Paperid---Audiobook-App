@@ -44,8 +44,8 @@ class FDrawer extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: CachedNetworkImageProvider(
-                    // user.currentUser.photoUrl ??
-                    "https://image.freepik.com/free-vector/kid-world-book-day_24908-59754.jpg",
+                    user.currentUser.photoUrl ??
+                        "https://image.freepik.com/free-vector/kid-world-book-day_24908-59754.jpg",
                   ),
                   fit: BoxFit.cover),
             ),

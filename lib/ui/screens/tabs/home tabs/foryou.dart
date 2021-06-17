@@ -1,5 +1,5 @@
 import 'package:audiobook/models/bookModel.dart';
-import 'package:audiobook/services/homedata.dart';
+import 'package:audiobook/services/booksData.dart';
 import 'package:audiobook/ui/screens/book%20Details/bookDetails.dart';
 import 'package:audiobook/ui/screens/home.dart';
 import 'package:audiobook/ui/screens/tabs/genre_single.dart';
@@ -19,13 +19,13 @@ class ForYou extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            BookSection(
+            Booksection(
               heading: "Currently Listening",
             ),
-            BookSection(
+            Booksection(
               heading: "Trending",
             ),
-            BookSection(
+            Booksection(
               heading: "You May Like",
             ),
           ],

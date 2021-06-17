@@ -77,7 +77,7 @@ class _SearchState extends State<Search> {
     return Container(
       child: Column(
         children: [
-          BookSection(
+          Booksection(
             heading: "Audiobooks",
           ),
           AuthorSection()

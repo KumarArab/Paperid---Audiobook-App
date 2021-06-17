@@ -1,5 +1,5 @@
 import 'package:audiobook/models/bookModel.dart';
-import 'package:audiobook/services/homedata.dart';
+import 'package:audiobook/services/booksData.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/book_grid.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
@@ -28,9 +28,9 @@ class _DownloadsState extends State<Downloads> {
           ),
           Expanded(
             child: ListView(
-              children: List.generate(context.watch<HomeData>().books.length,
+              children: List.generate(context.watch<BookData>().allBooks.length,
                   (index) {
-                FBookModel book = context.watch<HomeData>().books[index];
+                FBookModel book = context.watch<BookData>().allBooks[index];
                 return Container(
                   height: SizeConfig.height * 0.3,
                   width: SizeConfig.width,
