@@ -1,4 +1,4 @@
-import 'package:audiobook/ui/widgets/appbar.dart';
+import 'package:audiobook/services/booksData.dart';
 import 'package:audiobook/ui/widgets/author_section.dart';
 import 'package:audiobook/ui/widgets/book_section.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
@@ -6,6 +6,7 @@ import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/dummy_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -79,6 +80,7 @@ class _SearchState extends State<Search> {
         children: [
           Booksection(
             heading: "Audiobooks",
+            books: context.watch<BookData>().allBooks,
           ),
           AuthorSection()
         ],

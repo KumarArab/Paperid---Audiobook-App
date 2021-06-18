@@ -62,45 +62,34 @@ class BookData with ChangeNotifier {
     List<FBookModel> bookList;
     switch (section) {
       case Section.CurrRead:
-        if (currReadbooks.isEmpty) {
-          bookList = await FDatabase().getBooks();
-          updateCurrReadBooks = bookList;
-        }
+        bookList = await FDatabase().getBooks();
+        updateCurrReadBooks = bookList;
+
         break;
       case Section.Trending:
-        if (trendingBooks.isEmpty) {
-          bookList = await FDatabase().getBooks();
-          updateTrendingBooks = bookList;
-        }
+        bookList = await FDatabase().getGenreBooks(data);
+        updateTrendingBooks = bookList;
 
         break;
       case Section.YouMayLike:
-        if (trendingBooks.isEmpty) {
-          bookList = await FDatabase().getBooks();
-          updateYouMayLikeBooks = bookList;
-        }
+        bookList = await FDatabase().getBooks();
+        updateYouMayLikeBooks = bookList;
 
         break;
       case Section.Genre:
-        if (trendingBooks.isEmpty) {
-          bookList = await FDatabase().getGenreBooks(data);
-          updateGenreBooks = bookList;
-        }
+        _genreBooks.clear();
+        bookList = await FDatabase().getGenreBooks(data);
+        updateGenreBooks = bookList;
 
         break;
       case Section.Author:
-        if (trendingBooks.isEmpty) {
-          bookList = await FDatabase().getBooks();
-          updateAuthorBooks = bookList;
-        }
+        bookList = await FDatabase().getBooks();
+        updateAuthorBooks = bookList;
 
         break;
       case Section.All:
-        if (trendingBooks.isEmpty) {
-          bookList = await FDatabase().getBooks();
-          updateAllBooks = bookList;
-        }
-
+        bookList = await FDatabase().getBooks();
+        updateAllBooks = bookList;
         break;
     }
     // updateBooks = bookList;

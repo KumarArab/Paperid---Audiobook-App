@@ -15,30 +15,11 @@ final GlobalKey<NavigatorState> homeTabNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> searchTabNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> libraryTabNavKey = GlobalKey<NavigatorState>();
 
-class AppFrame extends StatefulWidget {
+class AppFrame extends StatelessWidget {
   static const routeName = '/appframe';
-  @override
-  _AppFrameState createState() => _AppFrameState();
-}
-
-class _AppFrameState extends State<AppFrame> {
   ValueNotifier<int> _pageNotifier = ValueNotifier(0);
 
   final listOfKeys = [homeTabNavKey, searchTabNavKey, libraryTabNavKey];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    context
-        .read<BookData>()
-        .fetchBooks(Section.All, "")
-        .then((_) => print("Books Updated"));
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +40,9 @@ class _AppFrameState extends State<AppFrame> {
             ],
             currentIndex: _pageNotifier.value,
             onTap: (page) {
-              setState(() {
-                _pageNotifier.value = page;
-              });
+              //setState(() {
+              _pageNotifier.value = page;
+              //});
             },
           ),
           tabBuilder: (ctx, i) {

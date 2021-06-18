@@ -10,6 +10,7 @@ import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Discover extends StatefulWidget {
   @override
@@ -25,6 +26,17 @@ class _DiscoverState extends State<Discover> {
     _controller = PageController();
     _pageNotifier = ValueNotifier(0);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<BookData>().fetchBooks(Section.All, "").then(
+          (_) => print("All Books Updated"),
+        );
+    context.read<BookData>().fetchBooks(Section.Trending, "Trending").then(
+          (_) => print("Trending Books Updated"),
+        );
+    super.didChangeDependencies();
   }
 
   @override

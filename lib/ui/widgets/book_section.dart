@@ -1,26 +1,29 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/ui/screens/view_all.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Booksection extends StatelessWidget {
   final String heading;
-  Booksection({this.heading});
+  final List<FBookModel> books;
+  Booksection({@required this.heading, @required this.books});
   @override
   Widget build(BuildContext context) {
-    List<FBookModel> bookList = [];
-    if (context.watch<BookData>().allBooks.length != 0) {
-      if (heading == "Currently Listening") {
-        bookList = context.watch<BookData>().allBooks.sublist(3, 5);
-      } else if (heading == "Trending") {
-        bookList = context.watch<BookData>().allBooks;
-      } else if (heading == "You May Like" || heading == "AudioBooks") {
-        bookList = context.watch<BookData>().allBooks.reversed.toList();
-      }
-    }
+    // List<FBookModel> bookList = [];
+    // if (context.watch<BookData>().allBooks.length != 0) {
+    //   if (heading == "Currently Listening") {
+    //     bookList = context.watch<BookData>().allBooks.sublist(3, 5);
+    //   } else if (heading == "Trending") {
+    //     bookList = context.watch<BookData>().allBooks;
+    //   } else if (heading == "You May Like" || heading == "AudioBooks") {
+    //     bookList = context.watch<BookData>().allBooks.reversed.toList();
+    //   }
+    // }
 
     print(context.watch<BookData>().allBooks.length);
     return Container(
@@ -39,7 +42,13 @@ class Booksection extends StatelessWidget {
                 ),
                 Spacer(),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (ctx) =>
+                                ViewAll(books: books, title: heading)));
+                  },
                   child: Text(
                     "View All",
                     style: Theme.of(context)
@@ -53,14 +62,14 @@ class Booksection extends StatelessWidget {
           ),
           Container(
             height: SizeConfig.width * 0.8,
-            child: context.watch<BookData>().allBooks.length == 0
+            child: books.length == 0
                 ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: bookList.length,
+                    itemCount: books.length,
                     itemBuilder: (ctx, i) {
-                      FBookModel book = bookList[i];
+                      FBookModel book = books[i];
                       return Container(
                         margin: EdgeInsets.only(right: 30),
                         child: Column(

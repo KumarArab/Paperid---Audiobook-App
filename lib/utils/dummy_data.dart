@@ -6,7 +6,7 @@ import 'package:audiobook/models/shelfModel.dart';
 List<FGenreModel> kGenreList = [
   FGenreModel(
       imagePath: "assets/images/genres/action-adventure.png",
-      name: "Action &\nAdventure"),
+      name: "Action & Adventure"),
   FGenreModel(imagePath: "assets/images/genres/romance.png", name: "Romance"),
   FGenreModel(imagePath: "assets/images/genres/mystery.png", name: "Mystery"),
   FGenreModel(
@@ -16,7 +16,7 @@ List<FGenreModel> kGenreList = [
   FGenreModel(imagePath: "assets/images/genres/fantasy.png", name: "Fantasy"),
   FGenreModel(imagePath: "assets/images/genres/fiction.png", name: "Fiction"),
   FGenreModel(imagePath: "assets/images/genres/classics.png", name: "Classics"),
-  FGenreModel(imagePath: "assets/images/genres/sci-fi.png", name: "Sci-Fi"),
+  FGenreModel(imagePath: "assets/images/genres/sci-fi.png", name: "Sci-fi"),
 ];
 
 List<FAuthorModel> kAuthorList = [
