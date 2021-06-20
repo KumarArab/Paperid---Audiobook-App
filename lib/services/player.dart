@@ -1,10 +1,10 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/utils/snackbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Player with ChangeNotifier {
   AudioPlayer audioPlayer = AudioPlayer();
@@ -37,7 +37,6 @@ class Player with ChangeNotifier {
       if (playerState == PlayerState.PLAYING) audioState = "Playing";
       if (playerState == PlayerState.PAUSED) audioState = "Paused";
       if (playerState == PlayerState.COMPLETED) audioState = "Completed";
-
       notifyListeners();
     });
 

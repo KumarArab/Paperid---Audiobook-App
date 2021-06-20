@@ -123,6 +123,7 @@ class AppData with ChangeNotifier {
         updateAuthorList = await FDatabase().getAuthorDetails();
         break;
       case AuthorSearch.Start:
+        _searchAuthorList.clear();
         updateAuthorSearchList =
             await FDatabase().getAuthorAlphaSearchDetails(data);
         break;

@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:audiobook/services/appData.dart';
@@ -54,7 +55,6 @@ class MyApp extends StatelessWidget {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),
           Home.routeName: (BuildContext context) => Home(),
-          // UserProfile.routeName: (BuildContext context) => UserProfile(),
           AuthenticationWrapper.routeName: (BuildContext context) =>
               AuthenticationWrapper(),
           Splash.routName: (BuildContext context) => Splash(),
@@ -72,16 +72,9 @@ class Base extends StatefulWidget {
 }
 
 class _BaseState extends State<Base> {
-  FDatabase db;
-  @override
-  void initState() {
-    db = FDatabase();
-    super.initState();
-  }
-
   @override
   void didChangeDependencies() {
-    db.isFirstTime().then((value) {
+    FDatabase().isFirstTime().then((value) {
       if (value)
         Navigator.pushReplacementNamed(context, Onboard.routeName);
       else
