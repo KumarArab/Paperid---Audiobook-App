@@ -43,14 +43,6 @@ class Book extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(20),
-                  // boxShadow: <BoxShadow>[
-                  //   BoxShadow(
-                  //     color: Colors.black.withOpacity(0.2),
-                  //     blurRadius: 10,
-                  //     offset: Offset(8, 8),
-                  //     spreadRadius: 5,
-                  //   )
-                  // ],
                 ),
                 // child: CachedNetworkImageProvider(
               ),

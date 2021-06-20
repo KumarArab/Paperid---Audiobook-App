@@ -5,6 +5,7 @@ import 'package:audiobook/ui/screens/tabs/filter.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/book_grid.dart';
+import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,6 +43,7 @@ class _GenreSingleState extends State<GenreSingle> {
     List<FBookModel> books = context.watch<AppData>().genreBooks;
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: MiniPlayer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,

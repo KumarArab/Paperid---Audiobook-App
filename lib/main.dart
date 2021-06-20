@@ -48,9 +48,7 @@ class MyApp extends StatelessWidget {
         title: 'AudioBook',
         debugShowCheckedModeBanner: false,
         theme: AppTheme().buildLightTheme(),
-        //darkTheme: AppTheme().buildDarkTheme(),
         home: Base(),
-        //onGenerateRoute: routeLegend.generateRoute,
         routes: {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),

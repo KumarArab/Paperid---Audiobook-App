@@ -72,6 +72,7 @@ class FDatabase {
       genre: bookData['Genre'],
       preface: bookData["Preface"],
       rating: bookData["Rating"],
+      color: bookData['color'],
       audios: chapters,
     );
     return book;
@@ -94,6 +95,7 @@ class FDatabase {
         genre: bookData['Genre'],
         preface: bookData["Preface"],
         rating: bookData["Rating"],
+        color: bookData['color'],
         audios: chapters,
       );
 

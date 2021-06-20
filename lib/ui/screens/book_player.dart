@@ -33,8 +33,27 @@ class BookPlayer extends StatelessWidget {
           child: Column(
             children: [
               Spacer(),
-              Book(
-                book: playerRead.currentBook,
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Color(
+                            int.parse("0xff" + playerRead.currentBook.color),
+                          ).withOpacity(0.4),
+                          blurRadius: 34,
+                          offset: Offset(24, 24),
+                          spreadRadius: 10,
+                        ),
+                      ],
+                    ),
+                    child: Book(
+                      book: playerRead.currentBook,
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),

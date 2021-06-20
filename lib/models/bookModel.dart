@@ -9,6 +9,7 @@ class FBookModel {
   List<dynamic> genre;
   String preface;
   String rating;
+  String color;
   List<FChapterModel> audios;
 
   FBookModel(
@@ -19,5 +20,6 @@ class FBookModel {
       this.genre,
       this.name,
       this.preface,
+      this.color,
       this.rating});
 }
