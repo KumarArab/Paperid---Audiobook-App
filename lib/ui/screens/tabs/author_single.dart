@@ -1,10 +1,11 @@
 import 'package:audiobook/models/bookModel.dart';
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/screens/tabs/filter.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/widgets/back_button.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/ui/widgets/book_grid.dart';
+import 'package:audiobook/ui/widgets/miniplayer.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/dummy_data.dart';
@@ -42,9 +43,17 @@ class _AuthorSingleState extends State<AuthorSingle> {
   ];
 
   @override
+  void initState() {
+    context.read<AppData>().fetchBooks(Section.Author, widget.author);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var books = context.watch<AppData>().authorBooks;
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: MiniPlayer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -112,7 +121,9 @@ class _AuthorSingleState extends State<AuthorSingle> {
                       return genreChip(i);
                     }),
               ),
-              BookGrid()
+              BookGrid(
+                books: books,
+              )
             ],
           ),
         ),
@@ -130,7 +141,6 @@ class _AuthorSingleState extends State<AuthorSingle> {
             genreChipSelection[i] = false;
           }
           genreChipSelection[index] = true;
-          print(genreChipTitles[index]);
         });
       },
       child: Container(

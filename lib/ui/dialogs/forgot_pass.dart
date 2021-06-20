@@ -82,7 +82,6 @@ class _ForgotPassState extends State<ForgotPass> {
                         ),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      print(email.text);
                       FocusScope.of(context).unfocus();
 
                       context

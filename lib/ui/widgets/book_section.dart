@@ -1,9 +1,10 @@
 import 'package:audiobook/models/bookModel.dart';
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/screens/view_all.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
+import 'package:audiobook/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,6 @@ class Booksection extends StatelessWidget {
     //   }
     // }
 
-    print(context.watch<BookData>().allBooks.length);
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +63,7 @@ class Booksection extends StatelessWidget {
           Container(
             height: SizeConfig.width * 0.8,
             child: books.length == 0
-                ? Center(child: CircularProgressIndicator())
+                ? Center(child: SnackToast().showLoadingAsset())
                 : ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,

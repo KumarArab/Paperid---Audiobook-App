@@ -1,6 +1,6 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/database.dart';
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/screens/tabs/filter.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:audiobook/ui/widgets/book.dart';
@@ -31,7 +31,7 @@ class _GenreSingleState extends State<GenreSingle> {
   void initState() {
     _searchGenreSingleController = TextEditingController();
     context
-        .read<BookData>()
+        .read<AppData>()
         .fetchBooks(Section.Genre, widget.genre)
         .then((_) => print(" Genre Books Updated"));
     super.initState();
@@ -39,7 +39,7 @@ class _GenreSingleState extends State<GenreSingle> {
 
   @override
   Widget build(BuildContext context) {
-    List<FBookModel> books = context.watch<BookData>().genreBooks;
+    List<FBookModel> books = context.watch<AppData>().genreBooks;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -179,13 +179,7 @@ class _GenreSingleState extends State<GenreSingle> {
               isObsecure: false,
               label: "Search books here",
             ),
-            books.length == 0
-                ? Expanded(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : BookGrid(books: books)
+            BookGrid(books: books)
           ],
         ),
       ),

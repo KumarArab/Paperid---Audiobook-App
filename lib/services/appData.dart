@@ -1,3 +1,4 @@
+import 'package:audiobook/models/authorModel.dart';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +13,9 @@ enum Section {
   Author,
 }
 
-class BookData with ChangeNotifier {
+enum AuthorSearch { All, Start, Keyword }
+
+class AppData with ChangeNotifier {
   // BOOK DATA
   List<FBookModel> _allBooks = [];
   List<FBookModel> _currRead = [];
@@ -21,12 +24,19 @@ class BookData with ChangeNotifier {
   List<FBookModel> _genreBooks = [];
   List<FBookModel> _authorBooks = [];
 
+  // AUTHOR DATA
+  List<FAuthorModel> _authorList = [];
+  List<FAuthorModel> _searchAuthorList = [];
+
   List<FBookModel> get currReadbooks => _currRead;
   List<FBookModel> get trendingBooks => _trending;
   List<FBookModel> get youMayLikeBooks => _youMayLike;
   List<FBookModel> get genreBooks => _genreBooks;
   List<FBookModel> get authorBooks => _authorBooks;
   List<FBookModel> get allBooks => _allBooks;
+
+  List<FAuthorModel> get allAuthors => _authorList;
+  List<FAuthorModel> get searchAuthorResult => _searchAuthorList;
 
   set updateCurrReadBooks(List<FBookModel> books) {
     _currRead = books;
@@ -58,6 +68,16 @@ class BookData with ChangeNotifier {
     notifyListeners();
   }
 
+  set updateAuthorList(List<FAuthorModel> authors) {
+    _authorList = authors;
+    notifyListeners();
+  }
+
+  set updateAuthorSearchList(List<FAuthorModel> authors) {
+    _searchAuthorList = authors;
+    notifyListeners();
+  }
+
   Future<String> fetchBooks(Section section, String data) async {
     List<FBookModel> bookList;
     switch (section) {
@@ -83,7 +103,8 @@ class BookData with ChangeNotifier {
 
         break;
       case Section.Author:
-        bookList = await FDatabase().getBooks();
+        _authorBooks.clear();
+        bookList = await FDatabase().getAuthorBooks(data);
         updateAuthorBooks = bookList;
 
         break;
@@ -93,6 +114,21 @@ class BookData with ChangeNotifier {
         break;
     }
     // updateBooks = bookList;
+    return "success";
+  }
+
+  Future<String> fetchAuthors(AuthorSearch searchType, String data) async {
+    switch (searchType) {
+      case AuthorSearch.All:
+        updateAuthorList = await FDatabase().getAuthorDetails();
+        break;
+      case AuthorSearch.Start:
+        updateAuthorSearchList =
+            await FDatabase().getAuthorAlphaSearchDetails(data);
+        break;
+      case AuthorSearch.Keyword:
+        break;
+    }
     return "success";
   }
 }

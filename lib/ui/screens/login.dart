@@ -137,8 +137,6 @@ class _LoginState extends State<Login> {
                           ),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        print(email.text);
-                        print(password.text);
                         context
                             .read<AuthenticaitonService>()
                             .signIn(email.text, password.text)

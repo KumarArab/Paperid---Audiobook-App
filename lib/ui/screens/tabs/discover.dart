@@ -1,4 +1,4 @@
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/authors.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/foryou.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
@@ -30,12 +30,16 @@ class _DiscoverState extends State<Discover> {
 
   @override
   void didChangeDependencies() {
-    context.read<BookData>().fetchBooks(Section.All, "").then(
+    context.read<AppData>().fetchBooks(Section.All, "").then(
           (_) => print("All Books Updated"),
         );
-    context.read<BookData>().fetchBooks(Section.Trending, "Trending").then(
+    context.read<AppData>().fetchBooks(Section.Trending, "Trending").then(
           (_) => print("Trending Books Updated"),
         );
+    context
+        .read<AppData>()
+        .fetchAuthors(AuthorSearch.All, "")
+        .then((_) => print("Authors updated"));
     super.didChangeDependencies();
   }
 

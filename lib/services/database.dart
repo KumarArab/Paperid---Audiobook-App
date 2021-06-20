@@ -1,3 +1,4 @@
+import 'package:audiobook/models/authorModel.dart';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/models/user.dart';
@@ -42,12 +43,21 @@ class FDatabase {
     DocumentSnapshot genreData =
         await _firestore.collection("Genres").doc(genre).get();
     List bookList = genreData["books"];
-    print(bookList);
     for (int i = 0; i < bookList.length; i++) {
       genreBookList.add(await getBookData(bookList[i]));
-      print("book $i added");
     }
     return genreBookList;
+  }
+
+  Future<List<FBookModel>> getAuthorBooks(String author) async {
+    List<FBookModel> authorBookList = [];
+    DocumentSnapshot authorData =
+        await _firestore.collection("Authors").doc(author).get();
+    List bookList = authorData["books"];
+    for (int i = 0; i < bookList.length; i++) {
+      authorBookList.add(await getBookData(bookList[i]));
+    }
+    return authorBookList;
   }
 
   Future<FBookModel> getBookData(String bookId) async {
@@ -119,13 +129,49 @@ class FDatabase {
     return chapters;
   }
 
+  Future<List<FAuthorModel>> getAuthorDetails() async {
+    List<FAuthorModel> authorList = [];
+    try {
+      QuerySnapshot snapshot = await _firestore.collection("Authors").get();
+      for (int i = 0; i < snapshot.size; i++) {
+        Map<String, dynamic> authorData = snapshot.docs[i].data();
+        authorList.add(FAuthorModel(
+            imagepath: authorData['imageUrl'],
+            name: authorData['name'],
+            books: authorData['books']));
+      }
+    } catch (e) {
+      print(e);
+    }
+    return authorList;
+  }
+
+  Future<List<FAuthorModel>> getAuthorAlphaSearchDetails(String start) async {
+    List<FAuthorModel> authorList = [];
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection("Authors")
+          .where('start', isEqualTo: start)
+          .get();
+      for (int i = 0; i < snapshot.size; i++) {
+        Map<String, dynamic> authorData = snapshot.docs[i].data();
+        authorList.add(FAuthorModel(
+            imagepath: authorData['imageUrl'],
+            name: authorData['name'],
+            books: authorData['books']));
+      }
+    } catch (e) {
+      print(e);
+    }
+    return authorList;
+  }
+
   // ------------------------- LOCAL DATABASE FUNCTIONS --------------------------------//
 
   Future<bool> isFirstTime() async {
     final SharedPreferences _preferences =
         await SharedPreferences.getInstance();
     bool ift = _preferences.getBool('isFirstTime');
-    print("is First Time: $ift");
     if (ift == null) {
       _preferences.setBool('isFirstTime', false);
       return true;

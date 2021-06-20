@@ -1,4 +1,4 @@
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/widgets/author_section.dart';
 import 'package:audiobook/ui/widgets/book_section.dart';
 import 'package:audiobook/ui/widgets/miniplayer.dart';
@@ -6,6 +6,7 @@ import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/dummy_data.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class Search extends StatefulWidget {
@@ -65,7 +66,11 @@ class _SearchState extends State<Search> {
                         return showRecentSearches();
                       } else
                         return showSearchResult();
-                    })
+                    }),
+                Container(
+                  color: Colors.red,
+                  child: Image.asset("assets/images/loading.gif", height: 200),
+                ),
               ],
             ),
           ),
@@ -80,7 +85,7 @@ class _SearchState extends State<Search> {
         children: [
           Booksection(
             heading: "Audiobooks",
-            books: context.watch<BookData>().allBooks,
+            books: context.watch<AppData>().allBooks,
           ),
           AuthorSection()
         ],

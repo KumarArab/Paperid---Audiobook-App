@@ -1,11 +1,16 @@
 import 'dart:convert';
 
+import 'package:audiobook/models/authorModel.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/screens/tabs/author_single.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/dummy_data.dart';
 import 'package:audiobook/utils/size_config.dart';
+import 'package:audiobook/utils/snackbar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Authors extends StatefulWidget {
   @override
@@ -19,20 +24,24 @@ class _AuthorsState extends State<Authors> {
   @override
   void initState() {
     _searchAuthorController = TextEditingController();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var authorList = selectedAlp != ''
+        ? context.watch<AppData>().searchAuthorResult
+        : context.watch<AppData>().allAuthors;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          TextBox(
-            controller: _searchAuthorController,
-            isObsecure: false,
-            label: "Search Author",
-          ),
+          // TextBox(
+          //   controller: _searchAuthorController,
+          //   isObsecure: false,
+          //   label: "Search Author",
+          // ),
           Container(
             height: kToolbarHeight,
             width: SizeConfig.width,
@@ -48,6 +57,9 @@ class _AuthorsState extends State<Authors> {
                       onTap: () {
                         setState(() {
                           selectedAlp = String.fromCharCode(i + 65);
+                          context
+                              .read<AppData>()
+                              .fetchAuthors(AuthorSearch.Start, selectedAlp);
                         });
                       },
                       child: CircleAvatar(
@@ -70,17 +82,14 @@ class _AuthorsState extends State<Authors> {
           ),
           Expanded(
             child: Container(
-              child: GridView.count(
-                // Create a grid with 2 columns. If you change the scrollDirection to
-                // horizontal, this produces 2 rows.
-                crossAxisCount: 2,
-                // Generate 100 widgets that display their index in the List.
-                children: List.generate(kAuthorList.length, (index) {
-                  return AuthorCard(
-                    index: index,
-                  );
-                }),
-              ),
+              child: authorList.length == 0
+                  ? Center(child: SnackToast().showLoadingAsset())
+                  : GridView.count(
+                      crossAxisCount: 2,
+                      children: List.generate(authorList.length, (index) {
+                        return AuthorCard(author: authorList[index]);
+                      }),
+                    ),
             ),
           ),
         ],
@@ -90,8 +99,8 @@ class _AuthorsState extends State<Authors> {
 }
 
 class AuthorCard extends StatelessWidget {
-  final int index;
-  AuthorCard({this.index});
+  final FAuthorModel author;
+  AuthorCard({this.author});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -99,7 +108,7 @@ class AuthorCard extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (ctx) => AuthorSingle(
-            author: kAuthorList[index].name,
+            author: author.name,
           ),
         ),
       ),
@@ -113,7 +122,7 @@ class AuthorCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: AssetImage(kAuthorList[index].imagepath),
+                    image: CachedNetworkImageProvider(author.imagepath),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -121,7 +130,7 @@ class AuthorCard extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              kAuthorList[index].name,
+              author.name,
               style: Theme.of(context).textTheme.bodyText1.copyWith(
                     color: Colors.black,
                   ),

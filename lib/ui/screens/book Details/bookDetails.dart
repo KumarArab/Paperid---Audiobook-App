@@ -1,6 +1,6 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/book%20Details/info_content.dart';
 import 'package:audiobook/ui/screens/book%20Details/review_rating.dart';

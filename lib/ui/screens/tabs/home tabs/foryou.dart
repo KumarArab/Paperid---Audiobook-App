@@ -1,4 +1,4 @@
-import 'package:audiobook/services/booksData.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/widgets/book_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,19 +12,19 @@ class ForYou extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            context.watch<BookData>().currReadbooks.length > 0
+            context.watch<AppData>().currReadbooks.length > 0
                 ? Booksection(
                     heading: "Currently Listening",
-                    books: context.watch<BookData>().currReadbooks,
+                    books: context.watch<AppData>().currReadbooks,
                   )
                 : SizedBox(),
             Booksection(
               heading: "Trending",
-              books: context.watch<BookData>().trendingBooks,
+              books: context.watch<AppData>().trendingBooks,
             ),
             Booksection(
               heading: "You May Like",
-              books: context.watch<BookData>().allBooks,
+              books: context.watch<AppData>().allBooks,
             ),
           ],
         ),

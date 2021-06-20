@@ -86,9 +86,7 @@ class _SubmitReviewState extends State<SubmitReview> {
                         starCount: 5,
                         allowHalfRating: true,
                         spacing: 2.0,
-                        onRated: (value) {
-                          print(value);
-                        },
+                        onRated: (value) {},
                       ),
                       SizedBox(height: 20),
                       Row(
@@ -128,9 +126,7 @@ class _SubmitReviewState extends State<SubmitReview> {
                         starCount: 5,
                         allowHalfRating: true,
                         spacing: 2.0,
-                        onRated: (value) {
-                          print(value);
-                        },
+                        onRated: (value) {},
                       ),
                       SizedBox(
                         height: 40,

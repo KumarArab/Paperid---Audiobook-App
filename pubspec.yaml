@@ -39,6 +39,7 @@ dependencies:
   flutter_icons: 
   syncfusion_flutter_sliders: 
   audio_service: 
+  lottie: 
 
 
 
@@ -78,6 +79,7 @@ flutter:
     - assets/images/
     - assets/images/genres/
     - assets/images/authors/
+    - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
