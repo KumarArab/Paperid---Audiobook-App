@@ -2,7 +2,6 @@ import 'package:audiobook/models/authorModel.dart';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
 import 'package:audiobook/models/user.dart';
-import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,6 +53,15 @@ class FDatabase {
     DocumentSnapshot authorData =
         await _firestore.collection("Authors").doc(author).get();
     List bookList = authorData["books"];
+    for (int i = 0; i < bookList.length; i++) {
+      authorBookList.add(await getBookData(bookList[i]));
+    }
+    return authorBookList;
+  }
+
+  Future<List<FBookModel>> getCurrentlyListeningBooks(
+      List<String> bookList) async {
+    List<FBookModel> authorBookList = [];
     for (int i = 0; i < bookList.length; i++) {
       authorBookList.add(await getBookData(bookList[i]));
     }
@@ -179,5 +187,27 @@ class FDatabase {
       return true;
     }
     return false;
+  }
+
+  Future<void> addToLocalCurrentlyListening(String bookId) async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    List<String> bookList = _preferences.getStringList("CurList");
+    if (bookList == null) {
+      _preferences.setStringList("CurList", [bookId]);
+      print("cache library created");
+    } else if (!bookList.contains(bookId)) {
+      bookList.add(bookId);
+      _preferences.setStringList("CurList", bookList);
+      print("book added locally");
+    }
+  }
+
+  Future<List<String>> getLocalCurrentlyListeningBooks() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    List<String> bookList = _preferences.getStringList("CurList");
+
+    return bookList ?? [];
   }
 }

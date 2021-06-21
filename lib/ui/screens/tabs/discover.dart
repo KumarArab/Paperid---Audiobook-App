@@ -30,14 +30,15 @@ class _DiscoverState extends State<Discover> {
 
   @override
   void didChangeDependencies() {
-    context.read<AppData>().fetchBooks(Section.All, "").then(
+    AppData appData = context.read<AppData>();
+    appData.fetchBooks(Section.CurrRead, "");
+    appData.fetchBooks(Section.All, "").then(
           (_) => print("All Books Updated"),
         );
-    context.read<AppData>().fetchBooks(Section.Trending, "Trending").then(
+    appData.fetchBooks(Section.Trending, "Trending").then(
           (_) => print("Trending Books Updated"),
         );
-    context
-        .read<AppData>()
+    appData
         .fetchAuthors(AuthorSearch.All, "")
         .then((_) => print("Authors updated"));
     super.didChangeDependencies();

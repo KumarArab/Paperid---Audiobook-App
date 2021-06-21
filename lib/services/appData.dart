@@ -16,6 +16,7 @@ enum Section {
 enum AuthorSearch { All, Start, Keyword }
 
 class AppData with ChangeNotifier {
+  FDatabase database = FDatabase();
   // BOOK DATA
   List<FBookModel> _allBooks = [];
   List<FBookModel> _currRead = [];
@@ -82,8 +83,11 @@ class AppData with ChangeNotifier {
     List<FBookModel> bookList;
     switch (section) {
       case Section.CurrRead:
-        bookList = await FDatabase().getBooks();
-        updateCurrReadBooks = bookList;
+        var localbookList = await database.getLocalCurrentlyListeningBooks();
+        if (localbookList != null && localbookList.isNotEmpty) {
+          bookList = await database.getCurrentlyListeningBooks(localbookList);
+          updateCurrReadBooks = bookList;
+        }
 
         break;
       case Section.Trending:

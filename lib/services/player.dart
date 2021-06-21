@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
+import 'package:audiobook/services/database.dart';
 import 'package:audiobook/utils/snackbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,6 +49,7 @@ class Player with ChangeNotifier {
   playAudio(FBookModel book, int index) {
     currentBook = book ?? currentBook;
     playlist = currentBook.audios;
+    FDatabase().addToLocalCurrentlyListening(book.id);
     if (playlist[index].url != null) {
       currentAudioIndex = index;
     } else {
