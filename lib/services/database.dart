@@ -1,12 +1,17 @@
 import 'package:audiobook/models/authorModel.dart';
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/models/chapterModel.dart';
+import 'package:audiobook/models/shelfModel.dart';
 import 'package:audiobook/models/user.dart';
+import 'package:audiobook/services/appData.dart';
+import 'package:audiobook/services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FDatabase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  AuthenticaitonService user;
+
   Future<String> createUser(FUser user) async {
     try {
       await _firestore.collection("users").doc(user.uid).set(user.toMap());
@@ -174,6 +179,44 @@ class FDatabase {
       print(e);
     }
     return authorList;
+  }
+
+  Future<void> addToShelves(String bookId, FShelfModel shelf) async {
+    try {
+      shelf.books.add(bookId);
+      await _firestore
+          .collection("users")
+          .doc(user.currentUser.uid)
+          .collection("shelves")
+          .doc(shelf.name)
+          .set({
+        "books": shelf.books,
+        "name": shelf.name,
+      }, SetOptions(merge: true, mergeFields: ["books"]));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<List<FShelfModel>> getShelves() async {
+    List<FShelfModel> shelves;
+    try {
+      QuerySnapshot shelfSnapshot = await _firestore
+          .collection("users")
+          .doc(user.currentUser.uid)
+          .collection("shelves")
+          .get();
+      assert(shelfSnapshot != null);
+      shelfSnapshot.docs.forEach((element) {
+        shelves.add(FShelfModel(
+          books: element["books"],
+          name: element["name"],
+        ));
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+    return shelves;
   }
 
   // ------------------------- LOCAL DATABASE FUNCTIONS --------------------------------//

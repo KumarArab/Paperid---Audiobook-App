@@ -1,12 +1,16 @@
+import 'package:audiobook/models/bookModel.dart';
+import 'package:audiobook/models/shelfModel.dart';
+import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddToShelf extends StatefulWidget {
-  final String bookname;
-  AddToShelf({this.bookname});
+  final FBookModel book;
+  AddToShelf({this.book});
   @override
   _AddToShelfState createState() => _AddToShelfState();
 }
@@ -14,13 +18,6 @@ class AddToShelf extends StatefulWidget {
 class _AddToShelfState extends State<AddToShelf> {
   TextEditingController _newShelfController = TextEditingController();
   List<bool> checkList = [true, false, false, false];
-
-  List<String> shelves = [
-    "Top Sci-fi Novels",
-    "Must Listen Books",
-    "Classics",
-    "Top Fantasy Novels"
-  ];
 
   mark(int i, val) {
     setState(() {
@@ -30,6 +27,7 @@ class _AddToShelfState extends State<AddToShelf> {
 
   @override
   Widget build(BuildContext context) {
+    List<FShelfModel> shelves = context.watch<AppData>().getShelves;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -154,11 +152,9 @@ class _AddToShelfState extends State<AddToShelf> {
                                                       height: 1.3),
                                             ),
                                             onPressed: () {
-                                              setState(() {
-                                                checkList.add(false);
-                                                shelves.add(
-                                                    _newShelfController.text);
-                                              });
+                                              context.read<AppData>().addShelf(
+                                                  _newShelfController.text);
+                                              Navigator.pop(context);
                                             }),
                                       ),
                                       SizedBox(
@@ -187,7 +183,9 @@ class _AddToShelfState extends State<AddToShelf> {
                       height: 20,
                     ),
                     Column(
-                      children: buildShelves(),
+                      children: shelves == null
+                          ? Text("No Shelf created yet")
+                          : buildShelves(shelves),
                     )
                   ],
                 )
@@ -199,22 +197,23 @@ class _AddToShelfState extends State<AddToShelf> {
     );
   }
 
-  List<Widget> buildShelves() {
+  List<Widget> buildShelves(List<FShelfModel> shelves) {
     List<CheckboxListTile> shelfTiles = [];
     for (int i = 0; i < shelves.length; i++) {
       shelfTiles.add(
         CheckboxListTile(
-          value: checkList[i],
+          value: shelves[i].books.contains(widget.book.id),
           onChanged: (val) => mark(i, val),
           title: Text(
-            shelves[i],
+            shelves[i].name,
             style: Theme.of(context).textTheme.headline5.copyWith(
                   color: AppTheme().mulledWineColor,
                   fontWeight: FontWeight.w600,
                 ),
           ),
           subtitle: checkList[i]
-              ? Text("${widget.bookname} added to the shelf ${shelves[i]}")
+              ? Text(
+                  "${widget.book.name} added to the shelf ${shelves[i].name}")
               : SizedBox(),
           controlAffinity: ListTileControlAffinity.leading,
         ),

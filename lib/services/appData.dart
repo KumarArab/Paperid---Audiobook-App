@@ -1,6 +1,8 @@
 import 'package:audiobook/models/authorModel.dart';
 import 'package:audiobook/models/bookModel.dart';
+import 'package:audiobook/models/shelfModel.dart';
 import 'package:audiobook/services/database.dart';
+import 'package:audiobook/ui/screens/tabs/shelf.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -29,6 +31,8 @@ class AppData with ChangeNotifier {
   List<FAuthorModel> _authorList = [];
   List<FAuthorModel> _searchAuthorList = [];
 
+  List<FShelfModel> _shelves = [];
+
   List<FBookModel> get currReadbooks => _currRead;
   List<FBookModel> get trendingBooks => _trending;
   List<FBookModel> get youMayLikeBooks => _youMayLike;
@@ -38,6 +42,8 @@ class AppData with ChangeNotifier {
 
   List<FAuthorModel> get allAuthors => _authorList;
   List<FAuthorModel> get searchAuthorResult => _searchAuthorList;
+
+  List<FShelfModel> get getShelves => _shelves;
 
   set updateCurrReadBooks(List<FBookModel> books) {
     _currRead = books;
@@ -76,6 +82,16 @@ class AppData with ChangeNotifier {
 
   set updateAuthorSearchList(List<FAuthorModel> authors) {
     _searchAuthorList = authors;
+    notifyListeners();
+  }
+
+  set updateShelves(List<FShelfModel> shelves) {
+    _shelves = shelves;
+    notifyListeners();
+  }
+
+  set addShelfToShelves(FShelfModel shelf) {
+    _shelves.add(shelf);
     notifyListeners();
   }
 
@@ -135,5 +151,14 @@ class AppData with ChangeNotifier {
         break;
     }
     return "success";
+  }
+
+  Future<String> fetchShelves() async {
+    updateShelves = await FDatabase().getShelves();
+    return "success";
+  }
+
+  void addShelf(String shelfName) {
+    addShelfToShelves = FShelfModel(name: shelfName, books: []);
   }
 }

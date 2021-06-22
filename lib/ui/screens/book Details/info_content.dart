@@ -152,7 +152,7 @@ class InfoContent extends StatelessWidget {
                     context,
                     CupertinoPageRoute(
                       builder: (ctx) => AddToShelf(
-                        bookname: book.name,
+                        book: book,
                       ),
                     ),
                   ),
