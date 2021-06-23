@@ -5,13 +5,11 @@ import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/Onboarding/onboard.dart';
 import 'package:audiobook/ui/screens/appframe.dart';
-import 'package:audiobook/ui/screens/home.dart';
-import 'package:audiobook/ui/screens/login.dart';
-import 'package:audiobook/ui/screens/signup.dart';
-import 'package:audiobook/ui/screens/splash.dart';
+import 'package:audiobook/ui/screens/Onboarding/login.dart';
+import 'package:audiobook/ui/screens/Onboarding/signup.dart';
+import 'package:audiobook/ui/screens/Onboarding/splash.dart';
 import 'package:audiobook/ui/screens/tabs/genre_single.dart';
 import 'package:audiobook/ui/screens/tabs/home%20tabs/genres.dart';
-import 'package:audiobook/ui/screens/user_profile.dart';
 import 'package:audiobook/utils/appTheme.dart';
 import 'package:audiobook/utils/constants.dart';
 import 'package:audiobook/utils/size_config.dart';
@@ -52,7 +50,6 @@ class MyApp extends StatelessWidget {
         routes: {
           SignUp.routeName: (BuildContext context) => SignUp(),
           Login.routeName: (BuildContext context) => Login(),
-          Home.routeName: (BuildContext context) => Home(),
           AuthenticationWrapper.routeName: (BuildContext context) =>
               AuthenticationWrapper(),
           Splash.routName: (BuildContext context) => Splash(),
