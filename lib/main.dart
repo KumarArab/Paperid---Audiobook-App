@@ -4,6 +4,7 @@ import 'package:audiobook/services/database.dart';
 import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/services/player.dart';
 import 'package:audiobook/ui/screens/Onboarding/onboard.dart';
+import 'package:audiobook/ui/screens/Onboarding/verify_email.dart';
 import 'package:audiobook/ui/screens/appframe.dart';
 import 'package:audiobook/ui/screens/Onboarding/login.dart';
 import 'package:audiobook/ui/screens/Onboarding/signup.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
           Splash.routName: (BuildContext context) => Splash(),
           GenreSingle.routeName: (BuildContext context) => GenreSingle(),
           Onboard.routeName: (BuildContext context) => Onboard(),
+          VerifyEmail.routeName: (BuildContext context) => VerifyEmail(),
         },
       ),
     );

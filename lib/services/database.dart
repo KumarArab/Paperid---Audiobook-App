@@ -6,10 +6,12 @@ import 'package:audiobook/models/user.dart';
 import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FDatabase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
   AuthenticaitonService user;
 
   Future<String> createUser(FUser user) async {
@@ -217,6 +219,14 @@ class FDatabase {
       print(e.toString());
     }
     return shelves;
+  }
+
+  // ------------------------ REALTIME DATABASE FUNCTIONS ------------------------------//
+
+  Future<bool> isUsernameAvailable(String username) async {
+    DataSnapshot snapshot =
+        await _database.reference().child("usernames").child(username).once();
+    return snapshot.value == null;
   }
 
   // ------------------------- LOCAL DATABASE FUNCTIONS --------------------------------//

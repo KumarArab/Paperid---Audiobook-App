@@ -177,6 +177,18 @@ class AuthenticaitonService with ChangeNotifier {
     }
   }
 
+// VERIFY EMAIL
+
+  Future<void> verifyEmail() async {
+    _firebaseAuth.currentUser.sendEmailVerification();
+  }
+
+  Future<String> checkEmailVerified() async {
+    await _firebaseAuth.currentUser.reload();
+    if (_firebaseAuth.currentUser.emailVerified) return "success";
+
+    return "failure";
+  }
 // LOGOUT
 
   Future<void> signOut() async {
