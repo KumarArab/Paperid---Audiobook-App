@@ -33,12 +33,13 @@ class FDatabase {
         Map<String, dynamic> userData = snapshot.data();
 
         user = FUser(
-            name: userData["name"],
-            uid: uid,
-            email: userData["email"],
-            photoUrl: userData["photo"],
-            accountCreated: userData["accountCreated"],
-            username: userData["username"]);
+          name: userData["name"],
+          uid: uid,
+          email: userData["email"],
+          photoUrl: userData["photo"],
+          accountCreated: userData["accountCreated"],
+          username: userData["username"].toString().replaceAll('@', '.'),
+        );
       }
     } catch (e) {
       print(e);
@@ -245,9 +246,8 @@ class FDatabase {
       print(e.message);
       oldUsername = "";
     }
-
-    print(username.toString());
-    if (username.isNotEmpty) {
+    print("old username is: " + oldUsername.toString());
+    if (username.isNotEmpty && username != null) {
       // remove the node of previous username from realtime database
       await _database
           .reference()
@@ -255,7 +255,7 @@ class FDatabase {
           .child(oldUsername)
           .remove();
     }
-    await _database.reference().child("usernames").child(username).set(
+    _database.reference().child("usernames").child(username).set(
         userId); // create new node with new username and uid in realtime database
     await _firestore.collection("users").doc(userId).set(
         {'username': username},
@@ -263,6 +263,10 @@ class FDatabase {
           'username'
         ])); // updating the username in cloud firestore.
     return true;
+  }
+
+  Future<void> addDataToRealtimeDatabase(String key, String value) async {
+    await _database.reference().child("usernames").child(key).set(value);
   }
 
   // ------------------------- LOCAL DATABASE FUNCTIONS --------------------------------//

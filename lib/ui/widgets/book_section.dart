@@ -1,5 +1,6 @@
 import 'package:audiobook/models/bookModel.dart';
 import 'package:audiobook/services/appData.dart';
+import 'package:audiobook/services/database.dart';
 import 'package:audiobook/ui/screens/view_all.dart';
 import 'package:audiobook/ui/widgets/book.dart';
 import 'package:audiobook/utils/appTheme.dart';
@@ -76,20 +77,26 @@ class Booksection extends StatelessWidget {
                           children: [
                             Book(book: book),
                             SizedBox(height: 20),
-                            Container(
-                              width: 200,
-                              child: Text(
-                                book.name ?? "Unknown",
-                                softWrap: true,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            GestureDetector(
+                              onTap: () {
+                                FDatabase().addDataToRealtimeDatabase(
+                                    book.name, book.author);
+                              },
+                              child: Container(
+                                width: 200,
+                                child: Text(
+                                  book.name ?? "Unknown",
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
                               ),
                             ),
                             Text(

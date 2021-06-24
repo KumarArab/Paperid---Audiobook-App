@@ -12,7 +12,7 @@ class Username extends StatefulWidget {
 class _UsernameState extends State<Username> {
   TextEditingController email = TextEditingController();
 
-  final regex = RegExp(r"^(\w\.?)+$");
+  final regex = RegExp(r"^(?!\.)(?!.*\.$)(?!.*?\.\.)[a-z0-9.]{4,20}$");
   bool isValid;
   bool isLoading = false;
   void validate(String value) async {
@@ -24,7 +24,8 @@ class _UsernameState extends State<Username> {
         isValid = null;
       });
     else if (regex.hasMatch(value)) {
-      bool res = await FDatabase().isUsernameAvailable(value);
+      bool res =
+          await FDatabase().isUsernameAvailable(value.replaceAll('.', '@'));
       setState(() {
         isValid = res;
       });
@@ -116,7 +117,7 @@ class _UsernameState extends State<Username> {
                 String userId =
                     context.read<AuthenticaitonService>().currentUser.uid;
                 FDatabase()
-                    .setUsername(email.text, userId)
+                    .setUsername(email.text.replaceAll('.', '@'), userId)
                     .then((value) => print(value));
               },
             ),

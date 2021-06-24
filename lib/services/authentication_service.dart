@@ -183,7 +183,19 @@ class AuthenticaitonService with ChangeNotifier {
     _firebaseAuth.currentUser.sendEmailVerification();
   }
 
-  Future<void> verifyGmail() async {}
+  Future<String> verifyGmail() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    // Obtain the auth details from the request
+    // final GoogleSignInAuthentication googleAuth =
+    //     await googleUser.authentication;
+    // Create a new credential
+    // OAuthCredential credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth.accessToken,
+    //   idToken: googleAuth.idToken,
+    // );
+    return googleUser.email;
+  }
 
   Future<String> checkEmailVerified() async {
     await _firebaseAuth.currentUser.reload();

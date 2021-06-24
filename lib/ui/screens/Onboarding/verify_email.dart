@@ -20,18 +20,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Timer timer;
   bool _isVerifying = false;
   bool _isVerified = false;
-
-  checkIfEmailVerified() async {
-    print("verifying");
-    await firebaseUser.reload();
-    if (firebaseUser.emailVerified) {
-      if (timer != null) timer.cancel();
-      setState(() {
-        _isVerifying = false;
-        _isVerified = true;
-      });
-    }
-  }
+  bool isGmailVerifying = false;
 
   @override
   void dispose() {
@@ -103,9 +92,26 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       setState(() {
                         _isVerifying = true;
                       });
+                      // context.read<AuthenticaitonService>().verifyEmail();
+                      // timer = Timer.periodic(Duration(seconds: 3), (timer) {
+                      //   checkIfEmailVerified();
+                      // });
+
                       context.read<AuthenticaitonService>().verifyEmail();
                       timer = Timer.periodic(Duration(seconds: 3), (timer) {
-                        checkIfEmailVerified();
+                        print("verifying");
+                        context
+                            .read<AuthenticaitonService>()
+                            .checkEmailVerified()
+                            .then((value) {
+                          if (value == "success") {
+                            if (timer != null) timer.cancel();
+                            setState(() {
+                              _isVerifying = false;
+                              _isVerified = true;
+                            });
+                          }
+                        });
                       });
                     }
                   },
@@ -123,7 +129,20 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      isGmailVerifying = true;
+                    });
+                    context
+                        .read<AuthenticaitonService>()
+                        .verifyGmail()
+                        .then((value) {
+                      print(value);
+                      setState(() {
+                        isGmailVerifying = false;
+                      });
+                    });
+                  },
                   child: Container(
                     height: 60,
                     width: double.infinity,
@@ -132,7 +151,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       color: Theme.of(context).primaryColor.withOpacity(0.1),
                     ),
                     alignment: Alignment.center,
-                    child: context.watch<AuthenticaitonService>().isGoogleLogin
+                    child: isGmailVerifying
                         ? Center(
                             child: CircularProgressIndicator(),
                           )
@@ -166,12 +185,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
           ),
           _isVerifying
               ? Container(
-                  color: Colors.white.withOpacity(0.4),
+                  color: Colors.white.withOpacity(0.5),
                   child: Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      backgroundColor: Colors.black,
-                    ),
+                    child: CircularProgressIndicator(),
                   ),
                 )
               : SizedBox()
