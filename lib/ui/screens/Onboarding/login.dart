@@ -226,7 +226,7 @@ class _LoginState extends State<Login> {
                                 .copyWith(color: AppTheme().primaryColor))),
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 40),
                 Spacer(flex: 2),
               ],
             ),

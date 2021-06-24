@@ -177,6 +177,32 @@ class AuthenticaitonService with ChangeNotifier {
     }
   }
 
+// VERIFY EMAIL
+
+  Future<void> verifyEmail() async {
+    _firebaseAuth.currentUser.sendEmailVerification();
+  }
+
+  Future<String> verifyGmail() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    // Obtain the auth details from the request
+    // final GoogleSignInAuthentication googleAuth =
+    //     await googleUser.authentication;
+    // Create a new credential
+    // OAuthCredential credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth.accessToken,
+    //   idToken: googleAuth.idToken,
+    // );
+    return googleUser.email;
+  }
+
+  Future<String> checkEmailVerified() async {
+    await _firebaseAuth.currentUser.reload();
+    if (_firebaseAuth.currentUser.emailVerified) return "success";
+
+    return "failure";
+  }
 // LOGOUT
 
   Future<void> signOut() async {

@@ -6,14 +6,15 @@ class FUser {
   String email;
   String photoUrl;
   Timestamp accountCreated;
+  String username;
 
-  FUser({
-    this.uid,
-    this.name,
-    this.email,
-    this.photoUrl,
-    this.accountCreated,
-  });
+  FUser(
+      {this.uid,
+      this.name,
+      this.email,
+      this.photoUrl,
+      this.accountCreated,
+      this.username});
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,7 +22,8 @@ class FUser {
       "name": name,
       "email": email,
       "photo": photoUrl,
-      "accountCreated": accountCreated
+      "accountCreated": accountCreated,
+      "username": username
     };
   }
 
@@ -31,5 +33,6 @@ class FUser {
     accountCreated = doc.get("accountCreated");
     name = doc.get("name");
     photoUrl = doc.get("photo");
+    username = doc.get("username");
   }
 }
