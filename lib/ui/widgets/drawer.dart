@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audiobook/main.dart';
 import 'package:audiobook/services/authentication_service.dart';
+import 'package:audiobook/services/database.dart';
 import 'package:audiobook/ui/screens/Onboarding/username.dart';
 import 'package:audiobook/ui/screens/Onboarding/verify_email.dart';
 import 'package:audiobook/utils/constants.dart';
@@ -21,6 +22,7 @@ class _FDrawerState extends State<FDrawer> {
   bool isVerifying = false;
   bool isVerified = false;
   Timer timer;
+  String name = "";
 
   @override
   void initState() {
@@ -31,6 +33,7 @@ class _FDrawerState extends State<FDrawer> {
         });
       }
     });
+    name = context.read<AuthenticaitonService>().currentUser.username;
     super.initState();
   }
 
@@ -88,7 +91,7 @@ class _FDrawerState extends State<FDrawer> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                user.currentUser.name,
+                name,
                 style: Theme.of(context).textTheme.headline5.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -117,39 +120,44 @@ class _FDrawerState extends State<FDrawer> {
             onTap: () => Navigator.push(
                 context, MaterialPageRoute(builder: (ctx) => Username())),
           ),
-          isVerified
-              ? SizedBox()
-              : ListTile(
-                  leading: isVerifying
-                      ? CircularProgressIndicator(
-                          strokeWidth: 2,
-                        )
-                      : Icon(
-                          Icons.verified_rounded,
-                        ),
-                  title: Text("Verify your email"),
-                  onTap: () {
-                    setState(() {
-                      isVerifying = true;
-                    });
-                    context.read<AuthenticaitonService>().verifyEmail();
-                    timer = Timer.periodic(Duration(seconds: 3), (timer) {
-                      print("verifying");
-                      context
-                          .read<AuthenticaitonService>()
-                          .checkEmailVerified()
-                          .then((value) {
-                        if (value == "success") {
-                          if (timer != null) timer.cancel();
-                          setState(() {
-                            isVerifying = false;
-                            isVerified = true;
-                          });
-                        }
-                      });
-                    });
-                  },
-                ),
+          // isVerified
+          //     ? SizedBox()
+          //     :
+          ListTile(
+            leading:
+                //  isVerifying
+                //     ? CircularProgressIndicator(
+                //         strokeWidth: 2,
+                //       )
+                //     :
+                Icon(
+              Icons.verified_rounded,
+            ),
+            title: Text("Verify your email"),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (ctx) => VerifyEmail())),
+            // onTap: () {
+            //   setState(() {
+            //     isVerifying = true;
+            //   });
+            //   context.read<AuthenticaitonService>().verifyEmail();
+            //   timer = Timer.periodic(Duration(seconds: 3), (timer) {
+            //     print("verifying");
+            //     context
+            //         .read<AuthenticaitonService>()
+            //         .checkEmailVerified()
+            //         .then((value) {
+            //       if (value == "success") {
+            //         if (timer != null) timer.cancel();
+            //         setState(() {
+            //           isVerifying = false;
+            //           isVerified = true;
+            //         });
+            //       }
+            //     });
+            //   });
+            // },
+          ),
           ListTile(
             leading: Icon(Icons.bar_chart_rounded),
             title: Text("Activity"),

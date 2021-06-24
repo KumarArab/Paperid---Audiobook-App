@@ -183,6 +183,8 @@ class AuthenticaitonService with ChangeNotifier {
     _firebaseAuth.currentUser.sendEmailVerification();
   }
 
+  Future<void> verifyGmail() async {}
+
   Future<String> checkEmailVerified() async {
     await _firebaseAuth.currentUser.reload();
     if (_firebaseAuth.currentUser.emailVerified) return "success";

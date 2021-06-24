@@ -4,6 +4,7 @@ import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class VerifyEmail extends StatefulWidget {
@@ -37,13 +38,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
     if (timer != null) timer.cancel();
     print("disposed");
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    email = new TextEditingController(text: firebaseUser.email);
-    checkIfEmailVerified();
-    super.didChangeDependencies();
   }
 
   @override
@@ -109,13 +103,57 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       setState(() {
                         _isVerifying = true;
                       });
-                      print("All good");
                       context.read<AuthenticaitonService>().verifyEmail();
                       timer = Timer.periodic(Duration(seconds: 3), (timer) {
                         checkIfEmailVerified();
                       });
                     }
                   },
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Center(
+                    child: Text(
+                      "or",
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .copyWith(color: Colors.black),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    ),
+                    alignment: Alignment.center,
+                    child: context.watch<AuthenticaitonService>().isGoogleLogin
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset("assets/svgs/google.svg",
+                                  height: 20, width: 20),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Verify with Google",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                  ),
                 ),
                 SizedBox(
                   height: 24,

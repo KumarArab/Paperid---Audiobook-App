@@ -2,7 +2,6 @@ import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/services/database.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 class Username extends StatefulWidget {
@@ -13,34 +12,50 @@ class Username extends StatefulWidget {
 class _UsernameState extends State<Username> {
   TextEditingController email = TextEditingController();
 
-  final regex = RegExp(r"^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$");
+  final regex = RegExp(r"^(\w\.?)+$");
   bool isValid;
   bool isLoading = false;
-  void validate(String value) {
+  void validate(String value) async {
     setState(() {
       isLoading = true;
-      if (value == "" || value == null)
+    });
+    if (value == "" || value == null)
+      setState(() {
         isValid = null;
-      else if (regex.hasMatch(value)) {
-        FDatabase().isUsernameAvailable(value).then((value) => isValid = value);
-      } else
+      });
+    else if (regex.hasMatch(value)) {
+      bool res = await FDatabase().isUsernameAvailable(value);
+      setState(() {
+        isValid = res;
+      });
+    } else {
+      setState(() {
         isValid = false;
+      });
+    }
+    setState(() {
       isLoading = false;
     });
   }
 
   Widget showResult() {
     if (isLoading) {
-      return CircularProgressIndicator(
-        strokeWidth: 2,
+      return Container(
+        height: 16,
+        width: 16,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+        ),
       );
     } else if (isValid == true)
       return Text("${email.text} is available",
-          style: TextStyle(color: Colors.green));
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w500));
     else if (isValid == false)
-      return Text("${email.text} is invalid username",
-          style: TextStyle(color: Colors.red));
-    return SizedBox();
+      return Text("${email.text} is not available",
+          style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500));
+    return SizedBox(
+      height: 16,
+    );
   }
 
   @override
@@ -63,21 +78,28 @@ class _UsernameState extends State<Username> {
             ),
             Container(
               padding: EdgeInsets.only(top: 30, bottom: 10),
-              child: TextFormField(
-                controller: email,
-                cursorColor: Colors.black,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: "username",
-                  prefixIcon: Icon(Icons.account_circle_rounded),
-                ),
-                onChanged: (value) {
-                  validate(value);
-                },
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: email,
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: "username",
+                        prefixIcon: Icon(Icons.account_circle_rounded),
+                      ),
+                      onChanged: (value) {
+                        validate(value);
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            Padding(
+            Container(
                 padding: EdgeInsets.only(bottom: 24, left: 8),
+                height: 40,
                 child: showResult()),
             FRaisedButton(
               child: Text(
@@ -91,6 +113,11 @@ class _UsernameState extends State<Username> {
                 //   _isVerifying = true;
                 // });
                 print("All good");
+                String userId =
+                    context.read<AuthenticaitonService>().currentUser.uid;
+                FDatabase()
+                    .setUsername(email.text, userId)
+                    .then((value) => print(value));
               },
             ),
             SizedBox(

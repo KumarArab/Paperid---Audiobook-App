@@ -6,6 +6,7 @@ import 'package:audiobook/models/user.dart';
 import 'package:audiobook/services/appData.dart';
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,7 +37,8 @@ class FDatabase {
             uid: uid,
             email: userData["email"],
             photoUrl: userData["photo"],
-            accountCreated: userData["accountCreated"]);
+            accountCreated: userData["accountCreated"],
+            username: userData["username"]);
       }
     } catch (e) {
       print(e);
@@ -224,9 +226,43 @@ class FDatabase {
   // ------------------------ REALTIME DATABASE FUNCTIONS ------------------------------//
 
   Future<bool> isUsernameAvailable(String username) async {
-    DataSnapshot snapshot =
+    DataSnapshot data =
         await _database.reference().child("usernames").child(username).once();
-    return snapshot.value == null;
+    print(data.key.toString() + "  " + data.value.toString());
+    if (data.value != null) return false;
+    return true;
+  }
+
+  Future<bool> setUsername(String username, String userId) async {
+    DocumentSnapshot snapshot = await _firestore
+        .collection("users")
+        .doc(userId)
+        .get(); // get previous username if any
+    var oldUsername;
+    try {
+      oldUsername = snapshot["username"];
+    } on StateError catch (e) {
+      print(e.message);
+      oldUsername = "";
+    }
+
+    print(username.toString());
+    if (username.isNotEmpty) {
+      // remove the node of previous username from realtime database
+      await _database
+          .reference()
+          .child("usernames")
+          .child(oldUsername)
+          .remove();
+    }
+    await _database.reference().child("usernames").child(username).set(
+        userId); // create new node with new username and uid in realtime database
+    await _firestore.collection("users").doc(userId).set(
+        {'username': username},
+        SetOptions(mergeFields: [
+          'username'
+        ])); // updating the username in cloud firestore.
+    return true;
   }
 
   // ------------------------- LOCAL DATABASE FUNCTIONS --------------------------------//
