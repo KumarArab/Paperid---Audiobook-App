@@ -17,9 +17,7 @@ import 'package:audiobook/utils/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:audiobook/utils/route_legend.dart' as routeLegend;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,9 +72,10 @@ class _BaseState extends State<Base> {
     FDatabase().isFirstTime().then((value) {
       if (value)
         Navigator.pushReplacementNamed(context, Onboard.routeName);
-      else
+      else {
         Navigator.pushReplacementNamed(
             context, AuthenticationWrapper.routeName);
+      }
     });
     super.didChangeDependencies();
   }
@@ -92,19 +91,20 @@ class AuthenticationWrapper extends StatelessWidget {
   static const routeName = "/auth";
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-    if (firebaseUser != null) {
-      return FutureBuilder(
-          future: context.read<AuthenticaitonService>().startUp(firebaseUser),
-          builder: (ctx, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Splash();
-            } else {
-              return AppFrame();
-            }
-          });
-    } else {
-      return Login();
-    }
+    // final firebaseUser = context.watch<User>();
+    // if (firebaseUser != null) {
+    //   return FutureBuilder(
+    //       future: context.read<AuthenticaitonService>().startUp(firebaseUser),
+    //       builder: (ctx, snapshot) {
+    //         if (snapshot.connectionState == ConnectionState.waiting) {
+    //           return Splash();
+    //         } else {
+    //           return AppFrame();
+    //         }
+    //       });
+    // } else {
+    //   return Login();
+    // }
+    return Login();
   }
 }

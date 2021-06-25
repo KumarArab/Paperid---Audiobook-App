@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:audiobook/services/authentication_service.dart';
+import 'package:audiobook/ui/screens/Onboarding/username.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
+import 'package:audiobook/utils/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -140,6 +142,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       print(value);
                       setState(() {
                         isGmailVerifying = false;
+                        _isVerified = true;
                       });
                     });
                   },
@@ -190,7 +193,45 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : SizedBox()
+              : SizedBox(),
+          _isVerified
+              ? Container(
+                  color: Colors.white.withOpacity(0.8),
+                  padding: EdgeInsets.all(SizeConfig.width * 0.25),
+                  width: SizeConfig.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.verified_rounded,
+                        color: Colors.green,
+                        size: 50,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text("Email verified successfully."),
+                      ),
+                      FRaisedButton(
+                          child: Text(
+                            "Next",
+                            style:
+                                Theme.of(context).textTheme.headline5.copyWith(
+                                      color: Colors.white,
+                                    ),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (ctx) => Username(),
+                              ),
+                            );
+                          })
+                    ],
+                  ),
+                )
+              : SizedBox(),
         ],
       ),
     );

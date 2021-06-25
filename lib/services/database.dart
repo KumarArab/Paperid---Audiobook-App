@@ -235,19 +235,11 @@ class FDatabase {
   }
 
   Future<bool> setUsername(String username, String userId) async {
-    DocumentSnapshot snapshot = await _firestore
-        .collection("users")
-        .doc(userId)
-        .get(); // get previous username if any
-    var oldUsername;
-    try {
-      oldUsername = snapshot["username"];
-    } on StateError catch (e) {
-      print(e.message);
-      oldUsername = "";
-    }
+    FUser userDetails = await getUserInfo(userId);
+    String oldUsername = userDetails.username.replaceAll('.', '@');
+
     print("old username is: " + oldUsername.toString());
-    if (username.isNotEmpty && username != null) {
+    if (oldUsername.isNotEmpty && oldUsername != null) {
       // remove the node of previous username from realtime database
       await _database
           .reference()

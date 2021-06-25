@@ -1,5 +1,7 @@
 import 'package:audiobook/services/authentication_service.dart';
 import 'package:audiobook/ui/dialogs/forgot_pass.dart';
+import 'package:audiobook/ui/screens/Onboarding/username.dart';
+import 'package:audiobook/ui/screens/Onboarding/verify_email.dart';
 import 'package:audiobook/ui/widgets/raised_button.dart';
 import 'package:audiobook/ui/widgets/textbox.dart';
 import 'package:audiobook/utils/appTheme.dart';
@@ -144,6 +146,12 @@ class _LoginState extends State<Login> {
                           if (value == "success") {
                             SnackToast()
                                 .showSuccessToast("Logged in Successfully");
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (ctx) => Username(),
+                              ),
+                            );
                             //Navigator.pushReplacementNamed(context, '/home');
                           } else {
                             SnackToast().showErrorToast(value);

@@ -101,12 +101,13 @@ class AuthenticaitonService with ChangeNotifier {
           email: email, password: password);
 
       user = FUser(
-          name: name,
-          email: userData.user.email,
-          uid: userData.user.uid,
-          accountCreated:
-              Timestamp.fromDate(userData.user.metadata.creationTime),
-          photoUrl: "");
+        name: name,
+        email: userData.user.email,
+        uid: userData.user.uid,
+        accountCreated: Timestamp.fromDate(userData.user.metadata.creationTime),
+        photoUrl: "",
+        username: "",
+      );
       String result = await FDatabase().createUser(user);
       if (result == "success") {
         isSigningUp = false;
