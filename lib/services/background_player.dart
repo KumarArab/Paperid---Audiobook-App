@@ -15,7 +15,7 @@ class BackgroundPlayer extends BackgroundAudioTask {
     AudioServiceBackground.setState(
       controls: [MediaControl.pause, MediaControl.stop],
       playing: true,
-      processingState: AudioProcessingState.connecting,
+      processingState: AudioProcessingState.loading,
     );
     return super.onStart(params);
   }

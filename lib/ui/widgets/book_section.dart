@@ -61,7 +61,7 @@ class Booksection extends StatelessWidget {
             ),
           ),
           Container(
-            height: SizeConfig.width * 0.8,
+            height: SizeConfig.width * 0.82,
             child: books.length == 0
                 ? Center(child: SnackToast().showLoadingAsset())
                 : ListView.builder(
@@ -71,7 +71,7 @@ class Booksection extends StatelessWidget {
                     itemBuilder: (ctx, i) {
                       FBookModel book = books[i];
                       return Container(
-                        margin: EdgeInsets.only(right: 30),
+                        margin: EdgeInsets.only(right: 20),
                         child: Column(
                           children: [
                             Book(book: book),

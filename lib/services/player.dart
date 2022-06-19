@@ -28,20 +28,20 @@ class Player with ChangeNotifier {
       notifyListeners();
     });
 
-    audioPlayer.onAudioPositionChanged.listen((updatedPosition) {
+    audioPlayer.onPositionChanged.listen((updatedPosition) {
       position = updatedPosition;
       notifyListeners();
     });
 
     audioPlayer.onPlayerStateChanged.listen((playerState) {
-      if (playerState == PlayerState.STOPPED) audioState = "Stopped";
-      if (playerState == PlayerState.PLAYING) audioState = "Playing";
-      if (playerState == PlayerState.PAUSED) audioState = "Paused";
-      if (playerState == PlayerState.COMPLETED) audioState = "Completed";
+      if (playerState == PlayerState.stopped) audioState = "Stopped";
+      if (playerState == PlayerState.playing) audioState = "Playing";
+      if (playerState == PlayerState.paused) audioState = "Paused";
+      if (playerState == PlayerState.completed) audioState = "Completed";
       notifyListeners();
     });
 
-    audioPlayer.onPlayerCompletion.listen((event) {
+    audioPlayer.onPlayerComplete.listen((event) {
       if (_repeat) playNext();
     });
   }
@@ -61,7 +61,7 @@ class Player with ChangeNotifier {
       }
     }
     currentAudio = playlist[currentAudioIndex];
-    audioPlayer.play(playlist[currentAudioIndex].url);
+    audioPlayer.play(UrlSource(playlist[currentAudioIndex].url));
   }
 
   pauseAudio() {

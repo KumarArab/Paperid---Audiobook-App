@@ -140,16 +140,20 @@ class _AddToShelfState extends State<AddToShelf> {
                                       Container(
                                         width: SizeConfig.width * 0.8,
                                         child: FRaisedButton(
-                                            child: Text(
-                                              "Create Shelf",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6
-                                                  .copyWith(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.3),
+                                            child: Expanded(
+                                              child: FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  child: Text(
+                                                    "Create Shelf",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6
+                                                        .copyWith(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            height: 1.3),
+                                                  )),
                                             ),
                                             onPressed: () {
                                               context.read<AppData>().addShelf(

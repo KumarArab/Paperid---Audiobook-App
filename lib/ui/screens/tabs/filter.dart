@@ -90,7 +90,7 @@ class _FiltersState extends State<Filters> {
                     max: 5.0,
                     values: SfRangeValues(start, end),
                     interval: 1.0,
-                    showDivisors: true,
+                    showDividers: true,
                     enableIntervalSelection: true,
                     enableTooltip: true,
                     showTicks: true,

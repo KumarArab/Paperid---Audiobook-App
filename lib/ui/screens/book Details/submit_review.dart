@@ -159,15 +159,17 @@ class _SubmitReviewState extends State<SubmitReview> {
                         height: 20,
                       ),
                       FRaisedButton(
-                          child: Text(
-                            "Submit Review & Rating",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1),
+                          child: Expanded(
+                            child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text("Submit Review & Rating",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            height: 1))),
                           ),
                           onPressed: () {}),
                       SizedBox(

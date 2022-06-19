@@ -73,13 +73,17 @@ class _ForgotPassState extends State<ForgotPass> {
               FRaisedButton(
                   child: context.read<AuthenticaitonService>().isResettingPass
                       ? CircularProgressIndicator()
-                      : Text(
-                          "Send me the link",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white),
-                        ),
+                      : Expanded(
+                          child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "Send me the link",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(color: Colors.white),
+                          ),
+                        )),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       FocusScope.of(context).unfocus();

@@ -18,7 +18,7 @@ class BookGrid extends StatelessWidget {
                 child: SnackToast().showLoadingAsset(),
               )
             : GridView.count(
-                childAspectRatio: 1 / 1.8,
+                childAspectRatio: 1 / 2,
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,

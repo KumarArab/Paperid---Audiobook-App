@@ -114,13 +114,19 @@ class InfoContent extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        "Start Listening",
-                        style: Theme.of(context).textTheme.headline6.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            height: 1.3),
-                      )
+                      Expanded(
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "Start Listening",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.3),
+                              )))
                     ],
                   ),
                   onPressed: () {

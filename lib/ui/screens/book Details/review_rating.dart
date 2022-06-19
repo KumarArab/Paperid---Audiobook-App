@@ -28,13 +28,19 @@ class ReviewRating extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    "Submit your rate and review",
-                    style: Theme.of(context).textTheme.headline6.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        height: 1),
-                  )
+                  Expanded(
+                      child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "Submit your rate and review",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1),
+                          )))
                 ],
               ),
               onPressed: () => Navigator.push(
@@ -101,17 +107,22 @@ class ReviewRating extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              kReviewList[i].name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5
-                                  .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                            Expanded(
+                              child: Text(
+                                kReviewList[i].name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            Spacer(),
+                            SizedBox(
+                              width: 10,
+                            ),
                             Icon(
                               Icons.star,
                               color: AppTheme().tertiaryColor,

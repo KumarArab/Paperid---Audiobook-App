@@ -60,14 +60,17 @@ class _GenreSingleState extends State<GenreSingle> {
             ),
             Row(
               children: [
-                Text(
-                  widget.genre,
-                  style: Theme.of(context).textTheme.headline4.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                Spacer(),
+                Expanded(
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          widget.genre,
+                          style: Theme.of(context).textTheme.headline4.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ))),
+                SizedBox(width: 10),
                 GestureDetector(
                   onTap: () {
                     showModalBottomSheet(

@@ -38,7 +38,7 @@ class _DownloadsState extends State<Downloads> {
                       context.watch<AppData>().allBooks.length, (index) {
                     FBookModel book = context.watch<AppData>().allBooks[index];
                     return Container(
-                      height: SizeConfig.height * 0.3,
+                      // height: SizeConfig.height * 0.3,
                       width: SizeConfig.width,
                       child: Row(
                         children: [
@@ -114,23 +114,23 @@ class _DownloadsState extends State<Downloads> {
             ],
           ),
         ),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: Container(
-            color: Colors.white.withOpacity(0.5),
-            child: Center(
-                child: PremiumCard(
-              text:
-                  "Download all the audiobooks of your choice and listen them offline anywhere anytime.",
-            )
-                //  Icon(
-                //   Icons.lock_outline,
-                //   size: 50,
-                //   color: AppTheme().primaryColor,
-                // ),
-                ),
-          ),
-        ),
+        // BackdropFilter(
+        //   filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        //   child: Container(
+        //     color: Colors.white.withOpacity(0.5),
+        //     child: Center(
+        //         child: PremiumCard(
+        //       text:
+        //           "Download all the audiobooks of your choice and listen them offline anywhere anytime.",
+        //     )
+        //         //  Icon(
+        //         //   Icons.lock_outline,
+        //         //   size: 50,
+        //         //   color: AppTheme().primaryColor,
+        //         // ),
+        //         ),
+        //   ),
+        // ),
       ],
     );
   }

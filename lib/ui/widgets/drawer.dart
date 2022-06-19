@@ -44,8 +44,8 @@ class FDrawer extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                   image: CachedNetworkImageProvider(
-                    user.currentUser.photoUrl ??
-                        "https://image.freepik.com/free-vector/kid-world-book-day_24908-59754.jpg",
+                    // user.currentUser.photoUrl ??
+                    "https://image.freepik.com/free-vector/kid-world-book-day_24908-59754.jpg",
                   ),
                   fit: BoxFit.cover),
             ),
@@ -85,20 +85,18 @@ class FDrawer extends StatelessWidget {
                 height: 20, width: 20),
             title: Text("Recommed a book"),
           ),
-          SizedBox(
-            height: 40,
-          ),
-          ListTile(
-            leading: Icon(Icons.star_border_rounded),
-            title: Text("Rate Paperid"),
-          ),
-          ListTile(
-            leading: Icon(Icons.fence_rounded),
-            title: Text("Feedback"),
-          ),
-          SizedBox(
-            height: 40,
-          ),
+
+          // ListTile(
+          //   leading: Icon(Icons.star_border_rounded),
+          //   title: Text("Rate Paperid"),
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.fence_rounded),
+          //   title: Text("Feedback"),
+          // ),
+          // SizedBox(
+          //   height: 40,
+          // ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Log Out"),

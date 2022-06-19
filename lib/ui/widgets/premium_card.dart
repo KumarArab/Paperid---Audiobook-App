@@ -43,13 +43,19 @@ class PremiumCard extends StatelessWidget {
                         SizedBox(
                           width: 20,
                         ),
-                        Text(
-                          "Become Premium",
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              height: 1.3),
-                        )
+                        Expanded(
+                            child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "Become Premium",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.3),
+                                )))
                       ],
                     ),
                     onPressed: () {}),
