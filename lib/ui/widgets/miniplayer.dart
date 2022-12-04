@@ -51,12 +51,14 @@ class MiniPlayer extends StatelessWidget {
                                   playerWatch.currentBook.cover),
                               fit: BoxFit.cover)),
                     ),
-                    title: Text(
-                      playerWatch.currentBook.name,
-                      overflow: TextOverflow.clip,
+                    title: FittedBox(
+                      child: Text(
+                        playerWatch.currentBook.name,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
                     subtitle: Text(
-                      "Chapter ${playerWatch.currentAudio.name}",
+                      "${playerWatch.currentAudio.name}",
                       overflow: TextOverflow.clip,
                     ),
                     trailing: IconButton(

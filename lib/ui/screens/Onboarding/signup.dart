@@ -60,7 +60,8 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.width * 0.02),
                         child: TextFormField(
                           controller: name,
                           cursorColor: Colors.black,
@@ -77,7 +78,8 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.width * 0.02),
                         child: TextFormField(
                           controller: email,
                           cursorColor: Colors.black,
@@ -98,7 +100,8 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.width * 0.02),
                         child: TextFormField(
                           controller: password,
                           cursorColor: Colors.black,
@@ -116,7 +119,8 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.width * 0.02),
                         child: TextFormField(
                           controller: cpassword,
                           cursorColor: Colors.black,
@@ -168,27 +172,30 @@ class _SignUpState extends State<SignUp> {
                       }
                     }),
                 SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "By Signing up, I agree all the ",
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1
-                          .copyWith(color: Theme.of(context).hintColor),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "terms and conditions",
+                Container(
+                  width: SizeConfig.width,
+                  child: Wrap(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "By Signing up, I agree all the",
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1
-                            .copyWith(color: AppTheme().primaryColor),
+                            .copyWith(color: Theme.of(context).hintColor),
                       ),
-                    ),
-                  ],
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "terms and conditions",
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              .copyWith(color: AppTheme().primaryColor),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 10),
                 Spacer(flex: 2),

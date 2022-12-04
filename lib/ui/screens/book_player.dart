@@ -29,90 +29,88 @@ class BookPlayer extends StatelessWidget {
         ),
         body: Container(
           width: SizeConfig.width,
-          padding: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Color(
-                              int.parse("0xff" + playerRead.currentBook.color),
-                            ).withOpacity(0.4),
-                            blurRadius: 34,
-                            offset: Offset(24, 24),
-                            spreadRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: Book(
-                        book: playerRead.currentBook,
-                      ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Color(
+                        int.parse("0xff" + playerRead.currentBook.color),
+                      ).withOpacity(0.4),
+                      blurRadius: 34,
+                      offset: Offset(24, 24),
+                      spreadRadius: 10,
                     ),
                   ],
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 40.0, left: 10, right: 10),
-                  child: Text(
-                    // "Conjure Women",
-                    playerRead.currentBook.name,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline6.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
+                child: Book(
+                  book: playerRead.currentBook,
                 ),
-                Text(
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: SizeConfig.width * 0.08, left: 10, right: 10),
+                child: Text(
+                  // "Conjure Women",
+                  playerRead.currentBook.name,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+              ),
+              Text(
+                //"By Afia Atakora",
+                playerWatch.currentBook.author ?? "Unknown",
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 10, vertical: SizeConfig.width * 0.02),
+                child: Text(
                   //"By Afia Atakora",
-                  playerWatch.currentBook.author ?? "Unknown",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Colors.grey,
+                  playerRead.currentAudio.name ?? "Unknown",
+                  style: Theme.of(context).textTheme.headline5.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: Text(
-                    //"By Afia Atakora",
-                    playerRead.currentAudio.name ?? "Unknown",
-                    style: Theme.of(context).textTheme.headline5.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                        icon: Icon(
-                          Icons.volume_up_outlined,
-                          size: 30,
-                        ),
-                        onPressed: () {}),
-                    IconButton(
-                      icon: Icon(
-                        Icons.repeat,
-                        color: playerWatch.repeat
-                            ? AppTheme().primaryColor
-                            : Colors.black,
-                        size: 30,
-                      ),
-                      onPressed: () => playerWatch.repeat
-                          ? playerRead.repeatOn = false
-                          : playerRead.repeatOn = true,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
+              ),
+              Spacer(),
+              // Row(
+              //   children: [
+              //     IconButton(
+              //         icon: Icon(
+              //           Icons.volume_up_outlined,
+              //           size: 30,
+              //         ),
+              //         onPressed: () {}),
+              //     IconButton(
+              //       icon: Icon(
+              //         Icons.repeat,
+              //         color: playerWatch.repeat
+              //             ? AppTheme().primaryColor
+              //             : Colors.black,
+              //         size: 30,
+              //       ),
+              //       onPressed: () => playerWatch.repeat
+              //           ? playerRead.repeatOn = false
+              //           : playerRead.repeatOn = true,
+              //     ),
+              //   ],
+              // ),
+              SizedBox(
+                height: SizeConfig.width * 0.05,
+              ),
+              Container(
+                margin:
+                    EdgeInsets.symmetric(horizontal: SizeConfig.width * 0.03),
+                child: Row(
                   children: [
                     SizedBox(width: 10),
                     Text(
@@ -132,132 +130,127 @@ class BookPlayer extends StatelessWidget {
                     SizedBox(width: 10),
                   ],
                 ),
-                Slider(
-                  activeColor: AppTheme().primaryColor,
-                  inactiveColor: AppTheme().silverColor,
-                  value: playerWatch.position == null
-                      ? 0
-                      : playerWatch.position.inMilliseconds.toDouble(),
-                  max: playerWatch.totalDuration == null
-                      ? 0
-                      : playerWatch.totalDuration.inMilliseconds.toDouble(),
-                  onChanged: (value) {
-                    playerWatch
-                        .seekAudio(Duration(milliseconds: value.toInt()));
-                  },
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(),
-                    Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme().primaryColor,
-                      ),
-                      alignment: Alignment.center,
-                      child: IconButton(
-                        onPressed: () => playerRead.playPrevious(),
-                        icon: Icon(
-                          Icons.skip_previous_rounded,
-                          color: Colors.white,
-                        ),
+              ),
+              Slider(
+                activeColor: AppTheme().primaryColor,
+                inactiveColor: AppTheme().silverColor,
+                value: playerWatch.position == null
+                    ? 0
+                    : playerWatch.position.inMilliseconds.toDouble(),
+                max: playerWatch.totalDuration == null
+                    ? 0
+                    : playerWatch.totalDuration.inMilliseconds.toDouble(),
+                onChanged: (value) {
+                  playerWatch.seekAudio(Duration(milliseconds: value.toInt()));
+                },
+              ),
+              Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(),
+                  Container(
+                    height: 48,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme().primaryColor,
+                    ),
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: () => playerRead.playPrevious(),
+                      icon: Icon(
+                        Icons.skip_previous_rounded,
+                        color: Colors.white,
                       ),
                     ),
-                    Container(
-                      height: 65,
-                      width: 65,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme().primaryColor,
-                      ),
-                      alignment: Alignment.center,
-                      child: GestureDetector(
-                        onTap: () => playerWatch.position.inSeconds >= 10
-                            ? playerWatch.seekAudio(Duration(
-                                milliseconds:
-                                    playerWatch.position.inMilliseconds -
-                                        10000))
-                            : {},
-                        child: Image.asset(
-                          "assets/images/rewind-10.png",
-                          height: 30,
-                          width: 30,
-                        ),
+                  ),
+                  Container(
+                    height: 65,
+                    width: 65,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme().primaryColor,
+                    ),
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () => playerWatch.position.inSeconds >= 10
+                          ? playerWatch.seekAudio(Duration(
+                              milliseconds:
+                                  playerWatch.position.inMilliseconds - 10000))
+                          : {},
+                      child: Image.asset(
+                        "assets/images/rewind-10.png",
+                        height: 30,
+                        width: 30,
                       ),
                     ),
-                    Container(
-                      height: 88,
-                      width: 88,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme().primaryColor,
-                      ),
-                      alignment: Alignment.center,
-                      child: IconButton(
-                        onPressed: () => playerWatch.audioState == "Playing"
-                            ? playerRead.pauseAudio()
-                            : playerRead.resumeAudio(),
-                        icon: Icon(
-                          playerWatch.audioState == "Playing"
-                              ? Icons.pause
-                              : Icons.play_arrow_rounded,
-                          color: Colors.white,
-                        ),
+                  ),
+                  Container(
+                    height: 88,
+                    width: 88,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme().primaryColor,
+                    ),
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: () => playerWatch.audioState == "Playing"
+                          ? playerRead.pauseAudio()
+                          : playerRead.resumeAudio(),
+                      icon: Icon(
+                        playerWatch.audioState == "Playing"
+                            ? Icons.pause
+                            : Icons.play_arrow_rounded,
+                        color: Colors.white,
                       ),
                     ),
-                    Container(
-                      height: 65,
-                      width: 65,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme().primaryColor,
-                      ),
-                      alignment: Alignment.center,
-                      child: GestureDetector(
-                        onTap: () => playerWatch.position.inSeconds <=
-                                playerWatch.totalDuration.inSeconds - 10
-                            ? playerWatch.seekAudio(Duration(
-                                milliseconds:
-                                    playerWatch.position.inMilliseconds +
-                                        10000))
-                            : {},
-                        child: Image.asset(
-                          "assets/images/forward-10.png",
-                          height: 30,
-                          width: 30,
-                        ),
+                  ),
+                  Container(
+                    height: 65,
+                    width: 65,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme().primaryColor,
+                    ),
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () => playerWatch.position.inSeconds <=
+                              playerWatch.totalDuration.inSeconds - 10
+                          ? playerWatch.seekAudio(Duration(
+                              milliseconds:
+                                  playerWatch.position.inMilliseconds + 10000))
+                          : {},
+                      child: Image.asset(
+                        "assets/images/forward-10.png",
+                        height: 30,
+                        width: 30,
                       ),
                     ),
-                    Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme().primaryColor,
-                      ),
-                      alignment: Alignment.center,
-                      child: IconButton(
-                        onPressed: () => playerRead.playNext(),
-                        icon: Icon(
-                          Icons.skip_next_rounded,
-                          color: Colors.white,
-                        ),
+                  ),
+                  Container(
+                    height: 48,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppTheme().primaryColor,
+                    ),
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: () => playerRead.playNext(),
+                      icon: Icon(
+                        Icons.skip_next_rounded,
+                        color: Colors.white,
                       ),
                     ),
-                    SizedBox(),
-                  ],
-                ),
-                SizedBox(
-                  height: 40,
-                )
-              ],
-            ),
+                  ),
+                  SizedBox(),
+                ],
+              ),
+              SizedBox(
+                height: 40,
+              )
+            ],
           ),
         ));
   }

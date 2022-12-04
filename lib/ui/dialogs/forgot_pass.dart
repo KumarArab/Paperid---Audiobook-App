@@ -31,6 +31,7 @@ class _ForgotPassState extends State<ForgotPass> {
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
                     "Reset Password",
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline4.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,

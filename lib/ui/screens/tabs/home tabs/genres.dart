@@ -59,12 +59,16 @@ class GenreCard extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(15)),
         alignment: Alignment.bottomLeft,
-        child: Text(
-          kGenreList[index].name,
-          style: Theme.of(context).textTheme.headline4.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            kGenreList[index].name,
+            maxLines: 2,
+            style: Theme.of(context).textTheme.headline4.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
         ),
       ),
     );

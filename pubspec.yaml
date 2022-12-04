@@ -40,6 +40,8 @@ dependencies:
   syncfusion_flutter_sliders: 
   audio_service: ^0.18.4
   lottie: 
+  rename: ^2.0.1
+
 
 
 
